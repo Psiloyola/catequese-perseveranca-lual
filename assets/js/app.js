@@ -505,6 +505,71 @@
     selectVideo(0);
   };
 
+  const renderMural = (mural = {}) => {
+    const container = getElement("lista-mensagens");
+    const template = getElement("modelo-mensagem");
+
+    setText(
+      "mural-descricao",
+      mural.descricao,
+      "Deixe uma mensagem de fé, carinho, gratidão ou encorajamento."
+    );
+    configureFormLink(
+      getElement("link-formulario-mural"),
+      mural.linkFormulario
+    );
+
+    if (!container || !template) {
+      return;
+    }
+
+    const messages = (Array.isArray(mural.mensagens)
+      ? mural.mensagens
+      : []
+    ).filter((item) => {
+      return (
+        typeof item?.nome === "string" &&
+        item.nome.trim() &&
+        typeof item?.mensagem === "string" &&
+        item.mensagem.trim()
+      );
+    });
+
+    container.replaceChildren();
+
+    if (messages.length === 0) {
+      const emptyState = document.createElement("p");
+      emptyState.className = "empty-state empty-state--light";
+      emptyState.textContent =
+        "As primeiras mensagens aprovadas aparecerão aqui.";
+      container.append(emptyState);
+      return;
+    }
+
+    const fragment = document.createDocumentFragment();
+
+    messages.forEach((item, index) => {
+      const clone = template.content.cloneNode(true);
+      const card = clone.querySelector(".mural-card");
+      const message = clone.querySelector(".mural-card__message");
+      const author = clone.querySelector(".mural-card__author");
+
+      if (!card || !message || !author) {
+        return;
+      }
+
+      if (index === 0) {
+        card.classList.add("mural-card--featured");
+      }
+
+      message.textContent = `“${item.mensagem.trim()}”`;
+      author.textContent = `— ${item.nome.trim()}`;
+      fragment.append(clone);
+    });
+
+    container.append(fragment);
+  };
+
   const renderMission = (mission = {}) => {
     setText("missao-nome", mission.nome, "Reserve um tempo para Jesus");
     setText(
