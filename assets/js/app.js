@@ -355,15 +355,27 @@
     const emptyState = getElement("videos-vazio");
     const list = getElement("lista-videos");
     const template = getElement("modelo-video");
-    const player = getElement("youtube-player");
+    const frame = getElement("video-player-frame");
+    const playButton = getElement("video-play-button");
+    const previewImage = getElement("video-preview-image");
+    const previewTitle = getElement("video-preview-title");
 
     setText(
       "videos-descricao",
       videos.descricao,
-      "Escolha uma música e assista sem sair desta página."
+      "Músicas que fizeram parte do nosso encontro."
     );
 
-    if (!experience || !emptyState || !list || !template || !player) {
+    if (
+      !experience ||
+      !emptyState ||
+      !list ||
+      !template ||
+      !frame ||
+      !playButton ||
+      !previewImage ||
+      !previewTitle
+    ) {
       return;
     }
 
@@ -386,11 +398,26 @@
     if (items.length === 0) {
       experience.hidden = true;
       emptyState.hidden = false;
-      player.removeAttribute("src");
+      frame.replaceChildren(playButton);
+      previewImage.removeAttribute("src");
+      previewImage.alt = "";
       return;
     }
 
     const buttons = [];
+    let selectedIndex = 0;
+
+    const showPreview = (item) => {
+      previewImage.src =
+        `https://i.ytimg.com/vi/${item.videoId}/hqdefault.jpg`;
+      previewImage.alt = `Capa do vídeo ${item.title}`;
+      previewTitle.textContent = `Reproduzir ${item.title}`;
+      playButton.setAttribute(
+        "aria-label",
+        `Reproduzir ${item.title}${item.artist ? `, de ${item.artist}` : ""}`
+      );
+      frame.replaceChildren(playButton);
+    };
 
     const selectVideo = (index) => {
       const item = items[index];
@@ -399,10 +426,9 @@
         return;
       }
 
-      player.src =
-        `https://www.youtube-nocookie.com/embed/${item.videoId}` +
-        "?rel=0&playsinline=1";
-      player.title = `${item.title}, por ${item.artist || "artista convidado"}`;
+      selectedIndex = index;
+      showPreview(item);
+
       setText("video-categoria", item.category, "Música");
       setText("video-titulo", item.title, "Música do Lual");
       setText("video-artista", item.artist, "");
@@ -418,6 +444,31 @@
         button.setAttribute("aria-pressed", String(selected));
       });
     };
+
+    const playSelectedVideo = () => {
+      const item = items[selectedIndex];
+
+      if (!item) {
+        return;
+      }
+
+      const iframe = document.createElement("iframe");
+      iframe.className = "video-player-card__iframe";
+      iframe.src =
+        `https://www.youtube-nocookie.com/embed/${item.videoId}` +
+        "?autoplay=1&rel=0&playsinline=1";
+      iframe.title =
+        `${item.title}, por ${item.artist || "artista convidado"}`;
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+      iframe.allow =
+        "accelerometer; autoplay; clipboard-write; encrypted-media; " +
+        "gyroscope; picture-in-picture; web-share";
+      iframe.allowFullscreen = true;
+
+      frame.replaceChildren(iframe);
+    };
+
+    playButton.addEventListener("click", playSelectedVideo);
 
     const fragment = document.createDocumentFragment();
 
@@ -452,71 +503,6 @@
     experience.hidden = false;
     emptyState.hidden = true;
     selectVideo(0);
-  };
-
-  const renderMural = (mural = {}) => {
-    const container = getElement("lista-mensagens");
-    const template = getElement("modelo-mensagem");
-
-    setText(
-      "mural-descricao",
-      mural.descricao,
-      "Deixe uma mensagem de fé, carinho, gratidão ou encorajamento."
-    );
-    configureFormLink(
-      getElement("link-formulario-mural"),
-      mural.linkFormulario
-    );
-
-    if (!container || !template) {
-      return;
-    }
-
-    const messages = (Array.isArray(mural.mensagens)
-      ? mural.mensagens
-      : []
-    ).filter((item) => {
-      return (
-        typeof item?.nome === "string" &&
-        item.nome.trim() &&
-        typeof item?.mensagem === "string" &&
-        item.mensagem.trim()
-      );
-    });
-
-    container.replaceChildren();
-
-    if (messages.length === 0) {
-      const emptyState = document.createElement("p");
-      emptyState.className = "empty-state empty-state--light";
-      emptyState.textContent =
-        "As primeiras mensagens aprovadas aparecerão aqui.";
-      container.append(emptyState);
-      return;
-    }
-
-    const fragment = document.createDocumentFragment();
-
-    messages.forEach((item, index) => {
-      const clone = template.content.cloneNode(true);
-      const card = clone.querySelector(".mural-card");
-      const message = clone.querySelector(".mural-card__message");
-      const author = clone.querySelector(".mural-card__author");
-
-      if (!card || !message || !author) {
-        return;
-      }
-
-      if (index === 0) {
-        card.classList.add("mural-card--featured");
-      }
-
-      message.textContent = `“${item.mensagem.trim()}”`;
-      author.textContent = `— ${item.nome.trim()}`;
-      fragment.append(clone);
-    });
-
-    container.append(fragment);
   };
 
   const renderMission = (mission = {}) => {

@@ -473,15 +473,32 @@
 
         <div class="video-experience" id="video-experience" hidden>
           <article class="video-player-card">
-            <div class="video-player-card__frame">
-              <iframe
-                id="youtube-player"
-                title="Vídeo selecionado do Lual"
-                loading="lazy"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-              ></iframe>
+            <div class="video-player-card__frame" id="video-player-frame">
+              <button
+                class="video-player-card__preview"
+                id="video-play-button"
+                type="button"
+                aria-label="Reproduzir a música selecionada"
+              >
+                <img
+                  class="video-player-card__preview-image"
+                  id="video-preview-image"
+                  src=""
+                  alt=""
+                  width="1280"
+                  height="720"
+                >
+
+                <span class="video-player-card__preview-overlay">
+                  <span class="video-player-card__play-icon" aria-hidden="true">
+                    ▶
+                  </span>
+
+                  <span class="video-player-card__preview-title" id="video-preview-title">
+                    Reproduzir música
+                  </span>
+                </span>
+              </button>
             </div>
 
             <div class="video-player-card__content">
