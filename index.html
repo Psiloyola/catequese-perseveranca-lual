@@ -94,7 +94,7 @@
           <li><a href="#mensagem">O Lual</a></li>
           <li><a href="#fotos">Fotos</a></li>
           <li><a href="#santos">Santos</a></li>
-          <li><a href="#playlist">Músicas</a></li>
+          <li><a href="#videos">Vídeos</a></li>
           <li><a href="#missao">Missão</a></li>
           <li><a href="#mural">Mural</a></li>
           <li><a href="#proximo-encontro">Encontros</a></li>
@@ -305,17 +305,64 @@
             </div>
           </div>
 
-          <p class="section-heading__description">
-            Alguns registros especiais do nosso primeiro Lual.
+          <p class="section-heading__description" id="galeria-descricao">
+            Uma foto principal e outros registros para deslizar para o lado.
           </p>
         </header>
 
-        <div
-          class="gallery-grid"
-          id="galeria"
-          aria-live="polite"
-        >
-          <p class="empty-state">
+        <div class="gallery-experience" id="galeria" aria-live="polite">
+          <figure class="gallery-featured" id="galeria-destaque" hidden>
+            <img
+              class="gallery-featured__image"
+              id="galeria-imagem-principal"
+              alt=""
+              width="1440"
+              height="960"
+            >
+
+            <figcaption
+              class="gallery-featured__caption"
+              id="galeria-legenda-principal"
+            ></figcaption>
+          </figure>
+
+          <div class="carousel-heading" id="galeria-controles" hidden>
+            <div>
+              <p class="carousel-heading__title">Outros registros</p>
+              <p class="carousel-heading__hint">Deslize para o lado ou use as setas.</p>
+            </div>
+
+            <div class="carousel-buttons" aria-label="Controles da galeria">
+              <button
+                class="carousel-button"
+                type="button"
+                data-scroll-target="galeria-miniaturas"
+                data-scroll-direction="previous"
+                aria-label="Ver fotos anteriores"
+              >
+                ←
+              </button>
+
+              <button
+                class="carousel-button"
+                type="button"
+                data-scroll-target="galeria-miniaturas"
+                data-scroll-direction="next"
+                aria-label="Ver próximas fotos"
+              >
+                →
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="gallery-thumbnails horizontal-scroller"
+            id="galeria-miniaturas"
+            role="list"
+            hidden
+          ></div>
+
+          <p class="empty-state" id="galeria-vazia">
             As fotos serão disponibilizadas após o evento.
           </p>
         </div>
@@ -394,19 +441,19 @@
     </section>
 
     <section
-      class="section section--forest"
-      id="playlist"
-      aria-labelledby="playlist-titulo"
+      class="section section--forest section--video"
+      id="videos"
+      aria-labelledby="videos-titulo"
     >
       <div class="container">
-        <article class="playlist-card playlist-card--video">
-          <div class="playlist-card__content">
+        <header class="section-heading section-heading--light">
+          <div>
             <p class="section-heading__eyebrow">
-              Música do Lual
+              Sons que permanecem
             </p>
 
-            <h2 id="playlist-titulo">
-              Leve essa noite com você
+            <h2 id="videos-titulo">
+              Músicas para continuar o Lual
             </h2>
 
             <div class="section-ornament section-ornament--start" aria-hidden="true">
@@ -417,38 +464,19 @@
               >
               <span></span>
             </div>
-
-            <p class="playlist-card__song" id="playlist-musica">
-              Tu És o Centro
-            </p>
-
-            <p class="playlist-card__artist" id="playlist-artista">
-              Frei Gilson
-            </p>
-
-            <p id="playlist-descricao">
-              Uma música para recordar que Jesus permanece no centro de tudo o
-              que vivemos.
-            </p>
-
-            <a
-              class="button button--gold"
-              id="link-playlist"
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              hidden
-            >
-              Abrir no YouTube
-            </a>
           </div>
 
-          <div class="youtube-card" id="youtube-card" hidden>
-            <div class="youtube-card__frame">
+          <p class="section-heading__description" id="videos-descricao">
+            Escolha uma música e assista sem sair desta página.
+          </p>
+        </header>
+
+        <div class="video-experience" id="video-experience" hidden>
+          <article class="video-player-card">
+            <div class="video-player-card__frame">
               <iframe
                 id="youtube-player"
-                src=""
-                title="Música do Lual no YouTube"
+                title="Vídeo selecionado do Lual"
                 loading="lazy"
                 referrerpolicy="strict-origin-when-cross-origin"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -456,11 +484,58 @@
               ></iframe>
             </div>
 
-            <p class="youtube-card__note">
-              O vídeo só começa quando você apertar o play.
-            </p>
+            <div class="video-player-card__content">
+              <p class="video-player-card__eyebrow" id="video-categoria">
+                Música
+              </p>
+              <h3 id="video-titulo">Música do Lual</h3>
+              <p class="video-player-card__artist" id="video-artista"></p>
+              <p id="video-descricao"></p>
+              <p class="video-player-card__note">
+                O vídeo toca aqui dentro e só começa quando você apertar o play.
+              </p>
+            </div>
+          </article>
+
+          <div class="carousel-heading">
+            <div>
+              <p class="carousel-heading__title">Escolha outro vídeo</p>
+              <p class="carousel-heading__hint">A seleção muda o player principal.</p>
+            </div>
+
+            <div class="carousel-buttons" aria-label="Controles da lista de vídeos">
+              <button
+                class="carousel-button carousel-button--light"
+                type="button"
+                data-scroll-target="lista-videos"
+                data-scroll-direction="previous"
+                aria-label="Ver vídeos anteriores"
+              >
+                ←
+              </button>
+
+              <button
+                class="carousel-button carousel-button--light"
+                type="button"
+                data-scroll-target="lista-videos"
+                data-scroll-direction="next"
+                aria-label="Ver próximos vídeos"
+              >
+                →
+              </button>
+            </div>
           </div>
-        </article>
+
+          <div
+            class="video-selector horizontal-scroller"
+            id="lista-videos"
+            role="list"
+          ></div>
+        </div>
+
+        <p class="empty-state empty-state--light" id="videos-vazio" hidden>
+          Os vídeos serão adicionados em breve.
+        </p>
       </div>
     </section>
 
@@ -522,71 +597,105 @@
     </section>
 
     <section
-      class="section section--warm section--decorated"
+      class="section section--mural section--decorated-dark"
       id="mural"
       aria-labelledby="mural-titulo"
     >
+      <img
+        class="section-corner section-corner--left"
+        src="assets/images/identity/palm-corner.svg"
+        alt=""
+        aria-hidden="true"
+      >
+
+      <img
+        class="section-corner section-corner--right"
+        src="assets/images/identity/palm-corner.svg"
+        alt=""
+        aria-hidden="true"
+      >
+
       <div class="container">
-        <header class="section-heading section-heading--center">
-          <p class="section-heading__eyebrow">
-            Deixe sua luz acesa
-          </p>
-
-          <h2 id="mural-titulo">
-            Mural do Lual
-          </h2>
-
-          <div class="section-ornament" aria-hidden="true">
-            <span></span>
+        <div class="mural-callout">
+          <div class="mural-callout__visual" aria-hidden="true">
+            <span class="mural-callout__glow"></span>
             <img
-              src="assets/images/identity/cross-gold.svg"
+              src="assets/images/identity/bonfire.svg"
               alt=""
             >
-            <span></span>
           </div>
 
-          <p class="section-heading__description" id="mural-descricao">
-            Mensagens de fé, carinho e gratidão deixadas por quem viveu esta
-            noite conosco.
-          </p>
-        </header>
-
-        <div class="mural-intro">
-          <img
-            class="mural-intro__icon"
-            src="assets/images/identity/bonfire.svg"
-            alt=""
-            aria-hidden="true"
-          >
-
-          <div>
-            <h3>Escreva uma mensagem</h3>
-            <p>
-              Todas as mensagens serão identificadas e passarão pela aprovação
-              da organização antes de aparecerem no mural.
+          <div class="mural-callout__content">
+            <p class="section-heading__eyebrow">
+              Deixe sua luz acesa
             </p>
-          </div>
 
-          <a
-            class="button button--primary"
-            id="link-formulario-mural"
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-            hidden
-          >
-            Deixar minha mensagem
-          </a>
+            <h2 id="mural-titulo">
+              Suas palavras também fazem parte desta noite
+            </h2>
+
+            <p id="mural-descricao">
+              Deixe uma mensagem de fé, carinho, gratidão ou encorajamento para o nosso mural.
+            </p>
+
+            <div class="mural-callout__rules">
+              <span>Mensagem identificada</span>
+              <span>Revisão da organização</span>
+              <span>Publicação após aprovação</span>
+            </div>
+
+            <a
+              class="button button--fire"
+              id="link-formulario-mural"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-disabled="true"
+            >
+              Formulário em breve
+            </a>
+          </div>
         </div>
 
-        <div
-          class="mural-grid"
-          id="lista-mensagens"
-          aria-live="polite"
-        >
-          <p class="empty-state">
-            As primeiras mensagens aprovadas aparecerão aqui.
-          </p>
+        <div class="mural-showcase">
+          <div class="carousel-heading carousel-heading--light">
+            <div>
+              <p class="carousel-heading__title">Mensagens que mantêm a luz acesa</p>
+              <p class="carousel-heading__hint">Todas foram moderadas antes da publicação.</p>
+            </div>
+
+            <div class="carousel-buttons" aria-label="Controles do mural">
+              <button
+                class="carousel-button carousel-button--light"
+                type="button"
+                data-scroll-target="lista-mensagens"
+                data-scroll-direction="previous"
+                aria-label="Ver mensagens anteriores"
+              >
+                ←
+              </button>
+
+              <button
+                class="carousel-button carousel-button--light"
+                type="button"
+                data-scroll-target="lista-mensagens"
+                data-scroll-direction="next"
+                aria-label="Ver próximas mensagens"
+              >
+                →
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="mural-carousel horizontal-scroller"
+            id="lista-mensagens"
+            aria-live="polite"
+          >
+            <p class="empty-state empty-state--light">
+              As primeiras mensagens aprovadas aparecerão aqui.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -679,26 +788,43 @@
     ↑
   </button>
 
-  <template id="modelo-foto">
-    <figure class="gallery-item">
+  <template id="modelo-miniatura-foto">
+    <button class="gallery-thumbnail" type="button" role="listitem">
       <img
-        class="gallery-item__image"
-        src=""
+        class="gallery-thumbnail__image"
         alt=""
-        width="800"
-        height="600"
+        width="420"
+        height="280"
         loading="lazy"
       >
+      <span class="gallery-thumbnail__label"></span>
+    </button>
+  </template>
 
-      <figcaption class="gallery-item__caption"></figcaption>
-    </figure>
+  <template id="modelo-video">
+    <button class="video-option" type="button" role="listitem">
+      <span class="video-option__image-wrap">
+        <img
+          class="video-option__image"
+          alt=""
+          width="480"
+          height="270"
+          loading="lazy"
+        >
+        <span class="video-option__play" aria-hidden="true">▶</span>
+      </span>
+      <span class="video-option__content">
+        <span class="video-option__category"></span>
+        <strong class="video-option__title"></strong>
+        <span class="video-option__artist"></span>
+      </span>
+    </button>
   </template>
 
   <template id="modelo-santo">
     <article class="saint-card">
       <img
         class="saint-card__image"
-        src=""
         alt=""
         width="640"
         height="800"
@@ -724,13 +850,16 @@
   </template>
 
   <template id="modelo-mensagem">
-    <article class="mural-card">
-      <img
-        class="mural-card__icon"
-        src="assets/images/identity/cross-gold.svg"
-        alt=""
-        aria-hidden="true"
-      >
+    <article class="mural-card" role="listitem">
+      <div class="mural-card__topline">
+        <img
+          class="mural-card__icon"
+          src="assets/images/identity/cross-gold.svg"
+          alt=""
+          aria-hidden="true"
+        >
+        <span>Mensagem aprovada</span>
+      </div>
 
       <blockquote class="mural-card__message"></blockquote>
       <p class="mural-card__author"></p>
