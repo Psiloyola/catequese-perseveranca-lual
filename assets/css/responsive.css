@@ -433,3 +433,53 @@
     text-decoration: none;
   }
 }
+
+/* =========================================================
+   VÍDEO E MURAL
+   ========================================================= */
+
+@media (min-width: 36rem) {
+  .mural-intro {
+    grid-template-columns: auto minmax(0, 1fr);
+    padding: var(--space-8);
+  }
+
+  .mural-intro__icon {
+    margin-inline: 0;
+  }
+
+  .mural-intro .button {
+    grid-column: 1 / -1;
+  }
+
+  .mural-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 48rem) {
+  .youtube-card {
+    padding: var(--space-8);
+  }
+
+  .mural-intro {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .mural-intro .button {
+    width: auto;
+    grid-column: auto;
+  }
+}
+
+@media (min-width: 64rem) {
+  .mural-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (hover: none) {
+  .mural-card:hover {
+    transform: none;
+  }
+}

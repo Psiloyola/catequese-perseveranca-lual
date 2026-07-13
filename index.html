@@ -96,6 +96,7 @@
           <li><a href="#santos">Santos</a></li>
           <li><a href="#playlist">Músicas</a></li>
           <li><a href="#missao">Missão</a></li>
+          <li><a href="#mural">Mural</a></li>
           <li><a href="#proximo-encontro">Encontros</a></li>
         </ul>
       </nav>
@@ -398,10 +399,10 @@
       aria-labelledby="playlist-titulo"
     >
       <div class="container">
-        <article class="playlist-card">
+        <article class="playlist-card playlist-card--video">
           <div class="playlist-card__content">
             <p class="section-heading__eyebrow">
-              Músicas do Lual
+              Música do Lual
             </p>
 
             <h2 id="playlist-titulo">
@@ -417,9 +418,17 @@
               <span></span>
             </div>
 
+            <p class="playlist-card__song" id="playlist-musica">
+              Tu És o Centro
+            </p>
+
+            <p class="playlist-card__artist" id="playlist-artista">
+              Frei Gilson
+            </p>
+
             <p id="playlist-descricao">
-              Reencontre as músicas que fizeram parte dessa noite e leve essa
-              experiência com você.
+              Uma música para recordar que Jesus permanece no centro de tudo o
+              que vivemos.
             </p>
 
             <a
@@ -430,16 +439,26 @@
               rel="noopener noreferrer"
               hidden
             >
-              Ouvir playlist
+              Abrir no YouTube
             </a>
           </div>
 
-          <div class="playlist-card__visual" aria-hidden="true">
-            <img
-              src="assets/images/identity/bonfire.svg"
-              alt=""
-            >
-            <span>música, oração e comunhão</span>
+          <div class="youtube-card" id="youtube-card" hidden>
+            <div class="youtube-card__frame">
+              <iframe
+                id="youtube-player"
+                src=""
+                title="Música do Lual no YouTube"
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+
+            <p class="youtube-card__note">
+              O vídeo só começa quando você apertar o play.
+            </p>
           </div>
         </article>
       </div>
@@ -499,6 +518,76 @@
             João 15,4
           </p>
         </article>
+      </div>
+    </section>
+
+    <section
+      class="section section--warm section--decorated"
+      id="mural"
+      aria-labelledby="mural-titulo"
+    >
+      <div class="container">
+        <header class="section-heading section-heading--center">
+          <p class="section-heading__eyebrow">
+            Deixe sua luz acesa
+          </p>
+
+          <h2 id="mural-titulo">
+            Mural do Lual
+          </h2>
+
+          <div class="section-ornament" aria-hidden="true">
+            <span></span>
+            <img
+              src="assets/images/identity/cross-gold.svg"
+              alt=""
+            >
+            <span></span>
+          </div>
+
+          <p class="section-heading__description" id="mural-descricao">
+            Mensagens de fé, carinho e gratidão deixadas por quem viveu esta
+            noite conosco.
+          </p>
+        </header>
+
+        <div class="mural-intro">
+          <img
+            class="mural-intro__icon"
+            src="assets/images/identity/bonfire.svg"
+            alt=""
+            aria-hidden="true"
+          >
+
+          <div>
+            <h3>Escreva uma mensagem</h3>
+            <p>
+              Todas as mensagens serão identificadas e passarão pela aprovação
+              da organização antes de aparecerem no mural.
+            </p>
+          </div>
+
+          <a
+            class="button button--primary"
+            id="link-formulario-mural"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            hidden
+          >
+            Deixar minha mensagem
+          </a>
+        </div>
+
+        <div
+          class="mural-grid"
+          id="lista-mensagens"
+          aria-live="polite"
+        >
+          <p class="empty-state">
+            As primeiras mensagens aprovadas aparecerão aqui.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -631,6 +720,20 @@
           <span aria-hidden="true">→</span>
         </a>
       </div>
+    </article>
+  </template>
+
+  <template id="modelo-mensagem">
+    <article class="mural-card">
+      <img
+        class="mural-card__icon"
+        src="assets/images/identity/cross-gold.svg"
+        alt=""
+        aria-hidden="true"
+      >
+
+      <blockquote class="mural-card__message"></blockquote>
+      <p class="mural-card__author"></p>
     </article>
   </template>
 

@@ -278,14 +278,102 @@
     container.append(fragment);
   };
 
+  const getSafeYouTubeId = (value) => {
+    if (typeof value !== "string") {
+      return null;
+    }
+
+    const videoId = value.trim();
+
+    return /^[A-Za-z0-9_-]{11}$/.test(videoId) ? videoId : null;
+  };
+
   const renderPlaylist = (playlist = {}) => {
+    setText("playlist-musica", playlist.musica, "Música do Lual");
+    setText("playlist-artista", playlist.artista, "");
     setText(
       "playlist-descricao",
       playlist.descricao,
       "Reencontre as músicas que fizeram parte dessa noite."
     );
 
+    const player = getElement("youtube-player");
+    const playerCard = getElement("youtube-card");
+    const videoId = getSafeYouTubeId(playlist.videoId);
+
+    if (player && playerCard && videoId) {
+      player.src = `https://www.youtube-nocookie.com/embed/${videoId}?rel=0`;
+      playerCard.hidden = false;
+    } else {
+      player?.removeAttribute("src");
+
+      if (playerCard) {
+        playerCard.hidden = true;
+      }
+    }
+
     configureLink(getElement("link-playlist"), playlist.link);
+  };
+
+  const renderMural = (mural = {}) => {
+    const container = getElement("lista-mensagens");
+    const template = getElement("modelo-mensagem");
+    const description = getElement("mural-descricao");
+
+    if (description && typeof mural.descricao === "string") {
+      description.textContent = mural.descricao.trim();
+    }
+
+    configureLink(
+      getElement("link-formulario-mural"),
+      mural.linkFormulario
+    );
+
+    if (!container || !template) {
+      return;
+    }
+
+    const messages = Array.isArray(mural.mensagens)
+      ? mural.mensagens
+      : [];
+
+    container.replaceChildren();
+
+    const approvedMessages = messages.filter((item) => {
+      return (
+        typeof item?.nome === "string" &&
+        item.nome.trim() &&
+        typeof item?.mensagem === "string" &&
+        item.mensagem.trim()
+      );
+    });
+
+    if (approvedMessages.length === 0) {
+      const emptyState = document.createElement("p");
+      emptyState.className = "empty-state";
+      emptyState.textContent =
+        "As primeiras mensagens aprovadas aparecerão aqui.";
+      container.append(emptyState);
+      return;
+    }
+
+    const fragment = document.createDocumentFragment();
+
+    approvedMessages.forEach((item) => {
+      const clone = template.content.cloneNode(true);
+      const message = clone.querySelector(".mural-card__message");
+      const author = clone.querySelector(".mural-card__author");
+
+      if (!message || !author) {
+        return;
+      }
+
+      message.textContent = `“${item.mensagem.trim()}”`;
+      author.textContent = `— ${item.nome.trim()}`;
+      fragment.append(clone);
+    });
+
+    container.append(fragment);
   };
 
   const renderMission = (mission = {}) => {
@@ -330,6 +418,7 @@
     renderSaints(content.santos);
     renderPlaylist(content.playlist);
     renderMission(content.missao);
+    renderMural(content.mural);
     renderNextMeeting(content.proximoEncontro);
   };
 

@@ -13,9 +13,30 @@
     "texto": "Que as músicas, os momentos de oração, as amizades e tudo o que experimentamos nesta noite permaneçam vivos em nosso cotidiano."
   },
   "galeria": {
-    "descricao": "Alguns registros especiais do nosso primeiro Lual.",
+    "descricao": "Imagens demonstrativas para testarmos a composição da galeria. Depois serão substituídas pelas fotos reais do Lual.",
     "linkAlbum": "",
-    "fotos": []
+    "fotos": [
+      {
+        "imagem": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1400&q=82",
+        "textoAlternativo": "Imagem demonstrativa de pessoas reunidas em um evento",
+        "legenda": "Imagem de teste — encontro e comunhão."
+      },
+      {
+        "imagem": "https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1200&q=82",
+        "textoAlternativo": "Imagem demonstrativa de jovens reunidos",
+        "legenda": "Imagem de teste — alegria compartilhada."
+      },
+      {
+        "imagem": "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1200&q=82",
+        "textoAlternativo": "Imagem demonstrativa de um grupo de amigos",
+        "legenda": "Imagem de teste — amizade que aproxima."
+      },
+      {
+        "imagem": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=82",
+        "textoAlternativo": "Imagem demonstrativa de uma paisagem iluminada",
+        "legenda": "Imagem de teste — luz que permanece."
+      }
+    ]
   },
   "santos": [
     {
@@ -44,8 +65,11 @@
     }
   ],
   "playlist": {
-    "descricao": "Reencontre as músicas que fizeram parte dessa noite e leve essa experiência com você.",
-    "link": ""
+    "musica": "Tu És o Centro",
+    "artista": "Frei Gilson",
+    "descricao": "Uma música para recordar que Jesus permanece no centro de tudo o que vivemos.",
+    "videoId": "5Ucj-_2qpdA",
+    "link": "https://www.youtube.com/watch?v=5Ucj-_2qpdA"
   },
   "missao": {
     "nome": "Reserve um tempo para Jesus",
@@ -59,5 +83,23 @@
     "tema": "Nova data em breve",
     "horario": "Acompanhe os avisos da Perseverança.",
     "local": "Paróquia Santo Inácio de Loyola"
+  },
+  "mural": {
+    "descricao": "Mensagens de fé, carinho e gratidão deixadas por quem viveu esta noite conosco.",
+    "linkFormulario": "",
+    "mensagens": [
+      {
+        "nome": "Maria",
+        "mensagem": "Que tudo o que vivemos nesta noite continue iluminando nossa caminhada com Jesus."
+      },
+      {
+        "nome": "Gabriel",
+        "mensagem": "Obrigado a todos que prepararam o Lual com tanto carinho. Foi uma noite muito especial."
+      },
+      {
+        "nome": "Ana",
+        "mensagem": "Que nossa amizade sempre nos ajude a permanecer firmes na fé e próximos de Cristo."
+      }
+    ]
   }
 }
