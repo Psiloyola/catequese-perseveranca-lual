@@ -38,15 +38,6 @@
     }
   };
 
-  const getSafeYouTubeId = (value) => {
-    if (typeof value !== "string") {
-      return null;
-    }
-
-    const videoId = value.trim();
-    return /^[A-Za-z0-9_-]{11}$/.test(videoId) ? videoId : null;
-  };
-
   const configureLink = (element, url) => {
     if (!element) {
       return;
@@ -62,27 +53,6 @@
 
     element.href = safeUrl;
     element.hidden = false;
-  };
-
-  const configureFormLink = (element, url) => {
-    if (!element) {
-      return;
-    }
-
-    const safeUrl = getSafeUrl(url);
-
-    if (safeUrl) {
-      element.href = safeUrl;
-      element.textContent = "Deixar minha mensagem";
-      element.setAttribute("aria-disabled", "false");
-      element.classList.remove("is-disabled");
-      return;
-    }
-
-    element.removeAttribute("href");
-    element.textContent = "Formulário em breve";
-    element.setAttribute("aria-disabled", "true");
-    element.classList.add("is-disabled");
   };
 
   const configureImage = (image, source, alternativeText) => {
@@ -160,6 +130,7 @@
       "A santidade também é para os jovens."
     );
     setText("evento-data", evento.data, "08 de agosto de 2026");
+
     updatePageMetadata(evento);
   };
 
@@ -169,6 +140,7 @@
       mensagem.destaque,
       "Tudo o que vivemos é um convite para continuarmos caminhando com Jesus."
     );
+
     setText(
       "mensagem-texto",
       mensagem.texto,
@@ -177,115 +149,71 @@
   };
 
   const renderGallery = (galeria = {}) => {
-    const mainFigure = getElement("galeria-destaque");
-    const mainImage = getElement("galeria-imagem-principal");
-    const mainCaption = getElement("galeria-legenda-principal");
-    const thumbnails = getElement("galeria-miniaturas");
-    const controls = getElement("galeria-controles");
-    const emptyState = getElement("galeria-vazia");
-    const template = getElement("modelo-miniatura-foto");
-
-    setText(
-      "galeria-descricao",
-      galeria.descricao,
-      "Uma foto em destaque e outros registros para deslizar para o lado."
+    const container = getElement("galeria");
+    const template = getElement("modelo-foto");
+    const albumLink = getElement("link-album");
+    const description = document.querySelector(
+      "#fotos .section-heading__description"
     );
-    configureLink(getElement("link-album"), galeria.linkAlbum);
 
-    if (
-      !mainFigure ||
-      !mainImage ||
-      !mainCaption ||
-      !thumbnails ||
-      !controls ||
-      !emptyState ||
-      !template
-    ) {
+    if (description && galeria.descricao) {
+      description.textContent = galeria.descricao;
+    }
+
+    configureLink(albumLink, galeria.linkAlbum);
+
+    if (!container || !template) {
       return;
     }
 
-    const photos = (Array.isArray(galeria.fotos) ? galeria.fotos : [])
-      .map((photo) => ({
-        source: getSafeUrl(photo?.imagem),
-        alternativeText:
-          typeof photo?.textoAlternativo === "string"
-            ? photo.textoAlternativo.trim()
-            : "",
-        caption:
-          typeof photo?.legenda === "string" ? photo.legenda.trim() : ""
-      }))
-      .filter((photo) => photo.source);
-
-    thumbnails.replaceChildren();
+    const photos = Array.isArray(galeria.fotos) ? galeria.fotos : [];
+    container.replaceChildren();
 
     if (photos.length === 0) {
-      mainFigure.hidden = true;
-      thumbnails.hidden = true;
-      controls.hidden = true;
-      emptyState.hidden = false;
+      const emptyState = document.createElement("p");
+      emptyState.className = "empty-state";
+      emptyState.textContent =
+        "As fotos serão disponibilizadas após o evento.";
+      container.append(emptyState);
       return;
     }
-
-    const buttons = [];
-
-    const selectPhoto = (index, moveFocus = false) => {
-      const photo = photos[index];
-
-      if (!photo) {
-        return;
-      }
-
-      mainImage.src = photo.source;
-      mainImage.alt = photo.alternativeText;
-      mainCaption.textContent = photo.caption;
-      mainCaption.hidden = !photo.caption;
-
-      buttons.forEach((button, buttonIndex) => {
-        const selected = buttonIndex === index;
-        button.classList.toggle("is-active", selected);
-        button.setAttribute("aria-pressed", String(selected));
-
-        if (selected && moveFocus) {
-          button.scrollIntoView({
-            behavior: REDUCED_MOTION_QUERY.matches ? "auto" : "smooth",
-            block: "nearest",
-            inline: "center"
-          });
-        }
-      });
-    };
 
     const fragment = document.createDocumentFragment();
 
-    photos.forEach((photo, index) => {
+    photos.forEach((photo) => {
       const clone = template.content.cloneNode(true);
-      const button = clone.querySelector(".gallery-thumbnail");
-      const image = clone.querySelector(".gallery-thumbnail__image");
-      const label = clone.querySelector(".gallery-thumbnail__label");
+      const figure = clone.querySelector(".gallery-item");
+      const image = clone.querySelector(".gallery-item__image");
+      const caption = clone.querySelector(".gallery-item__caption");
 
-      if (!button || !image || !label) {
+      const configured = configureImage(
+        image,
+        photo.imagem,
+        photo.textoAlternativo
+      );
+
+      if (!configured || !figure) {
         return;
       }
 
-      image.src = photo.source;
-      image.alt = "";
-      label.textContent = photo.caption || `Foto ${index + 1}`;
-      button.setAttribute(
-        "aria-label",
-        `Exibir ${photo.caption || `foto ${index + 1}`}`
-      );
-      button.setAttribute("aria-pressed", "false");
-      button.addEventListener("click", () => selectPhoto(index));
-      buttons.push(button);
+      if (caption) {
+        caption.textContent =
+          typeof photo.legenda === "string" ? photo.legenda.trim() : "";
+      }
+
       fragment.append(clone);
     });
 
-    thumbnails.append(fragment);
-    mainFigure.hidden = false;
-    thumbnails.hidden = false;
-    controls.hidden = photos.length < 2;
-    emptyState.hidden = true;
-    selectPhoto(0);
+    if (!fragment.childNodes.length) {
+      const emptyState = document.createElement("p");
+      emptyState.className = "empty-state";
+      emptyState.textContent =
+        "Não foi possível carregar as fotos neste momento.";
+      container.append(emptyState);
+      return;
+    }
+
+    container.append(fragment);
   };
 
   const renderSaints = (saints = []) => {
@@ -350,120 +278,53 @@
     container.append(fragment);
   };
 
-  const renderVideos = (videos = {}) => {
-    const experience = getElement("video-experience");
-    const emptyState = getElement("videos-vazio");
-    const list = getElement("lista-videos");
-    const template = getElement("modelo-video");
-    const player = getElement("youtube-player");
+  const getSafeYouTubeId = (value) => {
+    if (typeof value !== "string") {
+      return null;
+    }
 
+    const videoId = value.trim();
+
+    return /^[A-Za-z0-9_-]{11}$/.test(videoId) ? videoId : null;
+  };
+
+  const renderPlaylist = (playlist = {}) => {
+    setText("playlist-musica", playlist.musica, "Música do Lual");
+    setText("playlist-artista", playlist.artista, "");
     setText(
-      "videos-descricao",
-      videos.descricao,
-      "Escolha uma música e assista sem sair desta página."
+      "playlist-descricao",
+      playlist.descricao,
+      "Reencontre as músicas que fizeram parte dessa noite."
     );
 
-    if (!experience || !emptyState || !list || !template || !player) {
-      return;
+    const player = getElement("youtube-player");
+    const playerCard = getElement("youtube-card");
+    const videoId = getSafeYouTubeId(playlist.videoId);
+
+    if (player && playerCard && videoId) {
+      player.src = `https://www.youtube-nocookie.com/embed/${videoId}?rel=0`;
+      playerCard.hidden = false;
+    } else {
+      player?.removeAttribute("src");
+
+      if (playerCard) {
+        playerCard.hidden = true;
+      }
     }
 
-    const items = (Array.isArray(videos.itens) ? videos.itens : [])
-      .map((item) => ({
-        videoId: getSafeYouTubeId(item?.youtubeId),
-        title:
-          typeof item?.titulo === "string" ? item.titulo.trim() : "",
-        artist:
-          typeof item?.artista === "string" ? item.artista.trim() : "",
-        category:
-          typeof item?.categoria === "string" ? item.categoria.trim() : "",
-        description:
-          typeof item?.descricao === "string" ? item.descricao.trim() : ""
-      }))
-      .filter((item) => item.videoId && item.title);
-
-    list.replaceChildren();
-
-    if (items.length === 0) {
-      experience.hidden = true;
-      emptyState.hidden = false;
-      player.removeAttribute("src");
-      return;
-    }
-
-    const buttons = [];
-
-    const selectVideo = (index) => {
-      const item = items[index];
-
-      if (!item) {
-        return;
-      }
-
-      player.src =
-        `https://www.youtube-nocookie.com/embed/${item.videoId}` +
-        "?rel=0&playsinline=1";
-      player.title = `${item.title}, por ${item.artist || "artista convidado"}`;
-      setText("video-categoria", item.category, "Música");
-      setText("video-titulo", item.title, "Música do Lual");
-      setText("video-artista", item.artist, "");
-      setText(
-        "video-descricao",
-        item.description,
-        "Uma música para continuar vivendo a experiência do Lual."
-      );
-
-      buttons.forEach((button, buttonIndex) => {
-        const selected = buttonIndex === index;
-        button.classList.toggle("is-active", selected);
-        button.setAttribute("aria-pressed", String(selected));
-      });
-    };
-
-    const fragment = document.createDocumentFragment();
-
-    items.forEach((item, index) => {
-      const clone = template.content.cloneNode(true);
-      const button = clone.querySelector(".video-option");
-      const image = clone.querySelector(".video-option__image");
-      const category = clone.querySelector(".video-option__category");
-      const title = clone.querySelector(".video-option__title");
-      const artist = clone.querySelector(".video-option__artist");
-
-      if (!button || !image || !category || !title || !artist) {
-        return;
-      }
-
-      image.src = `https://i.ytimg.com/vi/${item.videoId}/hqdefault.jpg`;
-      image.alt = "";
-      category.textContent = item.category || "Música";
-      title.textContent = item.title;
-      artist.textContent = item.artist;
-      button.setAttribute(
-        "aria-label",
-        `Selecionar ${item.title}${item.artist ? `, de ${item.artist}` : ""}`
-      );
-      button.setAttribute("aria-pressed", "false");
-      button.addEventListener("click", () => selectVideo(index));
-      buttons.push(button);
-      fragment.append(clone);
-    });
-
-    list.append(fragment);
-    experience.hidden = false;
-    emptyState.hidden = true;
-    selectVideo(0);
+    configureLink(getElement("link-playlist"), playlist.link);
   };
 
   const renderMural = (mural = {}) => {
     const container = getElement("lista-mensagens");
     const template = getElement("modelo-mensagem");
+    const description = getElement("mural-descricao");
 
-    setText(
-      "mural-descricao",
-      mural.descricao,
-      "Deixe uma mensagem de fé, carinho, gratidão ou encorajamento."
-    );
-    configureFormLink(
+    if (description && typeof mural.descricao === "string") {
+      description.textContent = mural.descricao.trim();
+    }
+
+    configureLink(
       getElement("link-formulario-mural"),
       mural.linkFormulario
     );
@@ -472,10 +333,13 @@
       return;
     }
 
-    const messages = (Array.isArray(mural.mensagens)
+    const messages = Array.isArray(mural.mensagens)
       ? mural.mensagens
-      : []
-    ).filter((item) => {
+      : [];
+
+    container.replaceChildren();
+
+    const approvedMessages = messages.filter((item) => {
       return (
         typeof item?.nome === "string" &&
         item.nome.trim() &&
@@ -484,11 +348,9 @@
       );
     });
 
-    container.replaceChildren();
-
-    if (messages.length === 0) {
+    if (approvedMessages.length === 0) {
       const emptyState = document.createElement("p");
-      emptyState.className = "empty-state empty-state--light";
+      emptyState.className = "empty-state";
       emptyState.textContent =
         "As primeiras mensagens aprovadas aparecerão aqui.";
       container.append(emptyState);
@@ -497,18 +359,13 @@
 
     const fragment = document.createDocumentFragment();
 
-    messages.forEach((item, index) => {
+    approvedMessages.forEach((item) => {
       const clone = template.content.cloneNode(true);
-      const card = clone.querySelector(".mural-card");
       const message = clone.querySelector(".mural-card__message");
       const author = clone.querySelector(".mural-card__author");
 
-      if (!card || !message || !author) {
+      if (!message || !author) {
         return;
-      }
-
-      if (index === 0) {
-        card.classList.add("mural-card--featured");
       }
 
       message.textContent = `“${item.mensagem.trim()}”`;
@@ -534,6 +391,7 @@
       phrase ? `“${phrase}”` : "",
       "“Permanecei em mim e eu permanecerei em vós.”"
     );
+
     setText("missao-referencia", mission.referencia, "João 15,4");
   };
 
@@ -558,42 +416,23 @@
     renderMessage(content.mensagem);
     renderGallery(content.galeria);
     renderSaints(content.santos);
-    renderVideos(content.videos);
+    renderPlaylist(content.playlist);
     renderMission(content.missao);
     renderMural(content.mural);
     renderNextMeeting(content.proximoEncontro);
   };
 
   const showLoadingError = () => {
-    const galleryEmpty = getElement("galeria-vazia");
-    const galleryMain = getElement("galeria-destaque");
-    const galleryList = getElement("galeria-miniaturas");
-    const videoExperience = getElement("video-experience");
-    const videosEmpty = getElement("videos-vazio");
+    const gallery = getElement("galeria");
     const saints = getElement("lista-santos");
 
-    if (galleryMain) {
-      galleryMain.hidden = true;
-    }
-
-    if (galleryList) {
-      galleryList.hidden = true;
-    }
-
-    if (galleryEmpty) {
-      galleryEmpty.hidden = false;
-      galleryEmpty.textContent =
+    if (gallery) {
+      gallery.replaceChildren();
+      const message = document.createElement("p");
+      message.className = "empty-state";
+      message.textContent =
         "Não foi possível carregar as fotos neste momento.";
-    }
-
-    if (videoExperience) {
-      videoExperience.hidden = true;
-    }
-
-    if (videosEmpty) {
-      videosEmpty.hidden = false;
-      videosEmpty.textContent =
-        "Não foi possível carregar os vídeos neste momento.";
+      gallery.append(message);
     }
 
     if (saints) {
@@ -666,35 +505,6 @@
     });
   };
 
-  const initializeHorizontalScrollers = () => {
-    document.querySelectorAll("[data-scroll-target]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const targetId = button.dataset.scrollTarget;
-        const direction = button.dataset.scrollDirection === "previous" ? -1 : 1;
-        const target = getElement(targetId);
-
-        if (!target) {
-          return;
-        }
-
-        target.scrollBy({
-          left: Math.max(target.clientWidth * 0.78, 260) * direction,
-          behavior: REDUCED_MOTION_QUERY.matches ? "auto" : "smooth"
-        });
-      });
-    });
-  };
-
-  const initializeDisabledActions = () => {
-    document.addEventListener("click", (event) => {
-      const disabledLink = event.target.closest('a[aria-disabled="true"]');
-
-      if (disabledLink) {
-        event.preventDefault();
-      }
-    });
-  };
-
   const initializeBackToTop = () => {
     const button = getElement("voltar-ao-topo");
 
@@ -724,8 +534,6 @@
 
   const initializeApp = () => {
     initializeNavigation();
-    initializeHorizontalScrollers();
-    initializeDisabledActions();
     initializeBackToTop();
     initializeCurrentYear();
     loadContent();
