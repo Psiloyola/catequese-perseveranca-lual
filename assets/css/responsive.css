@@ -1,0 +1,435 @@
+/* =========================================================
+   TELAS MUITO PEQUENAS
+   ========================================================= */
+
+@media (max-width: 24rem) {
+  :root {
+    --content-padding: 1rem;
+  }
+
+  .brand__text small {
+    display: none;
+  }
+
+  .hero__actions,
+  .button {
+    width: 100%;
+  }
+
+  .hero__title-script {
+    font-size: clamp(4rem, 22vw, 5.4rem);
+  }
+
+  .next-event-card__date {
+    width: 7.5rem;
+    min-height: 7.5rem;
+  }
+
+  .next-event-card__date span {
+    font-size: 3.25rem;
+  }
+}
+
+/* =========================================================
+   TABLETS PEQUENOS
+   ========================================================= */
+
+@media (min-width: 36rem) {
+  :root {
+    --content-padding: 1.5rem;
+  }
+
+  .section {
+    padding-block: var(--space-24);
+  }
+
+  .hero__actions {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .hero__actions .button {
+    width: auto;
+  }
+
+  .message-card {
+    padding: var(--space-12) var(--space-10) var(--space-10);
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gallery-item:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .saints-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .playlist-card__content,
+  .mission-card,
+  .next-event-card {
+    padding: var(--space-10);
+  }
+
+  .next-event-card__details {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .site-footer__content {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+
+  .site-footer__message {
+    grid-column: 1 / -1;
+  }
+}
+
+/* =========================================================
+   TABLETS E NOTEBOOKS
+   ========================================================= */
+
+@media (min-width: 48rem) {
+  :root {
+    --content-padding: 2rem;
+  }
+
+  .site-header__content {
+    min-height: 5rem;
+  }
+
+  .hero {
+    min-height: calc(100svh - 5rem);
+  }
+
+  .hero__content {
+    grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+    gap: var(--space-16);
+  }
+
+  .hero__visual {
+    justify-self: end;
+  }
+
+  .hero__visual-frame {
+    width: min(43vw, 34rem);
+  }
+
+  .section-heading {
+    flex-direction: row;
+    align-items: end;
+    justify-content: space-between;
+  }
+
+  .section-heading--center {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .section-heading__description {
+    text-align: right;
+  }
+
+  .section-heading--center .section-heading__description {
+    text-align: center;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: 15rem;
+  }
+
+  .gallery-item,
+  .gallery-item__image {
+    min-height: 0;
+  }
+
+  .gallery-item:first-child {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .gallery-item:nth-child(2),
+  .gallery-item:nth-child(3) {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .gallery-item:nth-child(4) {
+    grid-column: span 2;
+  }
+
+  .playlist-card {
+    grid-template-columns: minmax(0, 1.35fr) minmax(15rem, 0.65fr);
+    align-items: stretch;
+  }
+
+  .playlist-card__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .playlist-card__visual {
+    min-height: 100%;
+  }
+
+  .next-event-card {
+    grid-template-columns: minmax(0, 0.8fr) minmax(24rem, 1.2fr);
+    align-items: center;
+  }
+
+  .site-footer__content {
+    grid-template-columns: minmax(16rem, 0.7fr) minmax(20rem, 1fr) auto;
+  }
+
+  .site-footer__message {
+    grid-column: auto;
+    margin: 0;
+  }
+
+  .site-footer__copyright {
+    text-align: right;
+  }
+}
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width: 64rem) {
+  html {
+    scroll-padding-top: 5rem;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+
+  .main-nav {
+    position: static;
+    z-index: auto;
+    visibility: visible;
+    width: auto;
+    border: 0;
+    background-color: transparent;
+    box-shadow: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .main-nav__list {
+    width: auto;
+    padding: 0;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .main-nav__list a {
+    position: relative;
+    min-height: 2.75rem;
+    padding-inline: var(--space-4);
+  }
+
+  .main-nav__list a:hover {
+    padding-left: var(--space-4);
+    background-color: transparent;
+  }
+
+  .main-nav__list a::after {
+    position: absolute;
+    right: var(--space-4);
+    bottom: 0.35rem;
+    left: var(--space-4);
+    height: 0.125rem;
+    border-radius: var(--border-radius-pill);
+    background-color: var(--color-gold-light);
+    content: "";
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform var(--transition-normal);
+  }
+
+  .main-nav__list a:hover::after,
+  .main-nav__list a:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  .hero {
+    padding-block: var(--space-20);
+  }
+
+  .hero__content {
+    gap: var(--space-20);
+  }
+
+  .hero__visual-frame {
+    width: min(40vw, 35rem);
+  }
+
+  .gallery-grid {
+    grid-auto-rows: 17rem;
+  }
+
+  .saints-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .saint-card__content {
+    padding: var(--space-8);
+  }
+
+  .message-card,
+  .mission-card,
+  .next-event-card {
+    padding: var(--space-12);
+  }
+}
+
+/* =========================================================
+   TELAS GRANDES
+   ========================================================= */
+
+@media (min-width: 80rem) {
+  .hero__visual-frame {
+    width: 36rem;
+  }
+
+  .gallery-grid {
+    grid-auto-rows: 18rem;
+  }
+
+  .playlist-card__content {
+    padding: var(--space-16);
+  }
+
+  .playlist-card__visual img {
+    width: 10rem;
+    height: 10rem;
+  }
+}
+
+/* =========================================================
+   DISPOSITIVOS SEM HOVER
+   ========================================================= */
+
+@media (hover: none) {
+  .button:hover,
+  .saint-card:hover,
+  .gallery-item:hover .gallery-item__image,
+  .back-to-top:hover {
+    transform: none;
+  }
+
+  .main-nav__list a:hover {
+    padding-left: var(--space-4);
+  }
+}
+
+/* =========================================================
+   CELULAR EM PAISAGEM
+   ========================================================= */
+
+@media (max-height: 32rem) and (orientation: landscape) {
+  .hero {
+    min-height: auto;
+    padding-block: var(--space-12);
+  }
+
+  .hero__content {
+    grid-template-columns: 1fr 18rem;
+    gap: var(--space-8);
+  }
+
+  .hero__visual-frame {
+    width: 17rem;
+  }
+
+  .hero__campfire {
+    min-height: 15rem;
+  }
+
+  .hero__scroll {
+    display: none;
+  }
+}
+
+/* =========================================================
+   IMPRESSÃO
+   ========================================================= */
+
+@media print {
+  .site-header,
+  .hero__actions,
+  .hero__scroll,
+  .back-to-top,
+  .section-actions,
+  .hero__palm,
+  .hero__moon,
+  .hero__chapel,
+  .hero__lights,
+  .section-corner {
+    display: none !important;
+  }
+
+  body {
+    background-color: var(--color-white);
+    color: var(--color-black);
+  }
+
+  .hero,
+  .section,
+  .site-footer {
+    padding-block: 2rem;
+    background: none;
+    color: var(--color-black);
+  }
+
+  .hero {
+    min-height: auto;
+  }
+
+  .hero__content,
+  .playlist-card,
+  .next-event-card {
+    display: block;
+  }
+
+  .hero__visual {
+    display: none;
+  }
+
+  .hero h1,
+  .section-heading h2,
+  .section-heading--light h2,
+  .playlist-card__content h2,
+  .next-event-card__heading h2,
+  .saint-card__name,
+  .site-footer__identity strong {
+    color: var(--color-black);
+  }
+
+  .saint-card,
+  .message-card,
+  .mission-card,
+  .playlist-card,
+  .next-event-card {
+    border: 1px solid #999999;
+    background: none;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  .saints-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  a {
+    text-decoration: none;
+  }
+}

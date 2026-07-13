@@ -1,0 +1,63 @@
+{
+  "evento": {
+    "titulo": "1º Lual da Perseverança",
+    "tituloPrefixo": "Lual da",
+    "tituloDestaque": "Perseverança",
+    "edicao": "1ª edição",
+    "tema": "Santos Jovens: Luzes que brilham para Cristo",
+    "subtitulo": "A santidade também é para os jovens.",
+    "data": "08 de agosto de 2026"
+  },
+  "mensagem": {
+    "destaque": "Tudo o que vivemos é um convite para continuarmos caminhando com Jesus.",
+    "texto": "Que as músicas, os momentos de oração, as amizades e tudo o que experimentamos nesta noite permaneçam vivos em nosso cotidiano."
+  },
+  "galeria": {
+    "descricao": "Alguns registros especiais do nosso primeiro Lual.",
+    "linkAlbum": "",
+    "fotos": []
+  },
+  "santos": [
+    {
+      "nome": "São Carlo Acutis",
+      "imagem": "",
+      "textoAlternativo": "Representação de São Carlo Acutis",
+      "frase": "A Eucaristia é a minha estrada para o céu.",
+      "resumo": "Carlo foi um jovem apaixonado por Jesus, pela Eucaristia e pela tecnologia. Usou seus conhecimentos para evangelizar e divulgar os milagres eucarísticos.",
+      "link": ""
+    },
+    {
+      "nome": "São Pier Giorgio Frassati",
+      "imagem": "",
+      "textoAlternativo": "Representação de São Pier Giorgio Frassati",
+      "frase": "Viver sem fé não é viver, mas apenas existir.",
+      "resumo": "Pier Giorgio viveu sua juventude com alegria, amizade, oração e serviço aos mais pobres, mostrando que a santidade também é possível na vida cotidiana.",
+      "link": ""
+    },
+    {
+      "nome": "Santa Teresinha do Menino Jesus",
+      "imagem": "",
+      "textoAlternativo": "Representação de Santa Teresinha do Menino Jesus",
+      "frase": "No coração da Igreja, minha mãe, eu serei o amor.",
+      "resumo": "Santa Teresinha ensinou que podemos chegar a Deus por meio das pequenas atitudes feitas com amor, confiança e simplicidade.",
+      "link": ""
+    }
+  ],
+  "playlist": {
+    "descricao": "Reencontre as músicas que fizeram parte dessa noite e leve essa experiência com você.",
+    "link": ""
+  },
+  "missao": {
+    "nome": "Reserve um tempo para Jesus",
+    "descricao": "Separe alguns minutos do seu dia para ficar em silêncio, conversar com Deus e agradecer por tudo o que você viveu.",
+    "frase": "Permanecei em mim e eu permanecerei em vós.",
+    "referencia": "João 15,4"
+  },
+  "proximoEncontro": {
+    "dia": "",
+    "mes": "",
+    "tema": "Nova data em breve",
+    "horario": "Acompanhe os avisos da Perseverança.",
+    "local": "Paróquia Santo Inácio de Loyola"
+  }
+}

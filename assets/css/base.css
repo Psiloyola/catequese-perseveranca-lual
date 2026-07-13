@@ -1,0 +1,290 @@
+/* =========================================================
+   RESET E CONFIGURAÇÕES GERAIS
+   ========================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+/* =========================================================
+   TEXTO
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+figure {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: inherit;
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-heading);
+}
+
+h1 {
+  margin-bottom: var(--space-6);
+  font-size: clamp(3rem, 10vw, var(--font-size-5xl));
+  line-height: var(--line-height-tight);
+}
+
+h2 {
+  margin-bottom: var(--space-5);
+  font-size: clamp(2.25rem, 7vw, var(--font-size-4xl));
+}
+
+h3 {
+  margin-bottom: var(--space-4);
+  font-size: clamp(1.6rem, 5vw, var(--font-size-2xl));
+}
+
+p {
+  margin-bottom: var(--space-4);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+strong {
+  font-weight: var(--font-weight-bold);
+}
+
+small {
+  font-size: var(--font-size-sm);
+}
+
+blockquote {
+  margin-right: 0;
+  margin-bottom: var(--space-5);
+  margin-left: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-style: italic;
+  line-height: var(--line-height-heading);
+}
+
+/* =========================================================
+   LINKS E CONTROLES
+   ========================================================= */
+
+a {
+  color: inherit;
+  text-decoration-color: var(--color-secondary);
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-thickness: 0.15em;
+}
+
+button,
+input,
+textarea,
+select {
+  color: inherit;
+  font: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* =========================================================
+   FOCO E ACESSIBILIDADE
+   ========================================================= */
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 0.2rem solid var(--color-focus);
+  outline-offset: 0.25rem;
+}
+
+.skip-link {
+  position: fixed;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: calc(var(--z-floating) + 1);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--border-radius-md);
+  background-color: var(--color-green-night-deep);
+  color: var(--color-white-soft);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform var(--transition-normal);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* =========================================================
+   LISTAS E MÍDIA
+   ========================================================= */
+
+ul,
+ol {
+  margin-top: 0;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+  font-style: italic;
+}
+
+svg {
+  fill: currentColor;
+}
+
+/* =========================================================
+   ESTRUTURA PRINCIPAL
+   ========================================================= */
+
+main {
+  display: block;
+  overflow: hidden;
+}
+
+.container {
+  width: min(
+    calc(100% - (var(--content-padding) * 2)),
+    var(--container-width)
+  );
+  margin-inline: auto;
+}
+
+.container--narrow {
+  max-width: var(--container-narrow-width);
+}
+
+.section {
+  position: relative;
+  padding-block: var(--space-20);
+}
+
+.section-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-10);
+}
+
+/* =========================================================
+   ESTADOS AUXILIARES
+   ========================================================= */
+
+[hidden] {
+  display: none !important;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: var(--space-10) var(--space-6);
+  border: var(--border-width) dashed var(--color-border);
+  border-radius: var(--border-radius-lg);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.empty-state--light {
+  border-color: rgba(255, 248, 239, 0.28);
+  color: var(--color-ivory-warm);
+}
+
+.noscript-message {
+  position: fixed;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  left: var(--space-4);
+  z-index: var(--z-floating);
+  max-width: 42rem;
+  margin-inline: auto;
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--border-radius-md);
+  background-color: var(--color-green-night-deep);
+  color: var(--color-white-soft);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+::selection {
+  background-color: var(--color-gold-soft);
+  color: var(--color-green-night-deep);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

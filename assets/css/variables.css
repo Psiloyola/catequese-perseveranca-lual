@@ -1,0 +1,117 @@
+:root {
+  /* =======================================================
+     IDENTIDADE OFICIAL — LUAL DA PERSEVERANÇA
+
+     Verde Noite:       #052B24
+     Verde Floresta:    #0E473C
+     Dourado Luz:       #D9A441
+     Dourado Queimado:  #B9822E
+     Marfim Quente:     #F5EAD7
+     Branco Suave:      #FFF8EF
+     Laranja Fogueira:  #E47B2C
+     ======================================================= */
+
+  --color-green-night: #052b24;
+  --color-green-night-deep: #031e19;
+  --color-green-forest: #0e473c;
+  --color-green-support: #176052;
+
+  --color-gold-light: #d9a441;
+  --color-gold-burned: #b9822e;
+  --color-gold-soft: #ebca83;
+
+  --color-ivory-warm: #f5ead7;
+  --color-white-soft: #fff8ef;
+  --color-ivory-deep: #e5d2b2;
+
+  --color-orange-fire: #e47b2c;
+  --color-orange-deep: #bd5414;
+  --color-orange-soft: #f1aa6d;
+
+  --color-ink: #102d27;
+  --color-ink-muted: #61736d;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* Cores semânticas */
+  --color-background: var(--color-white-soft);
+  --color-surface: var(--color-white);
+  --color-text: var(--color-ink);
+  --color-text-muted: var(--color-ink-muted);
+  --color-primary: var(--color-green-night);
+  --color-primary-hover: var(--color-green-forest);
+  --color-secondary: var(--color-gold-light);
+  --color-accent: var(--color-orange-fire);
+  --color-border: var(--color-ivory-deep);
+  --color-focus: var(--color-orange-fire);
+
+  /* Tipografia */
+  --font-heading: "Cormorant Garamond", Georgia, serif;
+  --font-script: "Allura", "Brush Script MT", cursive;
+  --font-body: "Montserrat", Arial, sans-serif;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-md: 1.125rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.75rem;
+  --font-size-4xl: 3.75rem;
+  --font-size-5xl: 5rem;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.05;
+  --line-height-heading: 1.15;
+  --line-height-normal: 1.6;
+  --line-height-relaxed: 1.8;
+
+  /* Espaçamentos */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* Larguras */
+  --container-width: 75rem;
+  --container-narrow-width: 48rem;
+  --content-padding: 1.25rem;
+
+  /* Bordas */
+  --border-width: 1px;
+  --border-radius-sm: 0.375rem;
+  --border-radius-md: 0.75rem;
+  --border-radius-lg: 1.25rem;
+  --border-radius-xl: 2rem;
+  --border-radius-pill: 999px;
+
+  /* Sombras */
+  --shadow-sm: 0 0.25rem 1rem rgba(5, 43, 36, 0.09);
+  --shadow-md: 0 0.75rem 2rem rgba(5, 43, 36, 0.14);
+  --shadow-lg: 0 1.5rem 4rem rgba(3, 30, 25, 0.24);
+  --shadow-fire: 0 1rem 3rem rgba(228, 123, 44, 0.2);
+
+  /* Transições */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 400ms ease;
+
+  /* Camadas */
+  --z-header: 100;
+  --z-menu: 200;
+  --z-floating: 300;
+}

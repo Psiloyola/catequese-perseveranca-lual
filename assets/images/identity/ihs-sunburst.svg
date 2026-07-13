@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <g stroke="#D9A441" stroke-linecap="round">
+    <path d="M60 4V18" stroke-width="3"/>
+    <path d="M60 102V116" stroke-width="3"/>
+    <path d="M4 60H18" stroke-width="3"/>
+    <path d="M102 60H116" stroke-width="3"/>
+    <path d="M20.4 20.4L30.3 30.3" stroke-width="2.5"/>
+    <path d="M89.7 89.7L99.6 99.6" stroke-width="2.5"/>
+    <path d="M99.6 20.4L89.7 30.3" stroke-width="2.5"/>
+    <path d="M30.3 89.7L20.4 99.6" stroke-width="2.5"/>
+    <path d="M39 8.5L44 21.5" stroke-width="2"/>
+    <path d="M76 98.5L81 111.5" stroke-width="2"/>
+    <path d="M8.5 39L21.5 44" stroke-width="2"/>
+    <path d="M98.5 76L111.5 81" stroke-width="2"/>
+    <path d="M81 8.5L76 21.5" stroke-width="2"/>
+    <path d="M44 98.5L39 111.5" stroke-width="2"/>
+    <path d="M111.5 39L98.5 44" stroke-width="2"/>
+    <path d="M21.5 76L8.5 81" stroke-width="2"/>
+  </g>
+  <circle cx="60" cy="60" r="34" fill="#052B24" stroke="#D9A441" stroke-width="3"/>
+  <circle cx="60" cy="60" r="28" stroke="#B9822E" stroke-width="1.5"/>
+  <path d="M59.8 33V42" stroke="#D9A441" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M55.5 37.5H64" stroke="#D9A441" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="60" y="68" text-anchor="middle" fill="#FFF8EF" font-family="Georgia, serif" font-size="25" font-weight="700">IHS</text>
+  <path d="M47 77C55 81 65 81 73 77" stroke="#D9A441" stroke-width="2" stroke-linecap="round"/>
+</svg>

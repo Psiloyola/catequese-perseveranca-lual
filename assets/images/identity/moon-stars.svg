@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 140" fill="none">
+  <path d="M106 18C77 24 58 50 62 79C66 108 92 128 121 124C103 116 91 100 89 81C86 58 96 36 116 23C113 21 110 19 106 18Z" fill="#D9A441"/>
+  <path d="M106 18C77 24 58 50 62 79C66 108 92 128 121 124C103 116 91 100 89 81C86 58 96 36 116 23C113 21 110 19 106 18Z" fill="url(#gold)"/>
+  <path d="M26 31L29 39L37 42L29 45L26 53L23 45L15 42L23 39L26 31Z" fill="#D9A441"/>
+  <path d="M146 39L148 44L153 46L148 48L146 53L144 48L139 46L144 44L146 39Z" fill="#FFF8EF"/>
+  <path d="M35 92L37 97L42 99L37 101L35 106L33 101L28 99L33 97L35 92Z" fill="#B9822E"/>
+  <circle cx="155" cy="82" r="3" fill="#D9A441"/>
+  <circle cx="48" cy="18" r="2.5" fill="#FFF8EF"/>
+  <defs>
+    <linearGradient id="gold" x1="63" y1="26" x2="121" y2="124" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E8BC5B"/>
+      <stop offset="1" stop-color="#B9822E"/>
+    </linearGradient>
+  </defs>
+</svg>
