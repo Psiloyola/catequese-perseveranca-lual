@@ -101,7 +101,7 @@
           <li><a href="#fotos">Fotos</a></li>
           <li><a href="#santos">Santos</a></li>
           <li><a href="#videos">Vídeos</a></li>
-          <li><a href="#missao">Missão</a></li>
+          <li><a href="#missao">Missões</a></li>
           <li><a href="#mural">Mural</a></li>
           <li><a href="#proximo-encontro">Encontros</a></li>
         </ul>
@@ -567,14 +567,14 @@
       id="missao"
       aria-labelledby="missao-titulo"
     >
-      <div class="container container--narrow">
-        <header class="section-heading section-heading--center">
+      <div class="container">
+        <header class="section-heading section-heading--center mission-heading">
           <p class="section-heading__eyebrow">
-            Depois do Lual
+            Jornada de santidade
           </p>
 
           <h2 id="missao-titulo">
-            Sua missão continua
+            Missões da Semana — Jovens Santos
           </h2>
 
           <div class="section-ornament" aria-hidden="true">
@@ -585,37 +585,147 @@
             >
             <span></span>
           </div>
+
+          <p class="mission-heading__description" id="missoes-descricao">
+            Uma missão por dia para levar a experiência do Lual para a vida.
+          </p>
         </header>
 
-        <article class="mission-card">
+        <article class="mission-waiting" id="missoes-aguardando">
           <img
-            class="mission-card__cross"
-            src="assets/images/identity/cross-gold.svg"
+            class="mission-waiting__icon"
+            src="assets/images/identity/bonfire.svg"
             alt=""
             aria-hidden="true"
           >
-
-          <span class="mission-card__label">
-            Missão da semana
-          </span>
-
-          <h3 id="missao-nome">
-            Reserve um tempo para Jesus
-          </h3>
-
-          <p id="missao-descricao">
-            Separe alguns minutos do seu dia para ficar em silêncio, conversar
-            com Deus e agradecer por tudo o que você viveu.
-          </p>
-
-          <blockquote id="missao-frase">
-            “Permanecei em mim e eu permanecerei em vós.”
-          </blockquote>
-
-          <p class="mission-card__reference" id="missao-referencia">
-            João 15,4
+          <p class="mission-waiting__eyebrow">A caminhada começa após o Lual</p>
+          <h3 id="missoes-aguardando-titulo">As missões ainda não foram liberadas</h3>
+          <p id="missoes-aguardando-texto">
+            Volte depois do encontro para descobrir a primeira missão.
           </p>
         </article>
+
+        <div class="mission-journey" id="missoes-jornada" hidden>
+          <article class="daily-mission-card" id="missao-hoje-card">
+            <div class="daily-mission-card__topline">
+              <span class="mission-day-badge" id="missao-dia">
+                Missão de hoje
+              </span>
+              <span class="daily-mission-card__cycle" id="missao-posicao">
+                1 de 7
+              </span>
+            </div>
+
+            <p class="daily-mission-card__type" id="missao-tipo">
+              Missão de Guardar no Coração
+            </p>
+
+            <h3 id="missao-nome">
+              Guarde esta noite com você
+            </h3>
+
+            <p class="daily-mission-card__description" id="missao-descricao">
+              Depois do Lual, reserve alguns minutos para recordar o que viveu.
+            </p>
+
+            <ul class="mission-actions" id="missao-acoes"></ul>
+
+            <div class="mission-scripture">
+              <img
+                src="assets/images/identity/cross-gold.svg"
+                alt=""
+                aria-hidden="true"
+              >
+              <div>
+                <p class="mission-scripture__label">Passagem para iluminar</p>
+                <blockquote id="missao-passagem-texto"></blockquote>
+                <p class="mission-scripture__reference" id="missao-referencia"></p>
+              </div>
+            </div>
+
+            <p class="daily-mission-card__tomorrow" id="missao-proximo-passo"></p>
+
+            <label class="mission-check mission-check--today" for="missao-concluida">
+              <input id="missao-concluida" type="checkbox">
+              <span class="mission-check__box" aria-hidden="true">✓</span>
+              <span>Concluí a missão de hoje</span>
+            </label>
+          </article>
+
+          <article class="mission-progress-card" aria-labelledby="missoes-progresso-titulo">
+            <div class="mission-progress-card__header">
+              <div>
+                <p class="mission-progress-card__eyebrow">Sua caminhada</p>
+                <h3 id="missoes-progresso-titulo">Progresso da semana</h3>
+              </div>
+              <strong id="missoes-progresso-contador">0 de 1</strong>
+            </div>
+
+            <div
+              class="mission-progress"
+              role="progressbar"
+              aria-label="Progresso das missões disponíveis"
+              aria-valuemin="0"
+              aria-valuemax="1"
+              aria-valuenow="0"
+              id="missoes-progresso"
+            >
+              <span id="missoes-progresso-barra"></span>
+            </div>
+
+            <p id="missoes-progresso-texto">
+              Cada pequena atitude ajuda a manter acesa a luz que começou no Lual.
+            </p>
+          </article>
+
+          <section class="released-missions" id="missoes-anteriores-secao" hidden>
+            <div class="released-missions__heading">
+              <div>
+                <p class="released-missions__eyebrow">Sua caminhada até aqui</p>
+                <h3>Missões já liberadas</h3>
+              </div>
+              <p>As próximas continuam escondidas até chegar o dia certo.</p>
+            </div>
+
+            <div class="released-missions__list" id="missoes-anteriores"></div>
+          </section>
+
+          <details class="bonus-challenges" id="desafios-bonus">
+            <summary>
+              <span>
+                <small>Para quem deseja ir além</small>
+                <strong>🌟 Desafios especiais</strong>
+              </span>
+              <span class="bonus-challenges__toggle" aria-hidden="true">+</span>
+            </summary>
+
+            <div class="bonus-challenges__content">
+              <p id="desafios-bonus-descricao">
+                Eles podem ser realizados em qualquer momento da semana.
+              </p>
+              <div class="bonus-grid" id="lista-desafios-bonus"></div>
+            </div>
+          </details>
+
+          <article class="final-challenge" id="desafio-final" hidden>
+            <img
+              class="final-challenge__icon"
+              src="assets/images/identity/brasao-paroquia-oficial-branco.webp"
+              alt=""
+              aria-hidden="true"
+            >
+            <p class="final-challenge__eyebrow">Sábado pela manhã</p>
+            <h3 id="desafio-final-titulo">Nossa caminhada chegou ao encontro</h3>
+            <p id="desafio-final-descricao"></p>
+            <ol id="desafio-final-perguntas"></ol>
+            <p class="final-challenge__summary" id="desafio-final-resumo"></p>
+          </article>
+
+          <blockquote class="mission-motivational">
+            <p id="missoes-frase"></p>
+            <footer id="missoes-chamada"></footer>
+          </blockquote>
+        </div>
       </div>
     </section>
 

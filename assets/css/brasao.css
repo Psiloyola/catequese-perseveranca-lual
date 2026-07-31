@@ -72,3 +72,17 @@
     height: 4rem;
   }
 }
+
+/* Brasão no desafio final da Jornada das Missões */
+.final-challenge__icon {
+  width: auto;
+  height: 4.75rem;
+  object-fit: contain;
+  filter: drop-shadow(0 0.35rem 0.8rem rgba(0, 0, 0, 0.22));
+}
+
+@media (min-width: 64rem) {
+  .final-challenge__icon {
+    height: 5.25rem;
+  }
+}

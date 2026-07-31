@@ -97,11 +97,194 @@
       }
     ]
   },
-  "missao": {
-    "nome": "Reserve um tempo para Jesus",
-    "descricao": "Separe alguns minutos do seu dia para ficar em silêncio, conversar com Deus e agradecer por tudo o que você viveu.",
-    "frase": "Permanecei em mim e eu permanecerei em vós.",
-    "referencia": "João 15,4"
+  "missoesSemana": {
+    "titulo": "Missões da Semana — Jovens Santos",
+    "descricao": "Uma missão por dia para levar a experiência do Lual para a vida. A missão de hoje aparece em destaque, e as próximas permanecem escondidas até o dia certo.",
+    "ciclo": {
+      "id": "lual-jovens-santos-2026",
+      "fusoHorario": "America/Sao_Paulo",
+      "inicioLiberacao": "2026-08-08T22:00:00-03:00",
+      "dataInicial": "2026-08-08",
+      "dataEncontroFinal": "2026-08-15"
+    },
+    "dias": [
+      {
+        "id": "sabado",
+        "dia": "Sábado",
+        "tipo": "Missão de Guardar no Coração",
+        "titulo": "Guarde esta noite com você",
+        "descricao": "Depois do Lual, antes de dormir, reserve alguns minutos de silêncio para recordar o que viveu.",
+        "acoes": [
+          "Agradeça a Deus por três momentos vividos no Lual.",
+          "Recorde uma palavra, música ou experiência que tocou seu coração.",
+          "Escolha uma atitude concreta que deseja viver durante a semana.",
+          "Reze pelas pessoas que participaram e por quem ajudou a preparar o encontro."
+        ],
+        "passagem": {
+          "referencia": "Lucas 2,19",
+          "texto": "Maria guardava e meditava em seu coração tudo o que havia vivido."
+        },
+        "proximoPasso": "Amanhã, comece a nova semana encontrando Jesus na Santa Missa."
+      },
+      {
+        "id": "domingo",
+        "dia": "Domingo",
+        "tipo": "Missão da Santidade",
+        "titulo": "Comece a semana com Jesus",
+        "descricao": "Participe da Santa Missa e peça a Deus a graça de viver como um jovem santo durante a nova semana.",
+        "acoes": [
+          "Entregue a Deus a semana que está começando.",
+          "Recorde a atitude que você escolheu viver depois do Lual.",
+          "Agradeça pela Eucaristia e por fazer parte desta caminhada."
+        ],
+        "passagem": {
+          "referencia": "1 Pedro 1,15-16",
+          "texto": "Deus nos chama a buscar a santidade em tudo o que fazemos."
+        },
+        "proximoPasso": "Volte amanhã para descobrir uma nova missão."
+      },
+      {
+        "id": "segunda",
+        "dia": "Segunda-feira",
+        "tipo": "Missão da Oração",
+        "titulo": "Converse com Deus",
+        "descricao": "Reze um Pai-Nosso e uma Ave-Maria. Depois, permaneça por pelo menos cinco minutos conversando com Deus com suas próprias palavras.",
+        "acoes": [
+          "Conte a Deus como você está.",
+          "Fale sobre o que está deixando você feliz.",
+          "Entregue aquilo que preocupa seu coração.",
+          "Peça a ajuda de que precisa para viver bem esta semana."
+        ],
+        "passagem": {
+          "referencia": "Mateus 6,6",
+          "texto": "Jesus nos convida a encontrar o Pai no silêncio e na intimidade da oração."
+        },
+        "proximoPasso": "Volte amanhã para descobrir uma nova missão."
+      },
+      {
+        "id": "terca",
+        "dia": "Terça-feira",
+        "tipo": "Missão da Caridade",
+        "titulo": "Faça o bem sem buscar reconhecimento",
+        "descricao": "Realize um gesto de bondade sem publicar, comentar ou esperar agradecimento.",
+        "acoes": [
+          "Ajude alguém ou ofereça seu tempo.",
+          "Compartilhe algo com quem precisa.",
+          "Converse com uma pessoa que esteja sozinha.",
+          "Ajude em casa ou doe algo que esteja em boas condições."
+        ],
+        "passagem": {
+          "referencia": "Mateus 6,3-4",
+          "texto": "O bem pode ser praticado discretamente, diante de Deus, sem necessidade de reconhecimento."
+        },
+        "proximoPasso": "Volte amanhã para descobrir uma nova missão."
+      },
+      {
+        "id": "quarta",
+        "dia": "Quarta-feira",
+        "tipo": "Missão da Palavra",
+        "titulo": "Deixe Deus falar com você",
+        "descricao": "Leia um trecho de um dos Evangelhos e escolha um versículo que chamou sua atenção.",
+        "acoes": [
+          "Pergunte a si mesmo o que Deus deseja falar por meio dessa Palavra.",
+          "Guarde o versículo durante o dia.",
+          "Compartilhe-o com um amigo, familiar ou no grupo da Perseverança."
+        ],
+        "passagem": {
+          "referencia": "Salmo 119,105",
+          "texto": "A Palavra de Deus ilumina nossos passos e orienta nosso caminho."
+        },
+        "proximoPasso": "Volte amanhã para descobrir uma nova missão."
+      },
+      {
+        "id": "quinta",
+        "dia": "Quinta-feira",
+        "tipo": "Missão do Perdão",
+        "titulo": "Dê um passo em direção à paz",
+        "descricao": "Pense em alguma mágoa, discussão ou situação que esteja pesando em seu coração e dê um passo possível e seguro em direção ao perdão.",
+        "acoes": [
+          "Peça desculpas ou aceite um pedido sincero de desculpas.",
+          "Pare de alimentar uma mágoa e reze pela pessoa.",
+          "Converse com alguém de confiança quando precisar de ajuda.",
+          "Peça a Deus força para iniciar um processo de perdão."
+        ],
+        "observacao": "Perdoar não significa aceitar novamente uma situação de violência, humilhação ou desrespeito.",
+        "passagem": {
+          "referencia": "Efésios 4,32",
+          "texto": "Somos chamados a tratar uns aos outros com bondade, compaixão e perdão."
+        },
+        "proximoPasso": "Volte amanhã para a última missão da semana."
+      },
+      {
+        "id": "sexta",
+        "dia": "Sexta-feira",
+        "tipo": "Missão do Sacrifício",
+        "titulo": "Ofereça algo a Deus",
+        "descricao": "Escolha um pequeno e saudável sacrifício e ofereça-o por uma intenção especial.",
+        "acoes": [
+          "Fique menos tempo no celular ou abra mão de um doce.",
+          "Reclame menos e evite uma resposta grosseira.",
+          "Realize uma tarefa que costuma adiar.",
+          "Use parte do seu tempo para ajudar alguém."
+        ],
+        "observacao": "Ao final do dia, recorde as missões realizadas e agradeça a Deus pela caminhada.",
+        "passagem": {
+          "referencia": "Lucas 9,23",
+          "texto": "Jesus nos convida a assumir diariamente nossa cruz e caminhar com Ele."
+        },
+        "proximoPasso": "Amanhã nos encontraremos novamente. Prepare-se para compartilhar aquilo que Deus realizou durante esta semana."
+      }
+    ],
+    "bonus": {
+      "descricao": "Eles podem ser realizados em qualquer momento da semana e não substituem a missão diária.",
+      "itens": [
+        {
+          "id": "rezar-terco",
+          "titulo": "Rezar um terço"
+        },
+        {
+          "id": "vida-santo",
+          "titulo": "Conhecer a vida de um santo jovem",
+          "descricao": "São Carlo Acutis, Santa Teresinha, Santa Clara, São Domingos Sávio ou São Pier Giorgio Frassati."
+        },
+        {
+          "id": "visita-familiar",
+          "titulo": "Visitar um familiar ou uma pessoa idosa",
+          "descricao": "Faça a visita com conhecimento da família ou de um responsável."
+        },
+        {
+          "id": "adoracao",
+          "titulo": "Participar da Adoração ao Santíssimo",
+          "descricao": "Quando não houver adoração, faça alguns minutos de oração diante do sacrário."
+        },
+        {
+          "id": "sem-celular",
+          "titulo": "Ficar duas horas sem celular",
+          "descricao": "Dedique esse tempo à família, à oração ou a uma atividade presencial."
+        },
+        {
+          "id": "ajudar-casa",
+          "titulo": "Ajudar em uma tarefa de casa sem que ninguém peça"
+        },
+        {
+          "id": "mensagem-incentivo",
+          "titulo": "Escrever uma mensagem de incentivo para alguém que esteja precisando"
+        }
+      ]
+    },
+    "desafioFinal": {
+      "titulo": "Nossa caminhada chegou ao encontro",
+      "descricao": "No encontro de sábado, você será convidado a compartilhar, falando ou escrevendo, o que viveu durante a semana.",
+      "perguntas": [
+        "Qual missão foi mais difícil?",
+        "Qual missão mais marcou seu coração?",
+        "Como você percebeu Deus agindo durante a semana?",
+        "Qual atitude gostaria de continuar praticando?",
+        "Alguma missão mudou a forma como você tratou uma pessoa?"
+      ]
+    },
+    "frase": "A santidade não é fazer coisas extraordinárias, mas fazer com amor as pequenas coisas de cada dia.",
+    "chamada": "Aceite o desafio e seja um Jovem Santo!"
   },
   "mural": {
     "descricao": "Deixe uma mensagem de fé, carinho, gratidão ou encorajamento. Todas as mensagens são identificadas e passam pela aprovação da organização.",
@@ -130,10 +313,10 @@
     ]
   },
   "proximoEncontro": {
-    "dia": "",
-    "mes": "",
-    "tema": "Nova data em breve",
-    "horario": "Acompanhe os avisos da Perseverança.",
+    "dia": "15",
+    "mes": "agosto",
+    "tema": "Partilha das Missões — Jovens Santos",
+    "horario": "Sábado pela manhã, no horário habitual da catequese.",
     "local": "Paróquia Santo Inácio de Loyola"
   }
 }

@@ -570,22 +570,470 @@
     container.append(fragment);
   };
 
-  const renderMission = (mission = {}) => {
-    setText("missao-nome", mission.nome, "Reserve um tempo para Jesus");
-    setText(
-      "missao-descricao",
-      mission.descricao,
-      "Separe alguns minutos do seu dia para conversar com Deus."
+  const MISSION_TEST_HOSTS = new Set(["localhost", "127.0.0.1"]);
+
+  const parseDateKey = (value) => {
+    if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+      return null;
+    }
+
+    const [year, month, day] = value.split("-").map(Number);
+    const date = new Date(Date.UTC(year, month - 1, day));
+
+    if (
+      date.getUTCFullYear() !== year ||
+      date.getUTCMonth() !== month - 1 ||
+      date.getUTCDate() !== day
+    ) {
+      return null;
+    }
+
+    return Math.floor(date.getTime() / 86400000);
+  };
+
+  const getDateKeyInTimeZone = (date, timeZone) => {
+    const parts = new Intl.DateTimeFormat("en-CA", {
+      timeZone,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    }).formatToParts(date);
+
+    const values = Object.fromEntries(
+      parts
+        .filter((part) => part.type !== "literal")
+        .map((part) => [part.type, part.value])
     );
 
-    const phrase = mission.frase?.trim();
+    return `${values.year}-${values.month}-${values.day}`;
+  };
+
+  const getMissionNow = () => {
+    const current = new Date();
+
+    if (!MISSION_TEST_HOSTS.has(window.location.hostname)) {
+      return current;
+    }
+
+    const testValue = new URLSearchParams(window.location.search).get(
+      "missaoData"
+    );
+
+    if (!testValue) {
+      return current;
+    }
+
+    const normalized = /^\d{4}-\d{2}-\d{2}$/.test(testValue)
+      ? `${testValue}T12:00:00-03:00`
+      : testValue;
+    const simulated = new Date(normalized);
+
+    return Number.isNaN(simulated.getTime()) ? current : simulated;
+  };
+
+  const readMissionProgress = (storageKey) => {
+    try {
+      const stored = window.localStorage.getItem(storageKey);
+      const parsed = stored ? JSON.parse(stored) : {};
+
+      return {
+        daily:
+          parsed && typeof parsed.daily === "object" && parsed.daily
+            ? parsed.daily
+            : {},
+        bonus:
+          parsed && typeof parsed.bonus === "object" && parsed.bonus
+            ? parsed.bonus
+            : {}
+      };
+    } catch {
+      return { daily: {}, bonus: {} };
+    }
+  };
+
+  const writeMissionProgress = (storageKey, progress) => {
+    try {
+      window.localStorage.setItem(storageKey, JSON.stringify(progress));
+    } catch {
+      // O site continua funcional mesmo quando o navegador bloqueia o armazenamento.
+    }
+  };
+
+  const appendTextList = (container, values, className = "") => {
+    if (!container) {
+      return;
+    }
+
+    container.replaceChildren();
+
+    (Array.isArray(values) ? values : []).forEach((value) => {
+      if (typeof value !== "string" || !value.trim()) {
+        return;
+      }
+
+      const item = document.createElement("li");
+      item.textContent = value.trim();
+
+      if (className) {
+        item.className = className;
+      }
+
+      container.append(item);
+    });
+  };
+
+  const createMissionCheckbox = ({
+    id,
+    label,
+    checked,
+    onChange,
+    className = "mission-check"
+  }) => {
+    const wrapper = document.createElement("label");
+    wrapper.className = className;
+
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.checked = checked;
+    input.setAttribute("aria-label", label);
+
+    const visual = document.createElement("span");
+    visual.className = "mission-check__box";
+    visual.setAttribute("aria-hidden", "true");
+    visual.textContent = "✓";
+
+    const text = document.createElement("span");
+    text.textContent = label;
+
+    input.addEventListener("change", () => {
+      onChange(id, input.checked);
+      wrapper.classList.toggle("is-complete", input.checked);
+    });
+
+    wrapper.classList.toggle("is-complete", checked);
+    wrapper.append(input, visual, text);
+    return wrapper;
+  };
+
+  const renderMissionJourney = (missions = {}) => {
+    const waiting = getElement("missoes-aguardando");
+    const journey = getElement("missoes-jornada");
+    const todayCard = getElement("missao-hoje-card");
+    const finalChallenge = getElement("desafio-final");
+    const previousSection = getElement("missoes-anteriores-secao");
+    const previousList = getElement("missoes-anteriores");
+    const bonusList = getElement("lista-desafios-bonus");
+    const todayCheckbox = getElement("missao-concluida");
 
     setText(
-      "missao-frase",
-      phrase ? `“${phrase}”` : "",
-      "“Permanecei em mim e eu permanecerei em vós.”"
+      "missoes-descricao",
+      missions.descricao,
+      "Uma missão por dia para levar a experiência do Lual para a vida."
     );
-    setText("missao-referencia", mission.referencia, "João 15,4");
+    setText("missoes-frase", missions.frase, "");
+    setText("missoes-chamada", missions.chamada, "");
+
+    if (!waiting || !journey || !todayCard || !previousList || !bonusList) {
+      return;
+    }
+
+    const cycle = missions.ciclo || {};
+    const days = Array.isArray(missions.dias) ? missions.dias : [];
+    const timeZone = cycle.fusoHorario || "America/Sao_Paulo";
+    const startDayNumber = parseDateKey(cycle.dataInicial);
+    const finalDayNumber = parseDateKey(cycle.dataEncontroFinal);
+    const releaseDate = new Date(cycle.inicioLiberacao || "");
+    const now = getMissionNow();
+    const todayKey = getDateKeyInTimeZone(now, timeZone);
+    const todayDayNumber = parseDateKey(todayKey);
+
+    const configurationIsValid =
+      days.length > 0 &&
+      startDayNumber !== null &&
+      finalDayNumber !== null &&
+      !Number.isNaN(releaseDate.getTime()) &&
+      todayDayNumber !== null;
+
+    if (!configurationIsValid) {
+      waiting.hidden = false;
+      journey.hidden = true;
+      setText(
+        "missoes-aguardando-titulo",
+        "Não foi possível carregar as missões"
+      );
+      setText(
+        "missoes-aguardando-texto",
+        "Tente novamente em alguns instantes."
+      );
+      return;
+    }
+
+    if (now < releaseDate) {
+      waiting.hidden = false;
+      journey.hidden = true;
+      setText(
+        "missoes-aguardando-titulo",
+        "As missões começam depois do Lual"
+      );
+      setText(
+        "missoes-aguardando-texto",
+        "A primeira missão será liberada ao final do encontro, no sábado, 8 de agosto."
+      );
+      return;
+    }
+
+    waiting.hidden = true;
+    journey.hidden = false;
+
+    const dayDifference = todayDayNumber - startDayNumber;
+    const isFinalDay = todayDayNumber >= finalDayNumber;
+    const currentIndex = Math.min(Math.max(dayDifference, 0), days.length - 1);
+    const availableCount = isFinalDay
+      ? days.length
+      : Math.min(currentIndex + 1, days.length);
+    const currentMission = isFinalDay ? null : days[currentIndex];
+    const previousMissions = isFinalDay
+      ? days
+      : days.slice(0, currentIndex);
+    const storageKey = `psiloyola.missoes.${cycle.id || "lual"}`;
+    const progress = readMissionProgress(storageKey);
+
+    const saveProgress = () => {
+      writeMissionProgress(storageKey, progress);
+      updateProgress();
+    };
+
+    const updateDailyProgress = (id, checked) => {
+      progress.daily[id] = checked;
+      saveProgress();
+    };
+
+    const updateBonusProgress = (id, checked) => {
+      progress.bonus[id] = checked;
+      saveProgress();
+    };
+
+    const updateProgress = () => {
+      const availableIds = days.slice(0, availableCount).map((day) => day.id);
+      const completed = availableIds.filter((id) => progress.daily[id]).length;
+      const percentage = availableCount
+        ? Math.round((completed / availableCount) * 100)
+        : 0;
+      const progressElement = getElement("missoes-progresso");
+      const progressBar = getElement("missoes-progresso-barra");
+
+      setText(
+        "missoes-progresso-contador",
+        `${completed} de ${availableCount}`,
+        "0 de 0"
+      );
+      setText(
+        "missoes-progresso-texto",
+        completed === availableCount && availableCount > 0
+          ? "Você concluiu todas as missões liberadas até agora. Continue firme!"
+          : "Cada pequena atitude ajuda a manter acesa a luz que começou no Lual."
+      );
+
+      if (progressElement) {
+        progressElement.setAttribute("aria-valuemax", String(availableCount));
+        progressElement.setAttribute("aria-valuenow", String(completed));
+      }
+
+      if (progressBar) {
+        progressBar.style.width = `${percentage}%`;
+      }
+
+      if (finalChallenge) {
+        const bonusItems = Array.isArray(missions.bonus?.itens)
+          ? missions.bonus.itens
+          : [];
+        const completedBonus = bonusItems.filter(
+          (item) => progress.bonus[item.id]
+        ).length;
+        setText(
+          "desafio-final-resumo",
+          `Você concluiu ${completed} de ${days.length} missões diárias e ${completedBonus} desafio${completedBonus === 1 ? " especial" : "s especiais"}.`
+        );
+      }
+    };
+
+    if (currentMission) {
+      todayCard.hidden = false;
+      setText("missao-dia", currentMission.dia, "Missão de hoje");
+      setText(
+        "missao-posicao",
+        `${currentIndex + 1} de ${days.length}`,
+        ""
+      );
+      setText("missao-tipo", currentMission.tipo, "Missão de hoje");
+      setText("missao-nome", currentMission.titulo, "Sua missão continua");
+      setText("missao-descricao", currentMission.descricao, "");
+      setText(
+        "missao-passagem-texto",
+        currentMission.passagem?.texto,
+        ""
+      );
+      setText(
+        "missao-referencia",
+        currentMission.passagem?.referencia,
+        ""
+      );
+      setText("missao-proximo-passo", currentMission.proximoPasso, "");
+      appendTextList(getElement("missao-acoes"), currentMission.acoes);
+
+      const descriptionElement = getElement("missao-descricao");
+      const oldObservation = todayCard.querySelector(
+        ".daily-mission-card__observation"
+      );
+      oldObservation?.remove();
+
+      if (currentMission.observacao && descriptionElement) {
+        const observation = document.createElement("p");
+        observation.className = "daily-mission-card__observation";
+        observation.textContent = currentMission.observacao;
+        descriptionElement.insertAdjacentElement("afterend", observation);
+      }
+
+      if (todayCheckbox) {
+        todayCheckbox.checked = Boolean(progress.daily[currentMission.id]);
+        todayCheckbox.onchange = () => {
+          updateDailyProgress(currentMission.id, todayCheckbox.checked);
+          todayCheckbox
+            .closest(".mission-check")
+            ?.classList.toggle("is-complete", todayCheckbox.checked);
+        };
+        todayCheckbox
+          .closest(".mission-check")
+          ?.classList.toggle(
+            "is-complete",
+            Boolean(progress.daily[currentMission.id])
+          );
+      }
+    } else {
+      todayCard.hidden = true;
+    }
+
+    previousList.replaceChildren();
+
+    previousMissions.forEach((mission) => {
+      const card = document.createElement("article");
+      card.className = "released-mission-card";
+      card.classList.toggle("is-complete", Boolean(progress.daily[mission.id]));
+
+      const details = document.createElement("details");
+      const summary = document.createElement("summary");
+      const titleWrap = document.createElement("span");
+      const day = document.createElement("small");
+      const title = document.createElement("strong");
+      const indicator = document.createElement("span");
+
+      day.textContent = mission.dia;
+      title.textContent = mission.tipo;
+      indicator.className = "released-mission-card__indicator";
+      indicator.setAttribute("aria-hidden", "true");
+      indicator.textContent = "+";
+      titleWrap.append(day, title);
+      summary.append(titleWrap, indicator);
+
+      const body = document.createElement("div");
+      body.className = "released-mission-card__body";
+
+      const heading = document.createElement("h4");
+      heading.textContent = mission.titulo;
+      const description = document.createElement("p");
+      description.textContent = mission.descricao;
+      const actions = document.createElement("ul");
+      appendTextList(actions, mission.acoes);
+      const reference = document.createElement("p");
+      reference.className = "released-mission-card__reference";
+      reference.textContent = `${mission.passagem?.referencia || ""} — ${mission.passagem?.texto || ""}`;
+
+      const checkbox = createMissionCheckbox({
+        id: mission.id,
+        label: "Marcar esta missão como concluída",
+        checked: Boolean(progress.daily[mission.id]),
+        onChange: (id, checked) => {
+          updateDailyProgress(id, checked);
+          card.classList.toggle("is-complete", checked);
+        },
+        className: "mission-check mission-check--compact"
+      });
+
+      body.append(heading, description, actions, reference, checkbox);
+      details.append(summary, body);
+      card.append(details);
+      previousList.append(card);
+    });
+
+    if (previousSection) {
+      previousSection.hidden = previousMissions.length === 0;
+    }
+
+    const bonusItems = Array.isArray(missions.bonus?.itens)
+      ? missions.bonus.itens
+      : [];
+    setText(
+      "desafios-bonus-descricao",
+      missions.bonus?.descricao,
+      "Eles podem ser realizados em qualquer momento da semana."
+    );
+    bonusList.replaceChildren();
+
+    bonusItems.forEach((item) => {
+      if (!item?.id || !item?.titulo) {
+        return;
+      }
+
+      const card = document.createElement("article");
+      card.className = "bonus-item";
+      card.classList.toggle("is-complete", Boolean(progress.bonus[item.id]));
+
+      const title = document.createElement("h4");
+      title.textContent = item.titulo;
+      card.append(title);
+
+      if (item.descricao) {
+        const description = document.createElement("p");
+        description.textContent = item.descricao;
+        card.append(description);
+      }
+
+      const checkbox = createMissionCheckbox({
+        id: item.id,
+        label: "Concluí este desafio",
+        checked: Boolean(progress.bonus[item.id]),
+        onChange: (id, checked) => {
+          updateBonusProgress(id, checked);
+          card.classList.toggle("is-complete", checked);
+        },
+        className: "mission-check mission-check--compact"
+      });
+      card.append(checkbox);
+      bonusList.append(card);
+    });
+
+    if (finalChallenge) {
+      finalChallenge.hidden = !isFinalDay;
+
+      if (isFinalDay) {
+        setText(
+          "desafio-final-titulo",
+          missions.desafioFinal?.titulo,
+          "Nossa caminhada chegou ao encontro"
+        );
+        setText(
+          "desafio-final-descricao",
+          missions.desafioFinal?.descricao,
+          "Prepare-se para compartilhar aquilo que viveu."
+        );
+        appendTextList(
+          getElement("desafio-final-perguntas"),
+          missions.desafioFinal?.perguntas
+        );
+      }
+    }
+
+    updateProgress();
   };
 
   const renderNextMeeting = (meeting = {}) => {
@@ -610,7 +1058,7 @@
     renderGallery(content.galeria);
     renderSaints(content.santos);
     renderVideos(content.videos);
-    renderMission(content.missao);
+    renderMissionJourney(content.missoesSemana);
     renderMural(content.mural);
     renderNextMeeting(content.proximoEncontro);
   };
