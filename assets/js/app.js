@@ -525,11 +525,22 @@
   const renderMural = (mural = {}) => {
     const container = getElement("lista-mensagens");
     const template = getElement("modelo-mensagem");
+    const controls = getElement("mural-controles");
+    const previousButton = getElement("mural-anterior");
+    const nextButton = getElement("mural-proxima");
+    const summary = getElement("mural-resumo");
+    const counter = getElement("mural-contador");
+    const indicators = getElement("mural-indicadores");
 
     setText(
       "mural-descricao",
       mural.descricao,
       "Deixe uma mensagem de fé, carinho, gratidão ou encorajamento."
+    );
+    setText(
+      "mural-aviso-moderacao",
+      mural.avisoModeracao,
+      "As mensagens são identificadas e revisadas antes da publicação."
     );
     configureFormLink(
       getElement("link-formulario-mural"),
@@ -545,6 +556,7 @@
       : []
     ).filter((item) => {
       return (
+        item?.publicada !== false &&
         typeof item?.nome === "string" &&
         item.nome.trim() &&
         typeof item?.mensagem === "string" &&
@@ -554,12 +566,27 @@
 
     container.replaceChildren();
 
+    if (indicators) {
+      indicators.replaceChildren();
+    }
+
     if (messages.length === 0) {
       const emptyState = document.createElement("p");
       emptyState.className = "empty-state empty-state--light";
       emptyState.textContent =
-        "As primeiras mensagens aprovadas aparecerão aqui.";
+        typeof mural.mensagemVazia === "string" && mural.mensagemVazia.trim()
+          ? mural.mensagemVazia.trim()
+          : "As primeiras mensagens aprovadas aparecerão aqui.";
       container.append(emptyState);
+
+      if (controls) {
+        controls.hidden = true;
+      }
+
+      if (summary) {
+        summary.hidden = true;
+      }
+
       return;
     }
 
@@ -575,9 +602,17 @@
         return;
       }
 
-      if (index === 0) {
+      if (item.destaque === true) {
         card.classList.add("mural-card--featured");
       }
+
+      card.dataset.muralIndex = String(index);
+      card.setAttribute("aria-posinset", String(index + 1));
+      card.setAttribute("aria-setsize", String(messages.length));
+      card.setAttribute(
+        "aria-label",
+        `Mensagem ${index + 1} de ${messages.length}, enviada por ${item.nome.trim()}`
+      );
 
       message.textContent = `“${item.mensagem.trim()}”`;
       author.textContent = `— ${item.nome.trim()}`;
@@ -585,6 +620,110 @@
     });
 
     container.append(fragment);
+
+    const cards = Array.from(container.querySelectorAll(".mural-card"));
+    const hasMultipleMessages = cards.length > 1;
+
+    if (controls) {
+      controls.hidden = !hasMultipleMessages;
+    }
+
+    if (summary) {
+      summary.hidden = !hasMultipleMessages;
+    }
+
+    const indicatorButtons = cards.map((card, index) => {
+      if (!indicators) {
+        return null;
+      }
+
+      const button = document.createElement("button");
+      button.className = "mural-summary__dot";
+      button.type = "button";
+      button.setAttribute("aria-label", `Ir para a mensagem ${index + 1}`);
+      button.setAttribute("aria-current", index === 0 ? "true" : "false");
+
+      button.addEventListener("click", () => {
+        card.scrollIntoView({
+          behavior: REDUCED_MOTION_QUERY.matches ? "auto" : "smooth",
+          block: "nearest",
+          inline: "start"
+        });
+      });
+
+      indicators.append(button);
+      return button;
+    });
+
+    let activeIndex = 0;
+    let animationFrame = 0;
+
+    const getClosestCardIndex = () => {
+      const containerLeft = container.getBoundingClientRect().left;
+
+      return cards.reduce(
+        (closest, card, index) => {
+          const distance = Math.abs(
+            card.getBoundingClientRect().left - containerLeft
+          );
+
+          return distance < closest.distance
+            ? { index, distance }
+            : closest;
+        },
+        { index: 0, distance: Number.POSITIVE_INFINITY }
+      ).index;
+    };
+
+    const updateNavigation = (index = getClosestCardIndex()) => {
+      activeIndex = Math.max(0, Math.min(index, cards.length - 1));
+
+      if (counter) {
+        counter.textContent =
+          `Mensagem ${activeIndex + 1} de ${cards.length}`;
+      }
+
+      indicatorButtons.forEach((button, buttonIndex) => {
+        if (button) {
+          button.setAttribute(
+            "aria-current",
+            buttonIndex === activeIndex ? "true" : "false"
+          );
+        }
+      });
+
+      if (previousButton) {
+        previousButton.disabled = activeIndex === 0;
+      }
+
+      if (nextButton) {
+        nextButton.disabled = activeIndex === cards.length - 1;
+      }
+    };
+
+    const scheduleNavigationUpdate = () => {
+      window.cancelAnimationFrame(animationFrame);
+      animationFrame = window.requestAnimationFrame(() => {
+        updateNavigation();
+      });
+    };
+
+    container.addEventListener("scroll", scheduleNavigationUpdate, {
+      passive: true
+    });
+    window.addEventListener("resize", scheduleNavigationUpdate, {
+      passive: true
+    });
+
+    previousButton?.addEventListener("click", () => {
+      updateNavigation(Math.max(activeIndex - 1, 0));
+    });
+
+    nextButton?.addEventListener("click", () => {
+      updateNavigation(Math.min(activeIndex + 1, cards.length - 1));
+    });
+
+    updateNavigation(0);
   };
 
   const TEST_HOSTS = new Set(["localhost", "127.0.0.1"]);

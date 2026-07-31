@@ -351,29 +351,10 @@
   },
   "mural": {
     "descricao": "Deixe uma mensagem de fé, carinho, gratidão ou encorajamento. Todas as mensagens são identificadas e passam pela aprovação da organização.",
+    "avisoModeracao": "As mensagens são identificadas e revisadas antes da publicação.",
     "linkFormulario": "https://forms.office.com/r/7wjUAEV3cD",
-    "mensagens": [
-      {
-        "nome": "Maria",
-        "mensagem": "Que tudo o que vivemos nesta noite continue iluminando nossa caminhada com Jesus."
-      },
-      {
-        "nome": "Gabriel",
-        "mensagem": "Obrigado a todos que prepararam o Lual com tanto carinho. Foi uma noite muito especial."
-      },
-      {
-        "nome": "Ana",
-        "mensagem": "Que nossa amizade sempre nos ajude a permanecer firmes na fé e próximos de Cristo."
-      },
-      {
-        "nome": "Lucas",
-        "mensagem": "Que a luz desta noite nos ajude a enxergar Jesus também nas pequenas coisas de cada dia."
-      },
-      {
-        "nome": "Mariana",
-        "mensagem": "Saio deste encontro lembrando que ninguém precisa caminhar sozinho quando escolhemos permanecer unidos em Cristo."
-      }
-    ]
+    "mensagemVazia": "As primeiras mensagens aprovadas aparecerão aqui.",
+    "mensagens": []
   },
   "proximoEncontro": {
     "dia": "15",

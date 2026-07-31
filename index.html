@@ -50,6 +50,7 @@
   <link rel="stylesheet" href="assets/css/responsive.css">
   <link rel="stylesheet" href="assets/css/brasao.css">
   <link rel="stylesheet" href="assets/css/estado-site.css">
+  <link rel="stylesheet" href="assets/css/mural.css">
 
   <script src="assets/js/app.js" defer></script>
 </head>
@@ -873,12 +874,11 @@
             <a
               class="button button--fire"
               id="link-formulario-mural"
-              href="#"
+              href="https://forms.office.com/r/7wjUAEV3cD"
               target="_blank"
               rel="noopener noreferrer"
-              aria-disabled="true"
             >
-              Formulário em breve
+              Enviar mensagem para o mural
             </a>
           </div>
         </div>
@@ -887,36 +887,62 @@
           <div class="carousel-heading carousel-heading--light">
             <div>
               <p class="carousel-heading__title">Mensagens que mantêm a luz acesa</p>
-              <p class="carousel-heading__hint">Todas foram moderadas antes da publicação.</p>
+              <p class="carousel-heading__hint" id="mural-aviso-moderacao">
+                As mensagens são identificadas e revisadas antes da publicação.
+              </p>
             </div>
 
-            <div class="carousel-buttons" aria-label="Controles do mural">
+            <div
+              class="carousel-buttons"
+              id="mural-controles"
+              aria-label="Controles do mural"
+              hidden
+            >
               <button
                 class="carousel-button carousel-button--light"
+                id="mural-anterior"
                 type="button"
                 data-scroll-target="lista-mensagens"
                 data-scroll-direction="previous"
-                aria-label="Ver mensagens anteriores"
+                aria-label="Ver mensagem anterior"
               >
                 ←
               </button>
 
               <button
                 class="carousel-button carousel-button--light"
+                id="mural-proxima"
                 type="button"
                 data-scroll-target="lista-mensagens"
                 data-scroll-direction="next"
-                aria-label="Ver próximas mensagens"
+                aria-label="Ver próxima mensagem"
               >
                 →
               </button>
             </div>
           </div>
 
+          <div class="mural-summary" id="mural-resumo" hidden>
+            <p class="mural-summary__counter" id="mural-contador" aria-live="polite">
+              Mensagem 1 de 1
+            </p>
+
+            <div
+              class="mural-summary__dots"
+              id="mural-indicadores"
+              aria-label="Escolher mensagem do mural"
+            ></div>
+
+            <p class="mural-summary__swipe">
+              Deslize para ver as próximas mensagens
+            </p>
+          </div>
+
           <div
             class="mural-carousel horizontal-scroller"
             id="lista-mensagens"
-            aria-live="polite"
+            role="list"
+            aria-label="Mensagens publicadas no mural"
           >
             <p class="empty-state empty-state--light">
               As primeiras mensagens aprovadas aparecerão aqui.
@@ -1076,17 +1102,8 @@
   </template>
 
   <template id="modelo-mensagem">
-    <article class="mural-card" role="listitem">
-      <div class="mural-card__topline">
-        <img
-          class="mural-card__icon"
-          src="assets/images/identity/cross-gold.svg"
-          alt=""
-          aria-hidden="true"
-        >
-        <span>Mensagem aprovada</span>
-      </div>
-
+    <article class="mural-card" role="listitem" tabindex="0">
+      <span class="mural-card__quote-mark" aria-hidden="true">“</span>
       <blockquote class="mural-card__message"></blockquote>
       <p class="mural-card__author"></p>
     </article>
