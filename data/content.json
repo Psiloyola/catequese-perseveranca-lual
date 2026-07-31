@@ -8,35 +8,98 @@
     "subtitulo": "A santidade também é para os jovens.",
     "data": "08 de agosto de 2026"
   },
+  "estadosSite": {
+    "fusoHorario": "America/Sao_Paulo",
+    "inicioDiaEvento": "2026-08-08T00:00:00-03:00",
+    "inicioPosEvento": "2026-08-08T22:00:00-03:00",
+    "antes": {
+      "selo": "Nosso encontro está chegando",
+      "titulo": "Prepare o coração para o Lual",
+      "texto": "No dia 8 de agosto, viveremos juntos uma noite de fé, amizade, música e oração.",
+      "heroSubtitulo": "Uma noite para encontrar Jesus, fortalecer amizades e recordar que a santidade também é para os jovens.",
+      "acaoPrincipal": {
+        "texto": "Conhecer os santos",
+        "destino": "#santos"
+      },
+      "acaoSecundaria": {
+        "texto": "Preparar o coração",
+        "destino": "#mensagem"
+      },
+      "mensagem": {
+        "selo": "Prepare o coração",
+        "titulo": "Uma noite para encontrar Jesus",
+        "destaque": "O Lual está chegando. Comece desde agora a rezar por tudo o que viveremos juntos.",
+        "texto": "Convide Deus para fazer parte da sua expectativa, reze pelos participantes e chegue disposto a escutar, partilhar e acolher."
+      },
+      "bloqueio": {
+        "selo": "Disponível após o encontro",
+        "titulo": "Esta parte será liberada depois do Lual",
+        "texto": "Fotos, músicas e mensagens serão abertas após o encerramento, no dia 8 de agosto, às 22h."
+      },
+      "descricaoPagina": "Prepare-se para o 1º Lual da Perseverança e conheça santos jovens que nos inspiram."
+    },
+    "diaEvento": {
+      "selo": "É hoje",
+      "titulo": "Hoje é dia de Lual",
+      "texto": "Reze por nosso encontro e prepare-se para viver esta noite com o coração aberto.",
+      "heroSubtitulo": "Chegou o dia de nos reunirmos para rezar, cantar, conviver e buscar juntos a santidade.",
+      "acaoPrincipal": {
+        "texto": "Preparar o coração",
+        "destino": "#mensagem"
+      },
+      "acaoSecundaria": {
+        "texto": "Conhecer os santos",
+        "destino": "#santos"
+      },
+      "mensagem": {
+        "selo": "É hoje",
+        "titulo": "Venha com o coração aberto",
+        "destaque": "Esta noite foi preparada para que cada jovem possa se aproximar de Jesus e perceber que não caminha sozinho.",
+        "texto": "Participe com alegria, respeite cada momento e permita que a oração, a música e a convivência deixem uma marca boa em sua caminhada."
+      },
+      "bloqueio": {
+        "selo": "Liberado ao final do Lual",
+        "titulo": "O conteúdo completo chega às 22h",
+        "texto": "Depois do encerramento, volte aqui para rever os momentos, ouvir as músicas, escrever no mural e iniciar a primeira missão."
+      },
+      "descricaoPagina": "Hoje acontece o 1º Lual da Perseverança da Paróquia Santo Inácio de Loyola."
+    },
+    "depois": {
+      "selo": "A experiência continua",
+      "titulo": "Reviva o Lual e continue sua missão",
+      "texto": "Fotos, músicas, mensagens e missões ajudam a manter acesa a experiência que vivemos juntos.",
+      "heroSubtitulo": "A noite terminou, mas o chamado à santidade continua em cada pequena atitude da semana.",
+      "acaoPrincipal": {
+        "texto": "Reviver o Lual",
+        "destino": "#fotos"
+      },
+      "acaoSecundaria": {
+        "texto": "Ver missão de hoje",
+        "destino": "#missao"
+      },
+      "mensagem": {
+        "selo": "Esta noite continua",
+        "titulo": "O encontro não termina aqui",
+        "destaque": "Tudo o que vivemos é um convite para continuarmos caminhando com Jesus.",
+        "texto": "Que as músicas, os momentos de oração, as amizades e tudo o que experimentamos nesta noite permaneçam vivos em nosso cotidiano."
+      },
+      "descricaoPagina": "Reviva o 1º Lual da Perseverança, conheça santos jovens e continue sua missão durante a semana."
+    }
+  },
   "mensagem": {
     "destaque": "Tudo o que vivemos é um convite para continuarmos caminhando com Jesus.",
     "texto": "Que as músicas, os momentos de oração, as amizades e tudo o que experimentamos nesta noite permaneçam vivos em nosso cotidiano."
   },
   "galeria": {
-    "descricao": "Uma foto em destaque e outros registros para deslizar para o lado. As imagens abaixo são provisórias para validarmos a experiência.",
+    "liberada": false,
+    "indisponivel": {
+      "selo": "Fotos em preparação",
+      "titulo": "Os registros do Lual ainda estão sendo organizados",
+      "texto": "A equipe está selecionando e preparando as fotos antes da publicação. As músicas, o mural e as missões já podem ser acessados. Volte em breve."
+    },
+    "descricao": "Uma foto em destaque e outros registros para deslizar para o lado.",
     "linkAlbum": "",
-    "fotos": [
-      {
-        "imagem": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1600&q=84",
-        "textoAlternativo": "Imagem demonstrativa de pessoas reunidas em um evento",
-        "legenda": "Encontro, acolhimento e comunhão."
-      },
-      {
-        "imagem": "https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1400&q=84",
-        "textoAlternativo": "Imagem demonstrativa de jovens reunidos",
-        "legenda": "Uma juventude chamada a brilhar para Cristo."
-      },
-      {
-        "imagem": "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1400&q=84",
-        "textoAlternativo": "Imagem demonstrativa de um grupo de amigos",
-        "legenda": "Amizades que nos levam para mais perto de Jesus."
-      },
-      {
-        "imagem": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=84",
-        "textoAlternativo": "Imagem demonstrativa de uma paisagem iluminada",
-        "legenda": "Uma luz que continua acesa depois do Lual."
-      }
-    ]
+    "fotos": []
   },
   "santos": [
     {

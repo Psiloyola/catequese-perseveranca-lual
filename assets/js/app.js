@@ -6,6 +6,7 @@
   const REDUCED_MOTION_QUERY = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   );
+  let sitePhaseTimer = null;
 
   const getElement = (id) => document.getElementById(id);
 
@@ -184,13 +185,17 @@
     const controls = getElement("galeria-controles");
     const emptyState = getElement("galeria-vazia");
     const template = getElement("modelo-miniatura-foto");
+    const galleryReleased = galeria.liberada === true;
 
     setText(
       "galeria-descricao",
       galeria.descricao,
       "Uma foto em destaque e outros registros para deslizar para o lado."
     );
-    configureLink(getElement("link-album"), galeria.linkAlbum);
+    configureLink(
+      getElement("link-album"),
+      galleryReleased ? galeria.linkAlbum : ""
+    );
 
     if (
       !mainFigure ||
@@ -201,6 +206,18 @@
       !emptyState ||
       !template
     ) {
+      return;
+    }
+
+    if (!galleryReleased) {
+      mainFigure.hidden = true;
+      thumbnails.replaceChildren();
+      thumbnails.hidden = true;
+      controls.hidden = true;
+      emptyState.hidden = false;
+      emptyState.textContent =
+        galeria.indisponivel?.texto ||
+        "As fotos ainda estão sendo preparadas para publicação.";
       return;
     }
 
@@ -570,7 +587,7 @@
     container.append(fragment);
   };
 
-  const MISSION_TEST_HOSTS = new Set(["localhost", "127.0.0.1"]);
+  const TEST_HOSTS = new Set(["localhost", "127.0.0.1"]);
 
   const parseDateKey = (value) => {
     if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
@@ -608,16 +625,16 @@
     return `${values.year}-${values.month}-${values.day}`;
   };
 
-  const getMissionNow = () => {
+  const getSiteNow = () => {
     const current = new Date();
 
-    if (!MISSION_TEST_HOSTS.has(window.location.hostname)) {
+    if (!TEST_HOSTS.has(window.location.hostname)) {
       return current;
     }
 
-    const testValue = new URLSearchParams(window.location.search).get(
-      "missaoData"
-    );
+    const parameters = new URLSearchParams(window.location.search);
+    const testValue =
+      parameters.get("siteData") || parameters.get("missaoData");
 
     if (!testValue) {
       return current;
@@ -629,6 +646,236 @@
     const simulated = new Date(normalized);
 
     return Number.isNaN(simulated.getTime()) ? current : simulated;
+  };
+
+  const configureInternalAction = (id, action = {}, fallback = {}) => {
+    const element = getElement(id);
+
+    if (!element) {
+      return;
+    }
+
+    const text =
+      typeof action.texto === "string" && action.texto.trim()
+        ? action.texto.trim()
+        : fallback.texto || "Continuar";
+    const destination =
+      typeof action.destino === "string" && /^#[A-Za-z][\w-]*$/.test(action.destino)
+        ? action.destino
+        : fallback.destino || "#mensagem";
+
+    element.textContent = text;
+    element.href = destination;
+  };
+
+  const formatRemainingTime = (target, now) => {
+    const difference = Math.max(0, target.getTime() - now.getTime());
+    const totalMinutes = Math.ceil(difference / 60000);
+    const days = Math.floor(totalMinutes / 1440);
+    const hours = Math.floor((totalMinutes % 1440) / 60);
+    const minutes = totalMinutes % 60;
+
+    if (days > 1) {
+      return `Faltam ${days} dias`;
+    }
+
+    if (days === 1) {
+      return hours > 0 ? `Falta 1 dia e ${hours}h` : "Falta 1 dia";
+    }
+
+    if (hours > 0) {
+      return `Faltam ${hours}h e ${minutes}min`;
+    }
+
+    if (minutes > 0) {
+      return `Faltam ${minutes} minutos`;
+    }
+
+    return "É agora";
+  };
+
+  const resolveSitePhase = (states = {}, now = getSiteNow()) => {
+    const eventDay = new Date(states.inicioDiaEvento || "");
+    const postEvent = new Date(states.inicioPosEvento || "");
+
+    if (
+      Number.isNaN(eventDay.getTime()) ||
+      Number.isNaN(postEvent.getTime()) ||
+      eventDay >= postEvent
+    ) {
+      return {
+        key: "depois",
+        content: states.depois || {},
+        now,
+        eventDay,
+        postEvent,
+        valid: false
+      };
+    }
+
+    if (now < eventDay) {
+      return {
+        key: "antes",
+        content: states.antes || {},
+        now,
+        eventDay,
+        postEvent,
+        valid: true
+      };
+    }
+
+    if (now < postEvent) {
+      return {
+        key: "dia-evento",
+        content: states.diaEvento || {},
+        now,
+        eventDay,
+        postEvent,
+        valid: true
+      };
+    }
+
+    return {
+      key: "depois",
+      content: states.depois || {},
+      now,
+      eventDay,
+      postEvent,
+      valid: true
+    };
+  };
+
+  const configurePhaseLock = (sectionId, locked, content = {}) => {
+    const section = getElement(sectionId);
+    const lock = getElement(`${sectionId}-bloqueio`);
+
+    if (!section || !lock) {
+      return;
+    }
+
+    section.classList.toggle("is-phase-locked", locked);
+    lock.hidden = !locked;
+
+    if (locked) {
+      setText(`${sectionId}-bloqueio-selo`, content.selo, "Disponível após o encontro");
+      setText(
+        `${sectionId}-bloqueio-titulo`,
+        content.titulo,
+        "Esta parte será liberada depois do Lual"
+      );
+      setText(
+        `${sectionId}-bloqueio-texto`,
+        content.texto,
+        "Volte ao site após o encerramento para acessar esta parte."
+      );
+      section.setAttribute("aria-disabled", "true");
+    } else {
+      section.removeAttribute("aria-disabled");
+    }
+  };
+
+  const updatePhaseMetadata = (description) => {
+    if (typeof description !== "string" || !description.trim()) {
+      return;
+    }
+
+    const descriptionMeta = document.querySelector('meta[name="description"]');
+    const openGraphDescription = document.querySelector(
+      'meta[property="og:description"]'
+    );
+
+    if (descriptionMeta) {
+      descriptionMeta.content = description.trim();
+    }
+
+    if (openGraphDescription) {
+      openGraphDescription.content = description.trim();
+    }
+  };
+
+  const renderSitePhase = (states = {}, galeria = {}) => {
+    const phase = resolveSitePhase(states);
+    const content = phase.content || {};
+    const banner = getElement("estado-site");
+    const isAfter = phase.key === "depois";
+    const galleryReleased = galeria.liberada === true;
+    const photosAvailable = isAfter && galleryReleased;
+    const photosLockContent = isAfter
+      ? galeria.indisponivel || {}
+      : content.bloqueio || {};
+
+    document.body.dataset.sitePhase = phase.key;
+    document.body.dataset.galleryReleased = String(galleryReleased);
+
+    if (banner) {
+      banner.hidden = false;
+    }
+
+    setText("estado-site-selo", content.selo, "Lual da Perseverança");
+    setText("estado-site-titulo", content.titulo, "Nossa caminhada continua");
+    setText("estado-site-texto", content.texto, "Permaneça conosco nesta caminhada.");
+    setText("evento-subtitulo", content.heroSubtitulo, "A santidade também é para os jovens.");
+
+    const primaryAction =
+      isAfter && !galleryReleased
+        ? {
+            texto: "Ouvir as músicas",
+            destino: "#videos"
+          }
+        : content.acaoPrincipal;
+
+    configureInternalAction("acao-principal", primaryAction, {
+      texto: isAfter
+        ? galleryReleased
+          ? "Reviver o Lual"
+          : "Ouvir as músicas"
+        : "Conhecer os santos",
+      destino: isAfter
+        ? galleryReleased
+          ? "#fotos"
+          : "#videos"
+        : "#santos"
+    });
+    configureInternalAction("acao-secundaria", content.acaoSecundaria, {
+      texto: isAfter ? "Ver missão de hoje" : "Preparar o coração",
+      destino: isAfter ? "#missao" : "#mensagem"
+    });
+
+    setText("mensagem-selo", content.mensagem?.selo, "Esta noite continua");
+    setText("mensagem-titulo", content.mensagem?.titulo, "O encontro não termina aqui");
+    setText("mensagem-destaque", content.mensagem?.destaque, "Nossa caminhada continua com Jesus.");
+    setText("mensagem-texto", content.mensagem?.texto, "Leve esta experiência para a vida.");
+
+    configurePhaseLock("fotos", !photosAvailable, photosLockContent);
+    configurePhaseLock("videos", !isAfter, content.bloqueio);
+    configurePhaseLock("mural", !isAfter, content.bloqueio);
+    updatePhaseMetadata(content.descricaoPagina);
+
+    if (phase.key === "antes" && phase.valid) {
+      setText("estado-site-contagem", formatRemainingTime(phase.eventDay, phase.now));
+    } else if (phase.key === "dia-evento" && phase.valid) {
+      setText(
+        "estado-site-contagem",
+        `Conteúdo completo em ${formatRemainingTime(phase.postEvent, phase.now).replace("Faltam ", "")}`
+      );
+    } else {
+      setText(
+        "estado-site-contagem",
+        galleryReleased ? "Conteúdo liberado" : "Fotos em preparação"
+      );
+    }
+
+    return phase;
+  };
+
+  const startSitePhaseClock = (states = {}, galeria = {}) => {
+    if (sitePhaseTimer) {
+      window.clearInterval(sitePhaseTimer);
+    }
+
+    sitePhaseTimer = window.setInterval(() => {
+      renderSitePhase(states, galeria);
+    }, 60000);
   };
 
   const readMissionProgress = (storageKey) => {
@@ -743,7 +990,7 @@
     const startDayNumber = parseDateKey(cycle.dataInicial);
     const finalDayNumber = parseDateKey(cycle.dataEncontroFinal);
     const releaseDate = new Date(cycle.inicioLiberacao || "");
-    const now = getMissionNow();
+    const now = getSiteNow();
     const todayKey = getDateKeyInTimeZone(now, timeZone);
     const todayDayNumber = parseDateKey(todayKey);
 
@@ -1061,6 +1308,8 @@
     renderMissionJourney(content.missoesSemana);
     renderMural(content.mural);
     renderNextMeeting(content.proximoEncontro);
+    renderSitePhase(content.estadosSite, content.galeria);
+    startSitePhaseClock(content.estadosSite, content.galeria);
   };
 
   const showLoadingError = () => {

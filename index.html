@@ -49,11 +49,12 @@
   <link rel="stylesheet" href="assets/css/sections.css">
   <link rel="stylesheet" href="assets/css/responsive.css">
   <link rel="stylesheet" href="assets/css/brasao.css">
+  <link rel="stylesheet" href="assets/css/estado-site.css">
 
   <script src="assets/js/app.js" defer></script>
 </head>
 
-<body>
+<body data-site-phase="carregando">
   <a class="skip-link" href="#conteudo-principal">
     Ir para o conteúdo principal
   </a>
@@ -108,6 +109,30 @@
       </nav>
     </div>
   </header>
+
+  <aside
+    class="site-phase-banner"
+    id="estado-site"
+    aria-live="polite"
+    hidden
+  >
+    <div class="container site-phase-banner__content">
+      <div class="site-phase-banner__copy">
+        <span class="site-phase-banner__badge" id="estado-site-selo">
+          Nosso encontro está chegando
+        </span>
+
+        <div>
+          <strong id="estado-site-titulo">Prepare o coração para o Lual</strong>
+          <p id="estado-site-texto">
+            No dia 8 de agosto, viveremos juntos uma noite de fé, amizade e oração.
+          </p>
+        </div>
+      </div>
+
+      <p class="site-phase-banner__countdown" id="estado-site-contagem"></p>
+    </div>
+  </aside>
 
   <main id="conteudo-principal">
     <section class="hero" aria-labelledby="titulo-principal">
@@ -203,11 +228,19 @@
           </p>
 
           <div class="hero__actions">
-            <a class="button button--primary" href="#fotos">
+            <a
+              class="button button--primary"
+              id="acao-principal"
+              href="#fotos"
+            >
               Reviver o Lual
             </a>
 
-            <a class="button button--secondary" href="#santos">
+            <a
+              class="button button--secondary"
+              id="acao-secundaria"
+              href="#santos"
+            >
               Conhecer os santos
             </a>
           </div>
@@ -246,7 +279,7 @@
     >
       <div class="container container--narrow">
         <header class="section-heading section-heading--center">
-          <p class="section-heading__eyebrow">
+          <p class="section-heading__eyebrow" id="mensagem-selo">
             Esta noite continua
           </p>
 
@@ -288,9 +321,31 @@
     <section
       class="section section--warm"
       id="fotos"
+      data-pos-evento
       aria-labelledby="fotos-titulo"
     >
       <div class="container">
+        <article class="phase-lock" id="fotos-bloqueio" hidden>
+          <img
+            class="phase-lock__icon"
+            src="assets/images/identity/bonfire.svg"
+            alt=""
+            aria-hidden="true"
+          >
+          <p class="phase-lock__eyebrow" id="fotos-bloqueio-selo">
+            Disponível após o encontro
+          </p>
+          <h2 id="fotos-bloqueio-titulo">
+            Este conteúdo será liberado depois do Lual
+          </h2>
+          <p id="fotos-bloqueio-texto">
+            Volte ao site após o encerramento para acessar esta parte.
+          </p>
+          <a class="button button--primary" href="#santos">
+            Conhecer os santos jovens
+          </a>
+        </article>
+
         <header class="section-heading">
           <div>
             <p class="section-heading__eyebrow">
@@ -449,9 +504,31 @@
     <section
       class="section section--forest section--video"
       id="videos"
+      data-pos-evento
       aria-labelledby="videos-titulo"
     >
       <div class="container">
+        <article class="phase-lock" id="videos-bloqueio" hidden>
+          <img
+            class="phase-lock__icon"
+            src="assets/images/identity/bonfire.svg"
+            alt=""
+            aria-hidden="true"
+          >
+          <p class="phase-lock__eyebrow" id="videos-bloqueio-selo">
+            Disponível após o encontro
+          </p>
+          <h2 id="videos-bloqueio-titulo">
+            Este conteúdo será liberado depois do Lual
+          </h2>
+          <p id="videos-bloqueio-texto">
+            Volte ao site após o encerramento para acessar esta parte.
+          </p>
+          <a class="button button--primary" href="#santos">
+            Conhecer os santos jovens
+          </a>
+        </article>
+
         <header class="section-heading section-heading--light">
           <div>
             <p class="section-heading__eyebrow">
@@ -732,6 +809,7 @@
     <section
       class="section section--mural section--decorated-dark"
       id="mural"
+      data-pos-evento
       aria-labelledby="mural-titulo"
     >
       <img
@@ -749,6 +827,27 @@
       >
 
       <div class="container">
+        <article class="phase-lock" id="mural-bloqueio" hidden>
+          <img
+            class="phase-lock__icon"
+            src="assets/images/identity/bonfire.svg"
+            alt=""
+            aria-hidden="true"
+          >
+          <p class="phase-lock__eyebrow" id="mural-bloqueio-selo">
+            Disponível após o encontro
+          </p>
+          <h2 id="mural-bloqueio-titulo">
+            Este conteúdo será liberado depois do Lual
+          </h2>
+          <p id="mural-bloqueio-texto">
+            Volte ao site após o encerramento para acessar esta parte.
+          </p>
+          <a class="button button--primary" href="#santos">
+            Conhecer os santos jovens
+          </a>
+        </article>
+
         <div class="mural-callout">
           <div class="mural-callout__visual" aria-hidden="true">
             <span class="mural-callout__glow"></span>
