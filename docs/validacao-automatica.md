@@ -1,0 +1,37 @@
+# Validação automática do site
+
+O workflow verifica o projeto antes que alterações quebradas cheguem ao
+GitHub Pages.
+
+## Quando executa
+
+- em todo `push` para `main`;
+- em toda pull request;
+- manualmente pela aba **Actions**.
+
+## Verificações
+
+- sintaxe de `assets/js/app.js`;
+- validade de `data/content.json`;
+- blocos obrigatórios do conteúdo;
+- IDs duplicados no `index.html`;
+- seções principais;
+- arquivos locais citados no HTML, CSS e JSON;
+- flag `galeria.liberada`;
+- galeria liberada sem fotos;
+- sete missões com IDs únicos;
+- datas da jornada;
+- imagens excessivamente grandes.
+
+## Executar localmente
+
+```powershell
+node --check assets/js/app.js
+```
+
+```powershell
+node scripts/validate-site.mjs
+```
+
+Erros encerram a validação com falha. Avisos aparecem no relatório, mas não
+interrompem o workflow.

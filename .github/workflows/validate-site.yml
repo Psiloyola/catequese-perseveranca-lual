@@ -1,0 +1,35 @@
+name: Validar site
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validar-site-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validar:
+    name: Verificar arquivos e conteúdo
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o repositório
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Verificar sintaxe do JavaScript
+        run: node --check assets/js/app.js
+
+      - name: Validar estrutura do site
+        run: node scripts/validate-site.mjs
