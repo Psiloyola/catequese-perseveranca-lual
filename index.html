@@ -10,19 +10,70 @@
 
   <meta
     name="description"
-    content="Site do 1º Lual da Perseverança da Paróquia Santo Inácio de Loyola."
+    content="Santos jovens: luzes que brilham para Cristo. Reviva o 1º Lual da Perseverança, acompanhe as missões, músicas e mensagens do encontro."
   >
 
   <meta name="theme-color" content="#052B24">
+  <meta name="color-scheme" content="dark light">
 
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="1º Lual da Perseverança">
-  <meta
-    property="og:description"
-    content="Reviva o Lual, conheça santos jovens e continue sua missão."
+  <link
+    rel="canonical"
+    href="https://psiloyola.github.io/catequese-perseveranca-lual/"
   >
 
-  <title>1º Lual da Perseverança</title>
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:type" content="website">
+  <meta
+    property="og:site_name"
+    content="Perseverança — Paróquia Santo Inácio de Loyola"
+  >
+  <meta
+    property="og:url"
+    content="https://psiloyola.github.io/catequese-perseveranca-lual/"
+  >
+  <meta
+    property="og:title"
+    content="1º Lual da Perseverança"
+  >
+  <meta
+    property="og:description"
+    content="Santos jovens: luzes que brilham para Cristo. Reviva o encontro e continue essa experiência de fé."
+  >
+  <meta
+    property="og:image"
+    content="https://psiloyola.github.io/catequese-perseveranca-lual/assets/images/social/lual-compartilhamento-1200x630.jpg"
+  >
+  <meta
+    property="og:image:secure_url"
+    content="https://psiloyola.github.io/catequese-perseveranca-lual/assets/images/social/lual-compartilhamento-1200x630.jpg"
+  >
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta
+    property="og:image:alt"
+    content="1º Lual da Perseverança — Santos Jovens: Luzes que brilham para Cristo"
+  >
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta
+    name="twitter:title"
+    content="1º Lual da Perseverança"
+  >
+  <meta
+    name="twitter:description"
+    content="Santos jovens: luzes que brilham para Cristo. Reviva o encontro e continue essa experiência de fé."
+  >
+  <meta
+    name="twitter:image"
+    content="https://psiloyola.github.io/catequese-perseveranca-lual/assets/images/social/lual-compartilhamento-1200x630.jpg"
+  >
+  <meta
+    name="twitter:image:alt"
+    content="1º Lual da Perseverança — Santos Jovens: Luzes que brilham para Cristo"
+  >
+
+  <title>1º Lual da Perseverança | Paróquia Santo Inácio de Loyola</title>
 
   <link
     rel="icon"
@@ -51,6 +102,7 @@
   <link rel="stylesheet" href="assets/css/brasao.css">
   <link rel="stylesheet" href="assets/css/estado-site.css">
   <link rel="stylesheet" href="assets/css/mural.css">
+  <link rel="stylesheet" href="assets/css/conteudo-status.css">
 
   <script src="assets/js/app.js" defer></script>
 </head>
@@ -132,6 +184,46 @@
       </div>
 
       <p class="site-phase-banner__countdown" id="estado-site-contagem"></p>
+    </div>
+  </aside>
+
+
+  <aside
+    class="content-status"
+    id="status-conteudo"
+    aria-live="polite"
+    hidden
+  >
+    <div class="container content-status__content">
+      <div class="content-status__message">
+        <strong id="status-conteudo-titulo">
+          Atualização do conteúdo
+        </strong>
+
+        <p id="status-conteudo-texto">
+          Estamos verificando as informações mais recentes.
+        </p>
+      </div>
+
+      <div class="content-status__actions">
+        <button
+          class="button button--small content-status__retry"
+          id="status-conteudo-tentar-novamente"
+          type="button"
+          hidden
+        >
+          Tentar novamente
+        </button>
+
+        <button
+          class="content-status__close"
+          id="status-conteudo-fechar"
+          type="button"
+          aria-label="Fechar aviso"
+        >
+          ×
+        </button>
+      </div>
     </div>
   </aside>
 
