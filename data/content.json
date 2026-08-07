@@ -128,35 +128,36 @@
     }
   ],
   "videos": {
-    "descricao": "Músicas que fizeram parte do nosso encontro.",
+    "titulo": "🙏 Músicas do Encontro",
+    "descricao": "Canções que irão conduzir nossos momentos de oração, louvor e adoração durante o Lual da Perseverança.",
     "itens": [
       {
-        "titulo": "Minha Essência",
-        "artista": "Thiago Brado",
-        "categoria": "Música",
-        "descricao": "Uma canção sobre entregar a própria vida e permitir que Deus refaça a nossa morada.",
-        "youtubeId": "bklas0_vUg4"
+        "titulo": "Eis-me Aqui",
+        "artista": "Colo de Deus",
+        "categoria": "Louvor",
+        "descricao": "Uma canção de entrega total ao chamado de Deus.",
+        "youtubeId": "kyiEboFeDd4"
       },
       {
-        "titulo": "Verdades do Tempo",
-        "artista": "Thiago Brado",
-        "categoria": "Música",
-        "descricao": "Uma reflexão cantada sobre escolhas, tempo, fé e aquilo que verdadeiramente permanece.",
-        "youtubeId": "Ilg58OE3i3M"
+        "titulo": "Sopra em Nós",
+        "artista": "Irmã Ana Paula",
+        "categoria": "Invocação ao Espírito Santo",
+        "descricao": "Um clamor para que o Espírito Santo renove nossos corações.",
+        "youtubeId": "7ObT7LQd6ls"
       },
       {
-        "titulo": "Meu Alvo",
-        "artista": "Thiago Brado",
-        "categoria": "Música",
-        "descricao": "Uma oração para manter os olhos em Cristo e continuar caminhando mesmo diante das dificuldades.",
-        "youtubeId": "vF3dOuYltfs"
+        "titulo": "Tu És o Centro",
+        "artista": "Frei Gilson",
+        "categoria": "Adoração",
+        "descricao": "Uma oração colocando Jesus no centro de toda a nossa vida.",
+        "youtubeId": "FURNjcDNVd4"
       },
       {
-        "titulo": "Rasgue o Céu",
-        "artista": "Thiago Brado",
-        "categoria": "Música",
-        "descricao": "Uma canção de clamor e esperança para quem deseja experimentar mais profundamente a presença de Deus.",
-        "youtubeId": "6l8AcVTSVvw"
+        "titulo": "Te Louvo em Verdade",
+        "artista": "Frei Gilson (Cover)",
+        "categoria": "Louvor",
+        "descricao": "Um canto de gratidão e confiança na presença de Deus.",
+        "youtubeId": "tBzVyQnyL1I"
       }
     ]
   },
