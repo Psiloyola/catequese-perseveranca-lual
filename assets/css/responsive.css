@@ -620,3 +620,7 @@
     flex-basis: auto;
   }
 }
+
+
+/* Commit 12 - refinamento dos cards Santos */
+.santo-card__content { box-sizing: border-box; }
