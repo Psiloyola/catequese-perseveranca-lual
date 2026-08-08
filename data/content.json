@@ -103,39 +103,46 @@
   },
   "santos": [
     {
-      "nome": "São Carlo Acutis",
+      "nome": "Carlo Acutis",
       "imagem": "assets/images/santos/carlo-acutis.webp",
       "frase": "Não eu, mas Deus.",
-      "resumo": "Um jovem apaixonado pela Eucaristia, que usou seus talentos e a tecnologia para evangelizar.",
-      "link": "https://www.carloacutis.com"
-    },
-    {
-      "nome": "São Pier Giorgio Frassati",
-      "imagem": "assets/images/santos/pier-giorgio-frassati.webp",
-      "frase": "Para o alto!",
-      "resumo": "Um jovem alegre, amigo de todos e dedicado à oração e aos mais necessitados.",
-      "link": "https://www.vatican.va"
-    },
-    {
-      "nome": "Santa Teresinha do Menino Jesus",
-      "imagem": "assets/images/santos/teresinha.webp",
-      "frase": "Quero passar meu céu fazendo o bem na terra.",
-      "resumo": "Ensinou que pequenas atitudes feitas com amor podem transformar o mundo.",
-      "link": "https://www.vatican.va"
-    },
-    {
-      "nome": "Santa Clara de Assis",
-      "imagem": "assets/images/santos/clara-assis.webp",
-      "frase": "Amar totalmente aquele que se entregou totalmente por amor.",
-      "resumo": "Uma jovem de fé profunda, oração e entrega completa a Cristo.",
-      "link": "https://www.vatican.va"
+      "resumo": "Um jovem apaixonado pela Eucaristia, que usou seus talentos para evangelizar.",
+      "link": ""
     },
     {
       "nome": "São Domingos Sávio",
       "imagem": "assets/images/santos/domingos-savio.webp",
       "frase": "Quero ser santo e não apenas bom.",
       "resumo": "Um exemplo de santidade vivida na adolescência com alegria e amizade com Jesus.",
-      "link": "https://www.salesians.org"
+      "link": ""
+    },
+    {
+      "nome": "Beato Pier Giorgio Frassati",
+      "imagem": "assets/images/santos/pier-giorgio-frassati.webp",
+      "frase": "Rumo ao alto!",
+      "resumo": "Um jovem de fé, amizade e caridade que levou Cristo aos irmãos.",
+      "link": ""
+    },
+    {
+      "nome": "Santa Teresinha do Menino Jesus",
+      "imagem": "assets/images/santos/teresinha.webp",
+      "frase": "Quero passar meu céu fazendo o bem na terra.",
+      "resumo": "Ensinou que pequenas atitudes feitas com amor transformam o mundo.",
+      "link": ""
+    },
+    {
+      "nome": "Santa Maria Goretti",
+      "imagem": "assets/images/santos/maria-goretti.webp",
+      "frase": "Perdoar é amar como Cristo.",
+      "resumo": "Uma jovem testemunha de fé, perdão e confiança em Deus.",
+      "link": ""
+    },
+    {
+      "nome": "Beata Chiara Badano",
+      "imagem": "assets/images/santos/chiara-badano.webp",
+      "frase": "Tenho Jesus, tenho tudo.",
+      "resumo": "Uma jovem que viveu a alegria e a fé mesmo diante das dificuldades.",
+      "link": ""
     }
   ],
   "videos": {
