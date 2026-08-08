@@ -107,9 +107,104 @@
   <script src="assets/js/app.js" defer></script>
   <link rel="stylesheet" href="assets/css/santos.css">
   <link rel="stylesheet" href="assets/css/habitos.css">
+  <link rel="stylesheet" href="assets/css/acesso-site.css">
 </head>
 
-<body data-site-phase="carregando">
+<body data-site-phase="carregando" data-site-access="checking">
+  <section
+    class="site-gate"
+    id="site-gate"
+    aria-labelledby="site-gate-title"
+    aria-describedby="site-gate-message site-gate-opening-note"
+    aria-busy="true"
+  >
+    <div class="site-gate__card">
+      <div class="site-gate__brand" aria-label="Perseverança, Paróquia Santo Inácio de Loyola">
+        <img
+          src="assets/images/identity/brasao-paroquia-oficial-branco.webp"
+          alt=""
+          width="1644"
+          height="2248"
+        >
+
+        <span>
+          <strong>Perseverança</strong>
+          <small>Paróquia Santo Inácio de Loyola</small>
+        </span>
+      </div>
+
+      <div class="site-gate__fire" aria-hidden="true">
+        <span></span>
+        <img
+          src="assets/images/identity/bonfire.svg"
+          alt=""
+          width="120"
+          height="120"
+        >
+      </div>
+
+      <p class="site-gate__eyebrow" id="site-gate-eyebrow">
+        1º Lual da Perseverança
+      </p>
+
+      <h1 id="site-gate-title">Este site abre hoje às 22h</h1>
+
+      <p class="site-gate__message" id="site-gate-message">
+        Agora é hora de viver o Lual por inteiro. Depois do encerramento,
+        volte aqui para ouvir as músicas, conhecer os santos e continuar sua missão.
+      </p>
+
+      <div
+        class="site-gate__countdown"
+        id="site-gate-countdown"
+        role="timer"
+        aria-live="off"
+        aria-label="Carregando a contagem regressiva para a abertura do site"
+      >
+        <p id="site-gate-countdown-label">Falta pouco para abrir</p>
+
+        <div class="site-gate__clock" aria-hidden="true">
+          <span class="site-gate__time-unit">
+            <strong id="site-gate-hours">--</strong>
+            <small>horas</small>
+          </span>
+
+          <span class="site-gate__separator">:</span>
+
+          <span class="site-gate__time-unit">
+            <strong id="site-gate-minutes">--</strong>
+            <small>minutos</small>
+          </span>
+
+          <span class="site-gate__separator">:</span>
+
+          <span class="site-gate__time-unit">
+            <strong id="site-gate-seconds">--</strong>
+            <small>segundos</small>
+          </span>
+        </div>
+      </div>
+
+      <time
+        class="site-gate__opening"
+        id="site-gate-opening"
+        datetime="2026-08-08T22:00:00-03:00"
+      >
+        Abertura às 22h · Horário de Brasília
+      </time>
+
+      <p class="site-gate__automatic" id="site-gate-opening-note">
+        O conteúdo será liberado automaticamente quando a contagem chegar ao fim.
+      </p>
+
+      <noscript>
+        <p class="site-gate__noscript">
+          Ative o JavaScript do navegador para acompanhar a contagem e abrir o site.
+        </p>
+      </noscript>
+    </div>
+  </section>
+
   <a class="skip-link" href="#conteudo-principal">
     Ir para o conteúdo principal
   </a>

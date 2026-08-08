@@ -14,19 +14,21 @@ Até 7 de agosto de 2026:
 - bloqueia fotos, vídeos, pequenos hábitos e mural com uma mensagem de prévia;
 - mantém a Jornada das Missões informando que começará depois do Lual.
 
-### Dia do evento
+### Site fechado no dia do evento
 
 Em 8 de agosto de 2026, da meia-noite até as 22h:
 
-- mostra a mensagem “É hoje”;
-- orienta o jovem a preparar o coração;
-- informa que o conteúdo completo será liberado às 22h;
-- não depende de um horário exato de início do Lual.
+- oculta a navegação e todas as seções do site;
+- mostra uma tela exclusiva do Lual com mensagem de acolhida;
+- exibe uma contagem regressiva com horas, minutos e segundos;
+- informa que a abertura acontece às 22h, no horário de Brasília;
+- mantém o conteúdo carregado e pronto para a liberação automática.
 
 ### Depois do evento
 
 A partir de 8 de agosto de 2026, às 22h, no horário de Brasília:
 
+- remove automaticamente a tela de espera, sem exigir nova publicação;
 - libera automaticamente vídeos, mural, missões e pequenos hábitos de fé;
 - mantém as fotos bloqueadas até a liberação manual no `content.json`;
 - muda a chamada principal para “Reviver o Lual”;
@@ -53,6 +55,18 @@ Dia do evento:
 ?siteData=2026-08-08T12:00:00-03:00
 ```
 
+Dez segundos antes da abertura:
+
+```text
+?siteData=2026-08-08T21:59:50-03:00
+```
+
+Exatamente no horário da abertura:
+
+```text
+?siteData=2026-08-08T22:00:00-03:00
+```
+
 Depois do evento:
 
 ```text
@@ -60,6 +74,27 @@ Depois do evento:
 ```
 
 O parâmetro antigo `missaoData` continua aceito para não quebrar os testes da Jornada das Missões.
+
+## Texto da tela fechada
+
+Os textos exibidos antes das 22h ficam no bloco:
+
+```text
+estadosSite.acessoFechado
+```
+
+O horário de abertura é controlado por:
+
+```text
+estadosSite.inicioPosEvento
+```
+
+## Limite do bloqueio
+
+O GitHub Pages publica arquivos estáticos. A tela fechada impede o acesso
+normal pelo navegador e pelo QR Code, mas não funciona como autenticação:
+os arquivos continuam tecnicamente públicos no repositório. Para este evento,
+ela foi pensada como uma liberação programada para os visitantes comuns.
 
 
 ## Liberação manual das fotos

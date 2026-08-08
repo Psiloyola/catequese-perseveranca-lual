@@ -12,6 +12,14 @@
     "fusoHorario": "America/Sao_Paulo",
     "inicioDiaEvento": "2026-08-08T00:00:00-03:00",
     "inicioPosEvento": "2026-08-08T22:00:00-03:00",
+    "acessoFechado": {
+      "selo": "1º Lual da Perseverança",
+      "titulo": "Este site abre hoje às 22h",
+      "texto": "Agora é hora de viver o Lual por inteiro. Depois do encerramento, volte aqui para ouvir as músicas, conhecer os santos e continuar sua missão.",
+      "contagemRotulo": "Falta pouco para abrir",
+      "horario": "Abertura às 22h · Horário de Brasília",
+      "avisoAutomatico": "O conteúdo será liberado automaticamente quando a contagem chegar ao fim."
+    },
     "antes": {
       "selo": "Nosso encontro está chegando",
       "titulo": "Prepare o coração para o Lual",

@@ -79,6 +79,12 @@ const validateHtml = () => {
   }
 
   for (const id of [
+    "site-gate",
+    "site-gate-title",
+    "site-gate-countdown",
+    "site-gate-hours",
+    "site-gate-minutes",
+    "site-gate-seconds",
     "conteudo-principal",
     "titulo-principal",
     "fotos",
@@ -106,6 +112,10 @@ const validateHtml = () => {
 
   if (!/<meta\s+name=["']description["']/i.test(html)) {
     warn("O index.html não possui meta description.");
+  }
+
+  if (!/<body\b[^>]*\bdata-site-access=["']checking["']/i.test(html)) {
+    error('O <body> deve iniciar com data-site-access="checking".');
   }
 };
 
@@ -194,6 +204,60 @@ const validateContent = () => {
     (!Array.isArray(content.galeria?.fotos) || content.galeria.fotos.length === 0)
   ) {
     error("A galeria está liberada, mas não possui fotos.");
+  }
+
+  const siteStates = content.estadosSite;
+
+  if (
+    !siteStates ||
+    typeof siteStates !== "object" ||
+    Array.isArray(siteStates)
+  ) {
+    error('"estadosSite" deve ser um objeto JSON.');
+  } else {
+    if (siteStates.fusoHorario !== "America/Sao_Paulo") {
+      error('"estadosSite.fusoHorario" deve ser "America/Sao_Paulo".');
+    }
+
+    for (const field of ["inicioDiaEvento", "inicioPosEvento"]) {
+      if (!validDate(siteStates[field])) {
+        error(`"estadosSite.${field}" não é uma data válida.`);
+      }
+    }
+
+    if (
+      validDate(siteStates.inicioDiaEvento) &&
+      validDate(siteStates.inicioPosEvento) &&
+      Date.parse(siteStates.inicioDiaEvento) >= Date.parse(siteStates.inicioPosEvento)
+    ) {
+      error('"estadosSite.inicioPosEvento" deve ocorrer depois de "inicioDiaEvento".');
+    }
+
+    const closedAccess = siteStates.acessoFechado;
+
+    if (
+      !closedAccess ||
+      typeof closedAccess !== "object" ||
+      Array.isArray(closedAccess)
+    ) {
+      error('"estadosSite.acessoFechado" deve ser um objeto JSON.');
+    } else {
+      for (const field of [
+        "selo",
+        "titulo",
+        "texto",
+        "contagemRotulo",
+        "horario",
+        "avisoAutomatico"
+      ]) {
+        if (
+          typeof closedAccess[field] !== "string" ||
+          !closedAccess[field].trim()
+        ) {
+          error(`"estadosSite.acessoFechado.${field}" precisa ser preenchido.`);
+        }
+      }
+    }
   }
 
   const saints = content.santos;

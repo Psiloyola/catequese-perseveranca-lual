@@ -3,10 +3,12 @@
 (() => {
   const CONTENT_URL = "data/content.json";
   const MURAL_URL = "data/mural.json";
+  const SITE_OPEN_AT_FALLBACK = "2026-08-08T22:00:00-03:00";
   const DESKTOP_MEDIA_QUERY = window.matchMedia("(min-width: 64rem)");
   const REDUCED_MOTION_QUERY = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   );
+  let siteAccessTimer = null;
   let sitePhaseTimer = null;
 
   const getElement = (id) => document.getElementById(id);
@@ -1120,6 +1122,166 @@
     return Number.isNaN(simulated.getTime()) ? current : simulated;
   };
 
+  const getSiteAccessTarget = (states = {}) => {
+    const configuredValue = states.inicioPosEvento;
+    const configuredTarget = new Date(configuredValue || "");
+
+    if (!Number.isNaN(configuredTarget.getTime())) {
+      return {
+        date: configuredTarget,
+        value: configuredValue,
+        configured: true
+      };
+    }
+
+    return {
+      date: new Date(SITE_OPEN_AT_FALLBACK),
+      value: SITE_OPEN_AT_FALLBACK,
+      configured: false
+    };
+  };
+
+  const formatSiteAccessCountdown = (target, now) => {
+    const difference = Math.max(0, target.getTime() - now.getTime());
+    const totalSeconds = Math.ceil(difference / 1000);
+    const totalHours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    const parts = [];
+
+    if (totalHours > 0) {
+      parts.push(`${totalHours} ${totalHours === 1 ? "hora" : "horas"}`);
+    }
+
+    if (minutes > 0 || totalHours > 0) {
+      parts.push(`${minutes} ${minutes === 1 ? "minuto" : "minutos"}`);
+    }
+
+    parts.push(`${seconds} ${seconds === 1 ? "segundo" : "segundos"}`);
+
+    const readable =
+      parts.length === 1
+        ? parts[0]
+        : `${parts.slice(0, -1).join(", ")} e ${parts.at(-1)}`;
+
+    return {
+      totalSeconds,
+      hours: String(totalHours).padStart(2, "0"),
+      minutes: String(minutes).padStart(2, "0"),
+      seconds: String(seconds).padStart(2, "0"),
+      readable: `Faltam ${readable} para o site abrir.`
+    };
+  };
+
+  const renderSiteAccess = (states = {}) => {
+    const target = getSiteAccessTarget(states);
+    const now = getSiteNow();
+    const locked = now < target.date;
+    const gate = getElement("site-gate");
+    const accessContent = states.acessoFechado || {};
+
+    document.body.dataset.siteAccess = locked ? "locked" : "open";
+
+    if (gate) {
+      gate.hidden = !locked;
+      gate.setAttribute("aria-hidden", String(!locked));
+      gate.setAttribute("aria-busy", "false");
+    }
+
+    if (!locked) {
+      delete document.body.dataset.siteAccessImminent;
+      return { locked, now, target: target.date };
+    }
+
+    document.body.classList.remove("menu-open");
+    setText(
+      "site-gate-eyebrow",
+      accessContent.selo,
+      "1º Lual da Perseverança"
+    );
+    setText(
+      "site-gate-title",
+      accessContent.titulo,
+      "Este site abre hoje às 22h"
+    );
+    setText(
+      "site-gate-message",
+      accessContent.texto,
+      "Agora é hora de viver o Lual por inteiro. Depois do encerramento, volte aqui para continuar sua missão."
+    );
+    setText(
+      "site-gate-opening",
+      accessContent.horario,
+      "Abertura às 22h · Horário de Brasília"
+    );
+    setText(
+      "site-gate-opening-note",
+      accessContent.avisoAutomatico,
+      "O conteúdo será liberado automaticamente quando a contagem chegar ao fim."
+    );
+
+    const opening = getElement("site-gate-opening");
+
+    if (opening) {
+      opening.setAttribute("datetime", target.value);
+    }
+
+    const countdown = formatSiteAccessCountdown(target.date, now);
+    const imminent = countdown.totalSeconds <= 300;
+    const countdownElement = getElement("site-gate-countdown");
+
+    document.body.dataset.siteAccessImminent = String(imminent);
+    setText("site-gate-hours", countdown.hours, "00");
+    setText("site-gate-minutes", countdown.minutes, "00");
+    setText("site-gate-seconds", countdown.seconds, "00");
+    setText(
+      "site-gate-countdown-label",
+      imminent ? "Está quase na hora!" : accessContent.contagemRotulo,
+      "Falta pouco para abrir"
+    );
+
+    if (countdownElement) {
+      countdownElement.setAttribute("aria-label", countdown.readable);
+    }
+
+    return { locked, now, target: target.date };
+  };
+
+  const startSiteAccessClock = (states = {}, galeria = {}) => {
+    if (siteAccessTimer) {
+      window.clearInterval(siteAccessTimer);
+      siteAccessTimer = null;
+    }
+
+    const hasPhaseConfiguration =
+      typeof states.inicioPosEvento === "string" &&
+      states.inicioPosEvento.trim();
+
+    const updateAccess = () => {
+      const wasLocked = document.body.dataset.siteAccess !== "open";
+      const access = renderSiteAccess(states);
+
+      if (!access.locked) {
+        if (wasLocked && hasPhaseConfiguration) {
+          renderSitePhase(states, galeria);
+        }
+
+        if (siteAccessTimer) {
+          window.clearInterval(siteAccessTimer);
+          siteAccessTimer = null;
+        }
+      }
+
+      return access;
+    };
+
+    const access = updateAccess();
+
+    if (access.locked) {
+      siteAccessTimer = window.setInterval(updateAccess, 1000);
+    }
+  };
+
   const configureInternalAction = (id, action = {}, fallback = {}) => {
     const element = getElement(id);
 
@@ -2094,6 +2256,7 @@
     renderNextMeeting(content.proximoEncontro);
     renderSitePhase(content.estadosSite, content.galeria);
     startSitePhaseClock(content.estadosSite, content.galeria);
+    startSiteAccessClock(content.estadosSite, content.galeria);
   };
 
   const showLoadingError = () => {
@@ -2297,6 +2460,7 @@
   };
 
   const initializeApp = () => {
+    startSiteAccessClock();
     initializeNavigation();
     initializeHorizontalScrollers();
     initializeDisabledActions();

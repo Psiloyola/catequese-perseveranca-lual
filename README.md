@@ -12,12 +12,25 @@ Site estático do 1º Lual da Perseverança da Paróquia Santo Inácio de Loyola
 - Missão e próximo encontro carregados pelo JSON;
 - Seleção interativa de três entre 17 pequenos hábitos de fé;
 - Mural moderado com chamada para participação;
+- Tela de abertura programada com mensagem e contagem regressiva;
 - Publicação compatível com GitHub Pages;
 - QR Code permanente enquanto a URL do repositório permanecer a mesma.
 
 ## Executar localmente
 
 Abra o projeto no VS Code e use o Live Server. O site precisa ser servido por HTTP para que os arquivos JSON sejam carregados corretamente.
+
+Para testar a tela fechada, acrescente ao endereço local:
+
+```text
+?siteData=2026-08-08T21:59:50-03:00
+```
+
+Para testar o site já aberto:
+
+```text
+?siteData=2026-08-08T22:00:00-03:00
+```
 
 ## Conteúdo editável
 
