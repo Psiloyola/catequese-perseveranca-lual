@@ -48,6 +48,10 @@ Coloque as imagens em `assets/images/santos/` e preencha os campos `imagem` e
 os destaques do card. Use `posicaoImagem`, por exemplo `"50% 24%"`, para ajustar
 o enquadramento sem editar o arquivo original.
 
+O bloco `detalhes` alimenta a ficha aberta pelo botão “Conheça sua história”.
+Preencha nascimento, morte, reconhecimento, símbolos, curiosidades e fonte. O
+modelo completo está em `docs/cards-santos.md`.
+
 ## Mural
 
 Preencha `mural.linkFormulario`, em `data/content.json`, com o link público do

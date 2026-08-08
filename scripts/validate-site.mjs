@@ -144,6 +144,17 @@ const collectReferences = (value) => {
 const validDate = (value) =>
   typeof value === "string" && !Number.isNaN(Date.parse(value));
 
+const validHttpUrl = (value) => {
+  if (typeof value !== "string" || !value.trim()) return false;
+
+  try {
+    const url = new URL(value.trim());
+    return ["http:", "https:"].includes(url.protocol);
+  } catch {
+    return false;
+  }
+};
+
 const validateContent = () => {
   const file = "data/content.json";
   const text = readText(file);
@@ -221,6 +232,66 @@ const validateContent = () => {
         !imagePositionPattern.test(saint.posicaoImagem.trim())
       ) {
         error(`A posição de imagem de "${name || `santo ${index + 1}`}" é inválida.`);
+      }
+
+      const details = saint?.detalhes;
+
+      if (!details || typeof details !== "object" || Array.isArray(details)) {
+        error(`"${name || `Santo ${index + 1}`}" precisa do bloco "detalhes".`);
+        return;
+      }
+
+      for (const field of ["nascimento", "morte"]) {
+        if (typeof details[field] !== "string" || !details[field].trim()) {
+          error(`Os detalhes de "${name}" precisam do campo "${field}".`);
+        }
+      }
+
+      const recognition = details.reconhecimento;
+
+      if (
+        !recognition ||
+        typeof recognition !== "object" ||
+        Array.isArray(recognition)
+      ) {
+        error(`Os detalhes de "${name}" precisam do bloco "reconhecimento".`);
+      } else {
+        for (const field of ["titulo", "data"]) {
+          if (
+            typeof recognition[field] !== "string" ||
+            !recognition[field].trim()
+          ) {
+            error(`O reconhecimento de "${name}" precisa do campo "${field}".`);
+          }
+        }
+      }
+
+      for (const field of ["simbolos", "curiosidades"]) {
+        const values = details[field];
+
+        if (
+          !Array.isArray(values) ||
+          values.length === 0 ||
+          values.some(
+            (value) => typeof value !== "string" || !value.trim()
+          )
+        ) {
+          error(`Os detalhes de "${name}" precisam de uma lista válida em "${field}".`);
+        }
+      }
+
+      const source = details.fonte;
+
+      if (!source || typeof source !== "object" || Array.isArray(source)) {
+        error(`Os detalhes de "${name}" precisam do bloco "fonte".`);
+      } else {
+        if (typeof source.rotulo !== "string" || !source.rotulo.trim()) {
+          error(`A fonte de "${name}" precisa do campo "rotulo".`);
+        }
+
+        if (!validHttpUrl(source.url)) {
+          error(`A fonte de "${name}" precisa de uma URL HTTP(S) válida.`);
+        }
       }
     });
   }

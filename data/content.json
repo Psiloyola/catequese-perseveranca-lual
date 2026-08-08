@@ -108,10 +108,32 @@
       "textoAlternativo": "Retrato de São Carlo Acutis",
       "posicaoImagem": "50% 24%",
       "virtude": "Eucaristia e missão digital",
-      "frase": "Não eu, mas Deus.",
+      "frase": "Todos nascem como originais, mas muitos morrem como fotocópias.",
       "resumo": "Um jovem apaixonado pela Eucaristia, que usou seus talentos para evangelizar.",
       "inspiracao": "Coloque seus talentos a serviço do Evangelho.",
-      "link": ""
+      "detalhes": {
+        "nascimento": "3 de maio de 1991 — Londres, Inglaterra",
+        "morte": "12 de outubro de 2006 — Monza, Itália",
+        "reconhecimento": {
+          "titulo": "Canonização",
+          "data": "7 de setembro de 2025"
+        },
+        "simbolos": [
+          "Computador",
+          "Eucaristia",
+          "Terço",
+          "Tênis e mochila"
+        ],
+        "curiosidades": [
+          "Criou um site e uma exposição digital reunindo milagres eucarísticos de várias partes do mundo.",
+          "Era apaixonado pela Eucaristia e participava diariamente da Santa Missa.",
+          "Tornou-se o primeiro santo da geração millennial."
+        ],
+        "fonte": {
+          "rotulo": "Biografia no Vatican News",
+          "url": "https://www.vaticannews.va/pt/igreja/news/2025-07/canonizacao-carlo-acutis-momento-historico-no-brasil-7-setembro.html"
+        }
+      }
     },
     {
       "nome": "São Domingos Sávio",
@@ -119,10 +141,32 @@
       "textoAlternativo": "Retrato de São Domingos Sávio",
       "posicaoImagem": "50% 22%",
       "virtude": "Alegria e santidade",
-      "frase": "Quero ser santo e não apenas bom.",
+      "frase": "Antes morrer do que pecar.",
       "resumo": "Um exemplo de santidade vivida na adolescência com alegria e amizade com Jesus.",
       "inspiracao": "Viva cada dever com alegria e amor a Jesus.",
-      "link": ""
+      "detalhes": {
+        "nascimento": "2 de abril de 1842 — Riva di Chieri, Itália",
+        "morte": "9 de março de 1857 — Mondonio, Itália",
+        "reconhecimento": {
+          "titulo": "Canonização",
+          "data": "12 de junho de 1954"
+        },
+        "simbolos": [
+          "Lírio",
+          "Livro escolar",
+          "Crucifixo",
+          "Uniforme de estudante"
+        ],
+        "curiosidades": [
+          "Foi aluno de São João Bosco.",
+          "Morreu aos 14 anos e tornou-se um dos santos mais jovens da Igreja.",
+          "Com seus amigos, fundou a Companhia da Imaculada Conceição."
+        ],
+        "fonte": {
+          "rotulo": "Biografia oficial salesiana",
+          "url": "https://sdl.sdb.org/greenstone3/library/collection/ufficio/document/HASH013ec4e64a9ea253abccd0d4"
+        }
+      }
     },
     {
       "nome": "São Pier Giorgio Frassati",
@@ -130,10 +174,32 @@
       "textoAlternativo": "Fotografia de São Pier Giorgio Frassati",
       "posicaoImagem": "50% 18%",
       "virtude": "Caridade e vida leiga",
-      "frase": "Rumo ao alto!",
+      "frase": "Verso l'Alto! — Para o Alto!",
       "resumo": "Um jovem de fé, amizade e caridade que levou Cristo aos irmãos.",
       "inspiracao": "Leve sua fé para as amizades e para o cuidado com quem precisa.",
-      "link": ""
+      "detalhes": {
+        "nascimento": "6 de abril de 1901 — Turim, Itália",
+        "morte": "4 de julho de 1925 — Turim, Itália",
+        "reconhecimento": {
+          "titulo": "Canonização",
+          "data": "7 de setembro de 2025"
+        },
+        "simbolos": [
+          "Montanhas",
+          "Mochila",
+          "Terço",
+          "Alpinismo"
+        ],
+        "curiosidades": [
+          "Amava escalar montanhas e ajudava os pobres de Turim, muitas vezes em segredo.",
+          "Sua vida uniu oração, amizade, esporte e compromisso social.",
+          "Foi canonizado ao lado de Carlo Acutis em 2025."
+        ],
+        "fonte": {
+          "rotulo": "Biografia no Vatican News",
+          "url": "https://www.vaticannews.va/pt/papa/news/2025-09/papa-leao-xiv-missa-canonizacao-frassati-biografia.html"
+        }
+      }
     },
     {
       "nome": "Santa Teresinha do Menino Jesus",
@@ -141,10 +207,32 @@
       "textoAlternativo": "Retrato de Santa Teresinha do Menino Jesus",
       "posicaoImagem": "50% 34%",
       "virtude": "Amor nas pequenas coisas",
-      "frase": "Quero passar meu céu fazendo o bem na terra.",
+      "frase": "No coração da Igreja, minha Mãe, eu serei o amor.",
       "resumo": "Ensinou que pequenas atitudes feitas com amor transformam o mundo.",
       "inspiracao": "Transforme gestos simples em ofertas de amor.",
-      "link": ""
+      "detalhes": {
+        "nascimento": "2 de janeiro de 1873 — Alençon, França",
+        "morte": "30 de setembro de 1897 — Lisieux, França",
+        "reconhecimento": {
+          "titulo": "Canonização",
+          "data": "17 de maio de 1925"
+        },
+        "simbolos": [
+          "Rosas",
+          "Crucifixo",
+          "Carmelo",
+          "Chuva de rosas"
+        ],
+        "curiosidades": [
+          "Ensinou o caminho da santidade pelas pequenas ações realizadas com grande amor.",
+          "É conhecida como a Santa das Rosas.",
+          "Foi proclamada Doutora da Igreja em 1997."
+        ],
+        "fonte": {
+          "rotulo": "Biografia no Vaticano",
+          "url": "https://www.vatican.va/news_services/liturgy/documents/ns_lit_doc_19101997_stherese_en.html"
+        }
+      }
     },
     {
       "nome": "Santa Maria Goretti",
@@ -152,10 +240,32 @@
       "textoAlternativo": "Retrato de Santa Maria Goretti",
       "posicaoImagem": "50% 28%",
       "virtude": "Coragem e perdão",
-      "frase": "Perdoar é amar como Cristo.",
+      "frase": "Eu o perdoo e quero vê-lo comigo no céu.",
       "resumo": "Uma jovem testemunha de fé, perdão e confiança em Deus.",
       "inspiracao": "Escolha a paz sem abrir mão da sua dignidade.",
-      "link": ""
+      "detalhes": {
+        "nascimento": "16 de outubro de 1890 — Corinaldo, Itália",
+        "morte": "6 de julho de 1902 — Nettuno, Itália",
+        "reconhecimento": {
+          "titulo": "Canonização",
+          "data": "24 de junho de 1950"
+        },
+        "simbolos": [
+          "Lírios",
+          "Palma do martírio",
+          "Vestido branco",
+          "Crucifixo"
+        ],
+        "curiosidades": [
+          "Foi martirizada aos 11 anos depois de resistir à violência e defender sua dignidade.",
+          "Antes de morrer, perdoou o homem que a atacou.",
+          "Ele se converteu e esteve presente em sua canonização."
+        ],
+        "fonte": {
+          "rotulo": "Biografia no Vatican News",
+          "url": "https://www.vaticannews.va/pt/santo-do-dia/07/06/s--maria-goretti--virgem-e-martir.html"
+        }
+      }
     },
     {
       "nome": "Beata Chiara Badano",
@@ -163,10 +273,32 @@
       "textoAlternativo": "Fotografia da Beata Chiara Badano",
       "posicaoImagem": "50% 30%",
       "virtude": "Alegria e fidelidade",
-      "frase": "Tenho Jesus, tenho tudo.",
+      "frase": "Se Tu queres, Jesus, eu também quero.",
       "resumo": "Uma jovem que viveu a alegria e a fé mesmo diante das dificuldades.",
       "inspiracao": "Permaneça com Jesus também nos dias difíceis.",
-      "link": ""
+      "detalhes": {
+        "nascimento": "29 de outubro de 1971 — Sassello, Itália",
+        "morte": "7 de outubro de 1990 — Sassello, Itália",
+        "reconhecimento": {
+          "titulo": "Beatificação",
+          "data": "25 de setembro de 2010"
+        },
+        "simbolos": [
+          "Sorriso",
+          "Cruz",
+          "Flores",
+          "Movimento dos Focolares"
+        ],
+        "curiosidades": [
+          "Enfrentou um osteossarcoma muito agressivo sem perder a alegria.",
+          "Oferecia seus sofrimentos por amor a Deus.",
+          "Recebeu de Chiara Lubich o nome Luce, que significa luz."
+        ],
+        "fonte": {
+          "rotulo": "Biografia no Vatican News",
+          "url": "https://www.vaticannews.va/fr/eglise/news/2019-10/histoire-de-saintete-bienheureuse-chiara-luce-badano.html"
+        }
+      }
     }
   ],
   "videos": {

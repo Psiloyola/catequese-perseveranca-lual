@@ -8,7 +8,7 @@ Site estático do 1º Lual da Perseverança da Paróquia Santo Inácio de Loyola
 - Página responsiva com prioridade para celulares;
 - Foto principal com carrossel horizontal de registros;
 - Player principal do YouTube com seletor horizontal de vídeos;
-- Coleção horizontal de santos com gesto, setas, teclado e indicadores;
+- Coleção horizontal de santos com gesto, setas, teclado, indicadores e fichas completas;
 - Missão e próximo encontro carregados pelo JSON;
 - Mural moderado com chamada para participação;
 - Publicação compatível com GitHub Pages;

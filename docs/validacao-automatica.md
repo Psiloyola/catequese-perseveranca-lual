@@ -21,6 +21,7 @@ GitHub Pages.
 - arquivos locais citados no HTML, CSS e JSON;
 - flag `galeria.liberada`;
 - galeria liberada sem fotos;
+- fichas completas dos santos e URLs das fontes;
 - sete missões com IDs únicos;
 - datas da jornada;
 - imagens excessivamente grandes.

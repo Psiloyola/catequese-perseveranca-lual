@@ -317,6 +317,130 @@
     selectPhoto(0);
   };
 
+  const populateSaintProfileList = (list, values) => {
+    if (!list) {
+      return false;
+    }
+
+    const validValues = Array.isArray(values)
+      ? values.filter(
+          (value) => typeof value === "string" && value.trim()
+        )
+      : [];
+    const fragment = document.createDocumentFragment();
+
+    validValues.forEach((value) => {
+      const item = document.createElement("li");
+      item.textContent = value.trim();
+      fragment.append(item);
+    });
+
+    list.replaceChildren(fragment);
+    return validValues.length > 0;
+  };
+
+  const openSaintProfile = (saint = {}) => {
+    const dialog = getElement("perfil-santo-dialogo");
+    const details = saint.detalhes;
+
+    if (!dialog || !details || typeof details !== "object") {
+      return;
+    }
+
+    const saintName = saint.nome?.trim() || "Santo em destaque";
+    const image = getElement("perfil-santo-imagem");
+    const safeImage = getSafeUrl(saint.imagem);
+
+    if (image && safeImage) {
+      image.src = safeImage;
+      image.alt =
+        saint.textoAlternativo?.trim() || `Retrato de ${saintName}`;
+      image.style.objectPosition = getSafeObjectPosition(
+        saint.posicaoImagem
+      );
+      image.hidden = false;
+    } else if (image) {
+      image.removeAttribute("src");
+      image.alt = "";
+      image.hidden = true;
+    }
+
+    setText("perfil-santo-virtude", saint.virtude, "Testemunho jovem");
+    setText("perfil-santo-nome", saintName);
+    setText(
+      "perfil-santo-frase",
+      saint.frase?.trim() ? `“${saint.frase.trim()}”` : ""
+    );
+    setText("perfil-santo-nascimento", details.nascimento);
+    setText("perfil-santo-morte", details.morte);
+    setText(
+      "perfil-santo-reconhecimento-titulo",
+      details.reconhecimento?.titulo,
+      "Reconhecimento"
+    );
+    setText(
+      "perfil-santo-reconhecimento-data",
+      details.reconhecimento?.data
+    );
+
+    const hasSymbols = populateSaintProfileList(
+      getElement("perfil-santo-simbolos"),
+      details.simbolos
+    );
+    const symbolsSection = getElement("perfil-santo-simbolos-secao");
+
+    if (symbolsSection) {
+      symbolsSection.hidden = !hasSymbols;
+    }
+
+    const hasFacts = populateSaintProfileList(
+      getElement("perfil-santo-curiosidades"),
+      details.curiosidades
+    );
+    const factsSection = getElement("perfil-santo-curiosidades-secao");
+
+    if (factsSection) {
+      factsSection.hidden = !hasFacts;
+    }
+
+    const source = getElement("perfil-santo-fonte");
+    const safeSource = getSafeUrl(details.fonte?.url);
+
+    if (source && safeSource) {
+      source.href = safeSource;
+      source.hidden = false;
+      setText(
+        "perfil-santo-fonte-rotulo",
+        details.fonte?.rotulo,
+        "Fonte oficial"
+      );
+    } else if (source) {
+      source.hidden = true;
+      source.removeAttribute("href");
+    }
+
+    if (!dialog.open) {
+      dialog.showModal();
+    }
+  };
+
+  const initializeSaintProfile = () => {
+    const dialog = getElement("perfil-santo-dialogo");
+    const closeButton = getElement("perfil-santo-fechar");
+
+    if (!dialog || !closeButton) {
+      return;
+    }
+
+    closeButton.addEventListener("click", () => dialog.close());
+
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) {
+        dialog.close();
+      }
+    });
+  };
+
   const renderSaints = (saints = []) => {
     const container = getElement("lista-santos");
     const template = getElement("modelo-santo");
@@ -368,7 +492,9 @@
       const inspiration = clone.querySelector(
         ".saint-card__inspiration-text"
       );
-      const link = clone.querySelector(".saint-card__link");
+      const detailsButton = clone.querySelector(
+        ".saint-card__details-button"
+      );
 
       if (!card || !name || !quote || !summary) {
         return;
@@ -409,12 +535,19 @@
           "Escolha hoje um gesto concreto de fé e amor.";
       }
 
-      const safeLink = getSafeUrl(saint.link);
+      const hasDetails =
+        saint.detalhes && typeof saint.detalhes === "object";
 
-      if (link && safeLink) {
-        link.href = safeLink;
-      } else if (link) {
-        link.remove();
+      if (detailsButton && hasDetails) {
+        detailsButton.setAttribute(
+          "aria-label",
+          `Conheça a história de ${saintName}`
+        );
+        detailsButton.addEventListener("click", () => {
+          openSaintProfile(saint);
+        });
+      } else if (detailsButton) {
+        detailsButton.remove();
       }
 
       fragment.append(clone);
@@ -1849,6 +1982,7 @@
     initializeDisabledActions();
     initializeBackToTop();
     initializeCurrentYear();
+    initializeSaintProfile();
     loadContent();
   };
 
