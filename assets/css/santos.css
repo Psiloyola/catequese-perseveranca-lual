@@ -1,31 +1,35 @@
 .santos-grid {
-  display: grid;
-  gap: 1.5rem;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1.5rem;
 }
 
 .santo-card {
-  overflow: hidden;
-  border: 1px solid rgba(217,164,65,.35);
-  border-radius: 24px;
-  background: linear-gradient(160deg,#0e473c,#052b24);
-  color: #f5ead7;
+  overflow:hidden;
+  border-radius:24px;
+  border:1px solid rgba(217,164,65,.35);
+  background:linear-gradient(160deg,#0e473c,#052b24);
+  color:#f5ead7;
 }
 
-.santo-card img {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
+.santo-card__image {
+  width:100%;
+  aspect-ratio:4/5;
+  object-fit:cover;
 }
 
 .santo-card__content {
-  padding: 1.2rem;
+  padding:1.2rem;
 }
 
-.santo-card h3 {
-  color: #d9a441;
+.santo-card__name {
+  color:#d9a441;
 }
 
-.santo-card blockquote {
-  font-style: italic;
-  margin: .8rem 0;
+.santo-card__phrase {
+  font-style:italic;
+}
+
+.santo-card__link {
+  color:#f5ead7;
 }
