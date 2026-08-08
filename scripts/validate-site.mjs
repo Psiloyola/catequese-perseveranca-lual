@@ -85,6 +85,7 @@ const validateHtml = () => {
     "santos",
     "videos",
     "missao",
+    "habitos",
     "mural",
     "proximo-encontro"
   ]) {
@@ -177,6 +178,7 @@ const validateContent = () => {
     "santos",
     "videos",
     "missoesSemana",
+    "habitosFe",
     "mural",
     "proximoEncontro"
   ]) {
@@ -327,6 +329,121 @@ const validateContent = () => {
   for (const field of ["inicioLiberacao", "dataInicial", "dataEncontroFinal"]) {
     if (!validDate(cycle[field])) {
       error(`"missoesSemana.ciclo.${field}" não é uma data válida.`);
+    }
+  }
+
+  const faithHabits = content.habitosFe;
+
+  if (
+    !faithHabits ||
+    typeof faithHabits !== "object" ||
+    Array.isArray(faithHabits)
+  ) {
+    error('"habitosFe" deve ser um objeto JSON.');
+  } else {
+    for (const field of [
+      "selo",
+      "titulo",
+      "descricao",
+      "tituloPlano",
+      "orientacao",
+      "storageKey",
+      "fraseFinal"
+    ]) {
+      if (
+        typeof faithHabits[field] !== "string" ||
+        !faithHabits[field].trim()
+      ) {
+        error(`"habitosFe.${field}" precisa ser um texto preenchido.`);
+      }
+    }
+
+    if (faithHabits.limiteSelecao !== 3) {
+      error('"habitosFe.limiteSelecao" deve ser igual a 3.');
+    }
+
+    const groups = faithHabits.grupos;
+
+    if (!Array.isArray(groups) || groups.length !== 4) {
+      error('"habitosFe.grupos" deve possuir exatamente quatro grupos.');
+    } else {
+      const groupIds = new Set();
+      const habitIds = new Set();
+      let habitCount = 0;
+      const idPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+      groups.forEach((group, groupIndex) => {
+        const position = groupIndex + 1;
+
+        if (!group || typeof group !== "object" || Array.isArray(group)) {
+          error(`O grupo de hábitos ${position} deve ser um objeto JSON.`);
+          return;
+        }
+
+        for (const field of ["id", "titulo", "descricao"]) {
+          if (typeof group[field] !== "string" || !group[field].trim()) {
+            error(`O grupo de hábitos ${position} precisa do campo "${field}".`);
+          }
+        }
+
+        const groupId = group.id?.trim();
+
+        if (groupId && !idPattern.test(groupId)) {
+          error(`ID de grupo de hábitos inválido: ${groupId}`);
+        }
+
+        if (groupId && groupIds.has(groupId)) {
+          error(`ID de grupo de hábitos repetido: ${groupId}`);
+        }
+
+        if (groupId) groupIds.add(groupId);
+
+        if (!Array.isArray(group.itens) || group.itens.length === 0) {
+          error(`O grupo de hábitos "${groupId || position}" precisa de itens.`);
+          return;
+        }
+
+        group.itens.forEach((item, itemIndex) => {
+          habitCount += 1;
+
+          if (!item || typeof item !== "object" || Array.isArray(item)) {
+            error(`O hábito ${itemIndex + 1} do grupo "${groupId || position}" é inválido.`);
+            return;
+          }
+
+          if (typeof item.id !== "string" || !idPattern.test(item.id.trim())) {
+            error(`O hábito ${habitCount} precisa de um ID válido.`);
+          } else if (habitIds.has(item.id.trim())) {
+            error(`ID de hábito repetido: ${item.id.trim()}`);
+          } else {
+            habitIds.add(item.id.trim());
+          }
+
+          if (typeof item.texto !== "string" || !item.texto.trim()) {
+            error(`O hábito ${habitCount} precisa do campo "texto".`);
+          }
+        });
+      });
+
+      if (habitCount !== 17) {
+        error(`A seção de hábitos deve possuir exatamente 17 itens; foram encontrados ${habitCount}.`);
+      }
+    }
+
+    const credit = faithHabits.credito;
+
+    if (!credit || typeof credit !== "object" || Array.isArray(credit)) {
+      error('"habitosFe.credito" deve ser um objeto JSON.');
+    } else {
+      for (const field of ["texto", "nome"]) {
+        if (typeof credit[field] !== "string" || !credit[field].trim()) {
+          error(`"habitosFe.credito.${field}" precisa ser preenchido.`);
+        }
+      }
+
+      if (!validHttpUrl(credit.url)) {
+        error('"habitosFe.credito.url" precisa de uma URL HTTP(S) válida.');
+      }
     }
   }
 

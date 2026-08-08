@@ -11,7 +11,7 @@ Até 7 de agosto de 2026:
 - apresenta o Lual como um encontro que está chegando;
 - mostra contagem regressiva;
 - mantém a seção dos santos disponível;
-- bloqueia fotos, vídeos e mural com uma mensagem de prévia;
+- bloqueia fotos, vídeos, pequenos hábitos e mural com uma mensagem de prévia;
 - mantém a Jornada das Missões informando que começará depois do Lual.
 
 ### Dia do evento
@@ -27,7 +27,7 @@ Em 8 de agosto de 2026, da meia-noite até as 22h:
 
 A partir de 8 de agosto de 2026, às 22h, no horário de Brasília:
 
-- libera automaticamente vídeos, mural e missões;
+- libera automaticamente vídeos, mural, missões e pequenos hábitos de fé;
 - mantém as fotos bloqueadas até a liberação manual no `content.json`;
 - muda a chamada principal para “Reviver o Lual”;
 - direciona para a missão do dia;

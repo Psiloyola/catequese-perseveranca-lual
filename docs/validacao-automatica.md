@@ -24,6 +24,8 @@ GitHub Pages.
 - fichas completas dos santos e URLs das fontes;
 - sete missões com IDs únicos;
 - datas da jornada;
+- quatro grupos e exatamente 17 hábitos de fé com IDs únicos;
+- limite de três escolhas e crédito da reflexão;
 - imagens excessivamente grandes.
 
 ## Executar localmente

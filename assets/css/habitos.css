@@ -1,0 +1,489 @@
+/* =========================================================
+   PEQUENOS HÁBITOS — A MISSÃO CONTINUA
+   ========================================================= */
+
+.section--habits {
+  overflow: hidden;
+  border-top: 1px solid rgba(185, 130, 46, 0.16);
+  background:
+    radial-gradient(circle at 8% 14%, rgba(217, 164, 65, 0.17), transparent 22rem),
+    radial-gradient(circle at 92% 88%, rgba(14, 71, 60, 0.08), transparent 24rem),
+    linear-gradient(180deg, #f0e0c5, var(--color-white-soft));
+}
+
+.section--habits > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.faith-habits__heading {
+  max-width: 55rem;
+  margin-inline: auto;
+}
+
+.faith-habits__heading .section-heading__description {
+  max-width: 48rem;
+}
+
+.faith-habits__plan {
+  position: relative;
+  display: grid;
+  margin-bottom: var(--space-8);
+  overflow: hidden;
+  padding: var(--space-6);
+  border: 1px solid rgba(217, 164, 65, 0.5);
+  border-radius: var(--border-radius-lg);
+  background:
+    radial-gradient(circle at 92% 12%, rgba(217, 164, 65, 0.2), transparent 14rem),
+    linear-gradient(135deg, var(--color-green-forest), var(--color-green-night-deep));
+  color: var(--color-white-soft);
+  box-shadow: var(--shadow-lg);
+  gap: var(--space-4);
+}
+
+.faith-habits__plan::after {
+  position: absolute;
+  right: -3rem;
+  bottom: -3rem;
+  width: 9rem;
+  height: 9rem;
+  border: 1px solid rgba(235, 202, 131, 0.18);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.faith-habits__plan-icon {
+  width: 3rem;
+  height: 3rem;
+  padding: 0.65rem;
+  border: 1px solid rgba(235, 202, 131, 0.45);
+  border-radius: 50%;
+  background: rgba(255, 248, 239, 0.08);
+  filter: drop-shadow(0 0.4rem 0.8rem rgba(0, 0, 0, 0.18));
+}
+
+.faith-habits__plan-copy > p:first-child,
+.faith-habits__selection-eyebrow {
+  margin-bottom: var(--space-1);
+  color: var(--color-gold-soft);
+  font-size: 0.68rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.085em;
+  text-transform: uppercase;
+}
+
+.faith-habits__plan-copy h3 {
+  margin-bottom: var(--space-2);
+  color: var(--color-white-soft);
+  font-size: clamp(1.55rem, 5vw, 2rem);
+}
+
+.faith-habits__plan-copy > p:last-child {
+  max-width: 43rem;
+  margin: 0;
+  color: var(--color-ivory-warm);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+#habitos-contador {
+  position: relative;
+  z-index: 1;
+  justify-self: start;
+  padding: 0.62rem 0.85rem;
+  border: 1px solid rgba(235, 202, 131, 0.42);
+  border-radius: var(--border-radius-pill);
+  background: rgba(255, 248, 239, 0.09);
+  color: var(--color-gold-soft);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.035em;
+  white-space: nowrap;
+}
+
+.faith-habits__groups {
+  display: grid;
+  align-items: start;
+  gap: var(--space-4);
+}
+
+.faith-habit-group {
+  overflow: hidden;
+  border: 1px solid rgba(185, 130, 46, 0.3);
+  border-radius: var(--border-radius-lg);
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: var(--shadow-sm);
+  transition:
+    border-color var(--transition-normal),
+    box-shadow var(--transition-normal),
+    transform var(--transition-normal);
+}
+
+.faith-habit-group[open] {
+  border-color: rgba(185, 130, 46, 0.58);
+  box-shadow: var(--shadow-md);
+}
+
+.faith-habit-group > summary {
+  display: grid;
+  min-height: 6.25rem;
+  padding: var(--space-4);
+  align-items: center;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--space-3);
+  cursor: pointer;
+  list-style: none;
+}
+
+.faith-habit-group > summary::-webkit-details-marker {
+  display: none;
+}
+
+.faith-habit-group > summary:focus-visible {
+  outline: 0.2rem solid var(--color-focus);
+  outline-offset: -0.25rem;
+}
+
+.faith-habit-group__number {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid rgba(217, 164, 65, 0.52);
+  border-radius: 50%;
+  place-items: center;
+  background: var(--color-green-night);
+  color: var(--color-gold-soft);
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.faith-habit-group__heading {
+  display: grid;
+  min-width: 0;
+  gap: 0.15rem;
+}
+
+.faith-habit-group__count {
+  color: var(--color-gold-burned);
+  font-size: 0.64rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+
+.faith-habit-group__title {
+  color: var(--color-green-night);
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 4vw, 1.55rem);
+  line-height: 1.08;
+}
+
+.faith-habit-group__toggle {
+  display: grid;
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 50%;
+  place-items: center;
+  background: rgba(14, 71, 60, 0.08);
+  color: var(--color-green-forest);
+  font-size: 1.35rem;
+  line-height: 1;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-normal);
+}
+
+.faith-habit-group[open] .faith-habit-group__toggle {
+  background: var(--color-green-night);
+  color: var(--color-gold-soft);
+  transform: rotate(45deg);
+}
+
+.faith-habit-group__body {
+  padding: 0 var(--space-4) var(--space-4);
+}
+
+.faith-habit-group__description {
+  margin: 0;
+  padding: var(--space-4) 0;
+  border-top: 1px solid rgba(185, 130, 46, 0.18);
+  color: var(--color-text-muted);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.faith-habit-group__list {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.faith-habit-item {
+  position: relative;
+  display: grid;
+  min-height: 4.7rem;
+  padding: var(--space-3);
+  border: 1px solid rgba(14, 71, 60, 0.12);
+  border-radius: var(--border-radius-md);
+  align-items: center;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--space-3);
+  background: rgba(245, 234, 215, 0.42);
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.faith-habit-item input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.faith-habit-item:has(input:focus-visible) {
+  outline: 0.2rem solid var(--color-focus);
+  outline-offset: 0.15rem;
+}
+
+.faith-habit-item__number {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  place-items: center;
+  background: rgba(14, 71, 60, 0.09);
+  color: var(--color-green-forest);
+  font-size: 0.7rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.faith-habit-item__text {
+  color: var(--color-ink);
+  font-size: 0.84rem;
+  line-height: 1.52;
+}
+
+.faith-habit-item__check {
+  display: grid;
+  width: 1.85rem;
+  height: 1.85rem;
+  border: 1px solid rgba(14, 71, 60, 0.3);
+  border-radius: 50%;
+  place-items: center;
+  color: transparent;
+  font-size: 0.78rem;
+  font-weight: var(--font-weight-bold);
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.faith-habit-item.is-selected {
+  border-color: rgba(185, 130, 46, 0.64);
+  background: rgba(217, 164, 65, 0.12);
+  box-shadow: 0 0.45rem 1.25rem rgba(5, 43, 36, 0.08);
+}
+
+.faith-habit-item.is-selected .faith-habit-item__number {
+  background: var(--color-green-night);
+  color: var(--color-gold-soft);
+}
+
+.faith-habit-item.is-selected .faith-habit-item__check {
+  border-color: var(--color-green-night);
+  background: var(--color-green-night);
+  color: var(--color-white-soft);
+  transform: scale(1.05);
+}
+
+.faith-habit-item.is-unavailable {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.faith-habits__selection {
+  display: grid;
+  margin-top: var(--space-8);
+  padding: var(--space-6);
+  border: 1px solid rgba(217, 164, 65, 0.42);
+  border-radius: var(--border-radius-lg);
+  background:
+    radial-gradient(circle at 95% 10%, rgba(217, 164, 65, 0.14), transparent 13rem),
+    linear-gradient(145deg, rgba(5, 43, 36, 0.98), rgba(3, 30, 25, 0.98));
+  color: var(--color-white-soft);
+  box-shadow: var(--shadow-md);
+  gap: var(--space-5);
+}
+
+.faith-habits__selection h3 {
+  margin-bottom: var(--space-2);
+  color: var(--color-white-soft);
+  font-size: clamp(1.5rem, 5vw, 1.9rem);
+}
+
+#habitos-selecao-status {
+  margin: 0;
+  color: var(--color-ivory-warm);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.faith-habits__selected-list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  list-style: none;
+}
+
+.faith-habits__selected-list li {
+  padding: 0.48rem 0.7rem;
+  border: 1px solid rgba(235, 202, 131, 0.36);
+  border-radius: var(--border-radius-pill);
+  background: rgba(255, 248, 239, 0.07);
+  color: var(--color-gold-soft);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.faith-habits__clear {
+  justify-self: start;
+  padding: 0;
+  background: transparent;
+  color: var(--color-gold-soft);
+}
+
+.faith-habits__closing {
+  max-width: 50rem;
+  margin: var(--space-10) auto var(--space-5);
+  padding: var(--space-5) var(--space-6);
+  border-right: 1px solid rgba(185, 130, 46, 0.3);
+  border-left: 1px solid rgba(185, 130, 46, 0.3);
+  color: var(--color-green-night);
+  text-align: center;
+}
+
+.faith-habits__closing p {
+  margin: 0;
+  font-size: clamp(1.3rem, 4vw, 1.75rem);
+  line-height: 1.35;
+}
+
+.faith-habits__credit {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+.faith-habits__credit a {
+  color: var(--color-green-forest);
+  font-weight: var(--font-weight-bold);
+}
+
+@media (hover: hover) {
+  .faith-habit-group:hover {
+    border-color: rgba(185, 130, 46, 0.56);
+    transform: translateY(-0.15rem);
+  }
+
+  .faith-habit-item:not(.is-unavailable):hover {
+    border-color: rgba(185, 130, 46, 0.52);
+    background: rgba(217, 164, 65, 0.1);
+    transform: translateY(-0.08rem);
+  }
+}
+
+@media (min-width: 48rem) {
+  .faith-habits__plan {
+    padding: var(--space-8);
+    align-items: center;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: var(--space-5);
+  }
+
+  #habitos-contador {
+    justify-self: end;
+  }
+
+  .faith-habits__groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .faith-habit-group[open] {
+    order: -1;
+    grid-column: 1 / -1;
+  }
+
+  .faith-habit-group[open] .faith-habit-group__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .faith-habits__selection {
+    padding: var(--space-8);
+    grid-template-columns: minmax(15rem, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
+  }
+
+  .faith-habits__clear {
+    grid-column: 2;
+  }
+}
+
+@media (min-width: 64rem) {
+  .faith-habits__groups {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media print {
+  .section--habits {
+    border: 0;
+    background: none;
+  }
+
+  .faith-habits__plan,
+  .faith-habits__selection,
+  .faith-habit-group {
+    border: 1px solid #999999;
+    background: none;
+    box-shadow: none;
+    color: var(--color-black);
+  }
+
+  .faith-habit-group__body {
+    display: block !important;
+  }
+
+  .faith-habit-group__toggle,
+  .faith-habits__clear,
+  .faith-habit-item__check {
+    display: none !important;
+  }
+
+  .faith-habit-item,
+  .faith-habit-item.is-selected {
+    border-color: #cccccc;
+    background: none;
+    box-shadow: none;
+    opacity: 1;
+  }
+
+  .faith-habits__plan-copy h3,
+  .faith-habits__plan-copy > p,
+  .faith-habits__selection h3,
+  #habitos-selecao-status,
+  .faith-habits__selected-list li {
+    color: var(--color-black);
+  }
+}

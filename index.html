@@ -106,6 +106,7 @@
 
   <script src="assets/js/app.js" defer></script>
   <link rel="stylesheet" href="assets/css/santos.css">
+  <link rel="stylesheet" href="assets/css/habitos.css">
 </head>
 
 <body data-site-phase="carregando">
@@ -955,6 +956,139 @@
     </section>
 
     <section
+      class="section section--habits section--decorated"
+      id="habitos"
+      data-pos-evento
+      aria-labelledby="habitos-titulo"
+    >
+      <div class="container">
+        <article class="phase-lock" id="habitos-bloqueio" hidden>
+          <img
+            class="phase-lock__icon"
+            src="assets/images/identity/bonfire.svg"
+            alt=""
+            aria-hidden="true"
+          >
+          <p class="phase-lock__eyebrow" id="habitos-bloqueio-selo">
+            Disponível após o encontro
+          </p>
+          <h2 id="habitos-bloqueio-titulo">
+            Esta parte será liberada depois do Lual
+          </h2>
+          <p id="habitos-bloqueio-texto">
+            Volte depois do encontro para escolher pequenos hábitos de fé.
+          </p>
+          <a class="button button--primary" href="#missao">
+            Conhecer as missões
+          </a>
+        </article>
+
+        <div class="faith-habits">
+          <header class="section-heading section-heading--center faith-habits__heading">
+            <p class="section-heading__eyebrow" id="habitos-selo">
+              A missão continua
+            </p>
+
+            <h2 id="habitos-titulo">
+              Pequenos hábitos, uma fé perseverante
+            </h2>
+
+            <div class="section-ornament" aria-hidden="true">
+              <span></span>
+              <img
+                src="assets/images/identity/cross-gold.svg"
+                alt=""
+              >
+              <span></span>
+            </div>
+
+            <p class="section-heading__description" id="habitos-descricao">
+              A santidade cresce nos pequenos costumes repetidos com amor.
+            </p>
+          </header>
+
+          <article
+            class="faith-habits__plan"
+            aria-labelledby="habitos-plano-titulo"
+          >
+            <img
+              class="faith-habits__plan-icon"
+              src="assets/images/identity/cross-gold.svg"
+              alt=""
+              aria-hidden="true"
+            >
+
+            <div class="faith-habits__plan-copy">
+              <p>Seu pequeno começo</p>
+              <h3 id="habitos-plano-titulo">
+                Escolha três hábitos para começar
+              </h3>
+              <p id="habitos-orientacao">
+                Marque três atitudes que você deseja viver com mais constância.
+              </p>
+            </div>
+
+            <strong id="habitos-contador" aria-live="polite">
+              0 de 3 escolhidos
+            </strong>
+          </article>
+
+          <div
+            class="faith-habits__groups"
+            id="lista-grupos-habitos"
+          >
+            <p class="empty-state">Os hábitos serão carregados em instantes.</p>
+          </div>
+
+          <section
+            class="faith-habits__selection"
+            id="habitos-selecao"
+            aria-labelledby="habitos-selecao-titulo"
+            hidden
+          >
+            <div>
+              <p class="faith-habits__selection-eyebrow">
+                Seu pequeno plano
+              </p>
+              <h3 id="habitos-selecao-titulo">Hábitos que você escolheu</h3>
+              <p id="habitos-selecao-status" aria-live="polite"></p>
+            </div>
+
+            <ul
+              class="faith-habits__selected-list"
+              id="habitos-escolhidos"
+            ></ul>
+
+            <button
+              class="text-link faith-habits__clear"
+              id="habitos-limpar"
+              type="button"
+            >
+              Limpar escolhas
+              <span aria-hidden="true">↺</span>
+            </button>
+          </section>
+
+          <blockquote class="faith-habits__closing">
+            <p id="habitos-frase-final">
+              A perseverança nasce de pequenos passos vividos com fidelidade.
+            </p>
+          </blockquote>
+
+          <p class="faith-habits__credit" id="habitos-credito" hidden>
+            <span id="habitos-credito-texto"></span>
+            <a
+              id="habitos-credito-link"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+            ></a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section
       class="section section--mural section--decorated-dark"
       id="mural"
       data-pos-evento
@@ -1339,6 +1473,33 @@
       </div>
     </div>
   </dialog>
+
+  <template id="modelo-grupo-habitos">
+    <details class="faith-habit-group">
+      <summary>
+        <span class="faith-habit-group__number" aria-hidden="true"></span>
+        <span class="faith-habit-group__heading">
+          <small class="faith-habit-group__count"></small>
+          <strong class="faith-habit-group__title"></strong>
+        </span>
+        <span class="faith-habit-group__toggle" aria-hidden="true">+</span>
+      </summary>
+
+      <div class="faith-habit-group__body">
+        <p class="faith-habit-group__description"></p>
+        <div class="faith-habit-group__list" role="list"></div>
+      </div>
+    </details>
+  </template>
+
+  <template id="modelo-habito-fe">
+    <label class="faith-habit-item" role="listitem">
+      <input type="checkbox">
+      <span class="faith-habit-item__number" aria-hidden="true"></span>
+      <span class="faith-habit-item__text"></span>
+      <span class="faith-habit-item__check" aria-hidden="true">✓</span>
+    </label>
+  </template>
 
   <template id="modelo-mensagem">
     <article class="mural-card" role="listitem" tabindex="0">

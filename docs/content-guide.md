@@ -52,6 +52,17 @@ O bloco `detalhes` alimenta a ficha aberta pelo botão “Conheça sua história
 Preencha nascimento, morte, reconhecimento, símbolos, curiosidades e fonte. O
 modelo completo está em `docs/cards-santos.md`.
 
+## Pequenos hábitos de fé
+
+A seção exibida depois das Missões da Semana é carregada do bloco `habitosFe`.
+Os 17 hábitos ficam distribuídos em quatro grupos. Cada item precisa de um `id`
+único e de um `texto` preenchido.
+
+O participante pode escolher até três hábitos. A seleção fica salva somente no
+navegador por meio da chave definida em `habitosFe.storageKey`. Para alterar os
+textos ou os grupos, edite apenas `data/content.json`. Consulte o modelo e as
+regras em `docs/habitos-fe.md`.
+
 ## Mural
 
 Preencha `mural.linkFormulario`, em `data/content.json`, com o link público do

@@ -7,6 +7,8 @@
 - As missões futuras não são inseridas no HTML.
 - No sábado seguinte, 15 de agosto, aparece o desafio final e as sete missões já vividas.
 - O progresso fica salvo apenas no navegador do participante.
+- Depois da jornada, a seção “Pequenos hábitos, uma fé perseverante” permite
+  escolher três atitudes para continuar vivendo após a semana de missões.
 
 ## Simular datas no Live Server
 

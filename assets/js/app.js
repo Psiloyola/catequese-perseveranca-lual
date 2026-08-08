@@ -1320,6 +1320,7 @@
 
     configurePhaseLock("fotos", !photosAvailable, photosLockContent);
     configurePhaseLock("videos", !isAfter, content.bloqueio);
+    configurePhaseLock("habitos", !isAfter, content.bloqueio);
     configurePhaseLock("mural", !isAfter, content.bloqueio);
     updatePhaseMetadata(content.descricaoPagina);
 
@@ -1755,6 +1756,304 @@
     updateProgress();
   };
 
+  const readFaithHabitSelection = (storageKey) => {
+    try {
+      const stored = window.localStorage.getItem(storageKey);
+      const parsed = stored ? JSON.parse(stored) : [];
+
+      return Array.isArray(parsed)
+        ? parsed.filter(
+            (value) => typeof value === "string" && value.trim()
+          )
+        : [];
+    } catch {
+      return [];
+    }
+  };
+
+  const writeFaithHabitSelection = (storageKey, selectedIds) => {
+    try {
+      window.localStorage.setItem(
+        storageKey,
+        JSON.stringify(Array.from(selectedIds))
+      );
+    } catch {
+      // As escolhas continuam funcionando durante a visita atual.
+    }
+  };
+
+  const renderFaithHabits = (habits = {}) => {
+    const groupsContainer = getElement("lista-grupos-habitos");
+    const groupTemplate = getElement("modelo-grupo-habitos");
+    const habitTemplate = getElement("modelo-habito-fe");
+    const plan = document.querySelector(".faith-habits__plan");
+    const selection = getElement("habitos-selecao");
+    const selectedList = getElement("habitos-escolhidos");
+    const clearButton = getElement("habitos-limpar");
+    const credit = getElement("habitos-credito");
+    const creditLink = getElement("habitos-credito-link");
+
+    setText("habitos-selo", habits.selo, "A missão continua");
+    setText(
+      "habitos-titulo",
+      habits.titulo,
+      "Pequenos hábitos, uma fé perseverante"
+    );
+    setText(
+      "habitos-descricao",
+      habits.descricao,
+      "A santidade cresce nos pequenos costumes repetidos com amor."
+    );
+    setText(
+      "habitos-plano-titulo",
+      habits.tituloPlano,
+      "Escolha três hábitos para começar"
+    );
+    setText(
+      "habitos-orientacao",
+      habits.orientacao,
+      "Marque três atitudes que você deseja viver com mais constância."
+    );
+    setText(
+      "habitos-frase-final",
+      habits.fraseFinal,
+      "A perseverança nasce de pequenos passos vividos com fidelidade."
+    );
+
+    if (
+      !groupsContainer ||
+      !groupTemplate ||
+      !habitTemplate ||
+      !selection ||
+      !selectedList ||
+      !clearButton
+    ) {
+      return;
+    }
+
+    const groups = Array.isArray(habits.grupos)
+      ? habits.grupos.filter(
+          (group) =>
+            group &&
+            typeof group === "object" &&
+            Array.isArray(group.itens) &&
+            group.itens.length > 0
+        )
+      : [];
+    const selectionLimit =
+      Number.isInteger(habits.limiteSelecao) && habits.limiteSelecao > 0
+        ? habits.limiteSelecao
+        : 3;
+    const storageKey =
+      typeof habits.storageKey === "string" && habits.storageKey.trim()
+        ? habits.storageKey.trim()
+        : "psiloyola.habitos-fe";
+    const habitById = new Map();
+
+    groups.forEach((group) => {
+      group.itens.forEach((item) => {
+        if (
+          typeof item?.id === "string" &&
+          item.id.trim() &&
+          typeof item?.texto === "string" &&
+          item.texto.trim()
+        ) {
+          habitById.set(item.id.trim(), item.texto.trim());
+        }
+      });
+    });
+
+    if (habitById.size === 0) {
+      const emptyState = document.createElement("p");
+      emptyState.className = "empty-state";
+      emptyState.textContent =
+        "Os pequenos hábitos serão adicionados em breve.";
+      groupsContainer.replaceChildren(emptyState);
+      selection.hidden = true;
+
+      if (plan) {
+        plan.hidden = true;
+      }
+
+      return;
+    }
+
+    if (plan) {
+      plan.hidden = false;
+    }
+
+    const savedIds = readFaithHabitSelection(storageKey)
+      .filter((id) => habitById.has(id))
+      .slice(0, selectionLimit);
+    const selectedIds = new Set(savedIds);
+    const controls = [];
+    const groupDetails = [];
+    const fragment = document.createDocumentFragment();
+    let habitNumber = 0;
+
+    groups.forEach((group, groupIndex) => {
+      const validItems = group.itens.filter(
+        (item) => habitById.has(item?.id?.trim())
+      );
+
+      if (validItems.length === 0) {
+        return;
+      }
+
+      const clone = groupTemplate.content.cloneNode(true);
+      const details = clone.querySelector(".faith-habit-group");
+      const number = clone.querySelector(".faith-habit-group__number");
+      const count = clone.querySelector(".faith-habit-group__count");
+      const title = clone.querySelector(".faith-habit-group__title");
+      const description = clone.querySelector(
+        ".faith-habit-group__description"
+      );
+      const list = clone.querySelector(".faith-habit-group__list");
+
+      if (!details || !number || !count || !title || !description || !list) {
+        return;
+      }
+
+      details.open = groupIndex === 0;
+      details.addEventListener("toggle", () => {
+        if (!details.open) {
+          return;
+        }
+
+        groupDetails.forEach((otherDetails) => {
+          if (otherDetails !== details) {
+            otherDetails.open = false;
+          }
+        });
+      });
+      groupDetails.push(details);
+      number.textContent = String(groupIndex + 1).padStart(2, "0");
+      count.textContent = `${validItems.length} hábito${validItems.length === 1 ? "" : "s"}`;
+      title.textContent = group.titulo?.trim() || `Grupo ${groupIndex + 1}`;
+      description.textContent = group.descricao?.trim() || "";
+      description.hidden = !description.textContent;
+
+      validItems.forEach((item) => {
+        habitNumber += 1;
+
+        const habitClone = habitTemplate.content.cloneNode(true);
+        const label = habitClone.querySelector(".faith-habit-item");
+        const input = habitClone.querySelector("input");
+        const itemNumber = habitClone.querySelector(
+          ".faith-habit-item__number"
+        );
+        const text = habitClone.querySelector(".faith-habit-item__text");
+
+        if (!label || !input || !itemNumber || !text) {
+          return;
+        }
+
+        const id = item.id.trim();
+        const habitText = habitById.get(id);
+
+        input.value = id;
+        input.checked = selectedIds.has(id);
+        input.setAttribute(
+          "aria-label",
+          `Quero viver este hábito: ${habitText}`
+        );
+        itemNumber.textContent = String(habitNumber).padStart(2, "0");
+        text.textContent = habitText;
+
+        input.addEventListener("change", () => {
+          if (input.checked) {
+            if (selectedIds.size >= selectionLimit) {
+              input.checked = false;
+              return;
+            }
+
+            selectedIds.add(id);
+          } else {
+            selectedIds.delete(id);
+          }
+
+          writeFaithHabitSelection(storageKey, selectedIds);
+          updateSelectionView();
+        });
+
+        controls.push({ id, input, label });
+        list.append(habitClone);
+      });
+
+      fragment.append(clone);
+    });
+
+    groupsContainer.replaceChildren(fragment);
+
+    const updateSelectionView = () => {
+      const selectedCount = selectedIds.size;
+      const selectionIsFull = selectedCount >= selectionLimit;
+
+      controls.forEach(({ id, input, label }) => {
+        const isSelected = selectedIds.has(id);
+        const isUnavailable = selectionIsFull && !isSelected;
+
+        input.checked = isSelected;
+        input.disabled = isUnavailable;
+        label.classList.toggle("is-selected", isSelected);
+        label.classList.toggle("is-unavailable", isUnavailable);
+        label.setAttribute("aria-disabled", String(isUnavailable));
+      });
+
+      setText(
+        "habitos-contador",
+        `${selectedCount} de ${selectionLimit} ${selectedCount === 1 ? "escolhido" : "escolhidos"}`
+      );
+
+      selection.hidden = selectedCount === 0;
+      selectedList.replaceChildren();
+
+      selectedIds.forEach((id) => {
+        const item = document.createElement("li");
+        item.textContent = habitById.get(id);
+        selectedList.append(item);
+      });
+
+      if (selectedCount > 0 && selectedCount < selectionLimit) {
+        const remaining = selectionLimit - selectedCount;
+        setText(
+          "habitos-selecao-status",
+          `${remaining === 1 ? "Falta" : "Faltam"} ${remaining} hábito${remaining === 1 ? "" : "s"} para completar seu pequeno plano.`
+        );
+      } else if (selectionIsFull) {
+        setText(
+          "habitos-selecao-status",
+          "Seu pequeno plano está pronto. Comece com constância, não com pressa."
+        );
+      }
+    };
+
+    clearButton.onclick = () => {
+      selectedIds.clear();
+      writeFaithHabitSelection(storageKey, selectedIds);
+      updateSelectionView();
+      controls[0]?.input.focus();
+    };
+
+    const safeCreditUrl = getSafeUrl(habits.credito?.url);
+
+    if (credit && creditLink && safeCreditUrl) {
+      setText(
+        "habitos-credito-texto",
+        habits.credito?.texto,
+        "Inspirado em uma reflexão compartilhada por"
+      );
+      creditLink.textContent = habits.credito?.nome?.trim() || "autor original";
+      creditLink.href = safeCreditUrl;
+      credit.hidden = false;
+    } else if (credit) {
+      credit.hidden = true;
+    }
+
+    writeFaithHabitSelection(storageKey, selectedIds);
+    updateSelectionView();
+  };
+
   const renderNextMeeting = (meeting = {}) => {
     setText("proximo-encontro-dia", meeting.dia, "—");
     setText("proximo-encontro-mes", meeting.mes, "Em breve");
@@ -1790,6 +2089,7 @@
     renderSaints(content.santos);
     renderVideos(content.videos);
     renderMissionJourney(content.missoesSemana);
+    renderFaithHabits(content.habitosFe);
     renderMural(muralContent);
     renderNextMeeting(content.proximoEncontro);
     renderSitePhase(content.estadosSite, content.galeria);
@@ -1805,6 +2105,9 @@
     const saints = getElement("lista-santos");
     const saintsControls = getElement("santos-controles");
     const saintsSummary = getElement("santos-resumo");
+    const habits = getElement("lista-grupos-habitos");
+    const habitsPlan = document.querySelector(".faith-habits__plan");
+    const habitsSelection = getElement("habitos-selecao");
 
     if (galleryMain) {
       galleryMain.hidden = true;
@@ -1845,6 +2148,23 @@
 
     if (saintsSummary) {
       saintsSummary.hidden = true;
+    }
+
+    if (habits) {
+      habits.replaceChildren();
+      const message = document.createElement("p");
+      message.className = "empty-state";
+      message.textContent =
+        "Não foi possível carregar os pequenos hábitos neste momento.";
+      habits.append(message);
+    }
+
+    if (habitsPlan) {
+      habitsPlan.hidden = true;
+    }
+
+    if (habitsSelection) {
+      habitsSelection.hidden = true;
     }
   };
 

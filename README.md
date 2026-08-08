@@ -10,6 +10,7 @@ Site estático do 1º Lual da Perseverança da Paróquia Santo Inácio de Loyola
 - Player principal do YouTube com seletor horizontal de vídeos;
 - Coleção horizontal de santos com gesto, setas, teclado, indicadores e fichas completas;
 - Missão e próximo encontro carregados pelo JSON;
+- Seleção interativa de três entre 17 pequenos hábitos de fé;
 - Mural moderado com chamada para participação;
 - Publicação compatível com GitHub Pages;
 - QR Code permanente enquanto a URL do repositório permanecer a mesma.

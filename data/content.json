@@ -524,6 +524,119 @@
     "frase": "A santidade não é fazer coisas extraordinárias, mas fazer com amor as pequenas coisas de cada dia.",
     "chamada": "Aceite o desafio e seja um Jovem Santo!"
   },
+  "habitosFe": {
+    "selo": "A missão continua",
+    "titulo": "Pequenos hábitos, uma fé perseverante",
+    "descricao": "A santidade cresce nos pequenos costumes repetidos com amor. Não é preciso começar tudo de uma vez: escolha alguns passos possíveis e permita que eles façam parte da sua caminhada com Deus.",
+    "tituloPlano": "Escolha três hábitos para começar",
+    "orientacao": "Marque três atitudes que você deseja viver com mais constância. Suas escolhas ficarão salvas somente neste aparelho.",
+    "limiteSelecao": 3,
+    "storageKey": "psiloyola.habitos-fe.2026",
+    "grupos": [
+      {
+        "id": "gestos-dia",
+        "titulo": "Gestos de cada dia",
+        "descricao": "Hábitos simples que ajudam a lembrar de Deus ao longo do dia.",
+        "itens": [
+          {
+            "id": "sinal-da-cruz",
+            "texto": "Fazer o sinal da cruz ao sair de casa e ao passar em frente a uma igreja."
+          },
+          {
+            "id": "rezar-refeicoes",
+            "texto": "Rezar antes e depois das refeições."
+          },
+          {
+            "id": "silencio-com-deus",
+            "texto": "Reservar todos os dias um momento de silêncio com Deus."
+          },
+          {
+            "id": "levar-terco",
+            "texto": "Levar um terço consigo."
+          },
+          {
+            "id": "evangelho-diario",
+            "texto": "Ler um trecho do Evangelho todos os dias."
+          }
+        ]
+      },
+      {
+        "id": "perto-de-jesus",
+        "titulo": "Perto de Jesus",
+        "descricao": "Encontros que fortalecem a amizade com Jesus e a vida sacramental.",
+        "itens": [
+          {
+            "id": "visitar-santissimo",
+            "texto": "Visitar Jesus no Santíssimo Sacramento, mesmo que por alguns minutos."
+          },
+          {
+            "id": "confissao-frequente",
+            "texto": "Preparar-se bem e buscar o sacramento da Confissão com frequência."
+          },
+          {
+            "id": "santificar-domingo",
+            "texto": "Santificar o domingo participando da Santa Missa e vivendo-o como dia do Senhor."
+          }
+        ]
+      },
+      {
+        "id": "vida-de-oracao",
+        "titulo": "Vida de oração",
+        "descricao": "Orações que colocam o coração diante de Deus e da comunhão dos santos.",
+        "itens": [
+          {
+            "id": "almas-purgatorio",
+            "texto": "Rezar pelas almas do purgatório."
+          },
+          {
+            "id": "intercessao-santos",
+            "texto": "Pedir a intercessão dos santos nas pequenas decisões do dia."
+          },
+          {
+            "id": "agua-benta",
+            "texto": "Ter água benta em casa e usá-la com respeito e devoção."
+          },
+          {
+            "id": "exame-consciencia",
+            "texto": "Fazer um breve exame de consciência antes de dormir."
+          },
+          {
+            "id": "consagrar-dia-maria",
+            "texto": "Consagrar o dia a Nossa Senhora ao acordar."
+          }
+        ]
+      },
+      {
+        "id": "fe-que-se-torna-vida",
+        "titulo": "Fé que se torna vida",
+        "descricao": "Atitudes para levar a fé às escolhas, à família e à própria casa.",
+        "itens": [
+          {
+            "id": "pequenos-sacrificios",
+            "texto": "Oferecer pequenos sacrifícios e renúncias adequados à sua idade por amor a Deus."
+          },
+          {
+            "id": "agradecer-primeiro",
+            "texto": "Agradecer a Deus antes de pedir qualquer graça."
+          },
+          {
+            "id": "rezar-em-familia",
+            "texto": "Rezar em família e ajudar alguém mais novo a aprender uma oração."
+          },
+          {
+            "id": "casa-lugar-oracao",
+            "texto": "Fazer de casa um lugar de oração, com uma Bíblia, uma cruz ou um pequeno oratório."
+          }
+        ]
+      }
+    ],
+    "fraseFinal": "A perseverança não nasce da pressa, mas de pequenos passos vividos com fidelidade e amor.",
+    "credito": {
+      "texto": "Inspirado em uma reflexão compartilhada por",
+      "nome": "@iararocchas",
+      "url": "https://www.instagram.com/iararocchas/"
+    }
+  },
   "mural": {
     "descricao": "Deixe uma mensagem de fé, carinho, gratidão ou encorajamento. Todas as mensagens são identificadas e passam pela aprovação da organização.",
     "avisoModeracao": "As mensagens são identificadas e revisadas antes da publicação.",
