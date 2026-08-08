@@ -499,70 +499,7 @@
    SANTOS
    ========================================================= */
 
-.saints-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-6);
-}
-
-.saint-card {
-  overflow: hidden;
-  border: 1px solid rgba(217, 164, 65, 0.22);
-  border-radius: var(--border-radius-lg);
-  background:
-    linear-gradient(155deg, rgba(255, 248, 239, 0.08), rgba(14, 71, 60, 0.2));
-  box-shadow: var(--shadow-lg);
-  transition:
-    border-color var(--transition-normal),
-    background-color var(--transition-normal),
-    transform var(--transition-normal);
-}
-
-.saint-card:hover {
-  border-color: rgba(217, 164, 65, 0.6);
-  background-color: rgba(255, 248, 239, 0.08);
-  transform: translateY(-0.3rem);
-}
-
-.saint-card__image {
-  width: 100%;
-  aspect-ratio: 4 / 4.5;
-  object-fit: cover;
-  background-color: var(--color-green-forest);
-}
-
-.saint-card__content {
-  position: relative;
-  padding: var(--space-6);
-}
-
-.saint-card__content::before {
-  position: absolute;
-  top: 0;
-  left: var(--space-6);
-  width: 4rem;
-  height: 0.18rem;
-  border-radius: var(--border-radius-pill);
-  background: linear-gradient(to right, var(--color-gold-light), var(--color-orange-fire));
-  content: "";
-}
-
-.saint-card__name {
-  margin-bottom: var(--space-3);
-  color: var(--color-white-soft);
-}
-
-.saint-card__quote {
-  margin-bottom: var(--space-5);
-  padding-left: var(--space-4);
-  border-left: 0.2rem solid var(--color-gold-light);
-  color: var(--color-gold-soft);
-  font-size: var(--font-size-lg);
-}
-
-.saint-card__summary {
-  color: var(--color-ivory-warm);
-}
+/* Os cards e a navegação horizontal ficam em santos.css. */
 
 /* =========================================================
    PLAYLIST

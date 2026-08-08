@@ -42,7 +42,10 @@ O ID é a parte localizada depois de `watch?v=` na URL do YouTube.
 
 ## Santos
 
-Coloque as imagens em `assets/images/santos/` e preencha o campo `imagem` de cada santo.
+Coloque as imagens em `assets/images/santos/` e preencha os campos `imagem` e
+`textoAlternativo` de cada santo. Os campos `virtude` e `inspiracao` alimentam
+os destaques do card. Use `posicaoImagem`, por exemplo `"50% 24%"`, para ajustar
+o enquadramento sem editar o arquivo original.
 
 ## Mural
 

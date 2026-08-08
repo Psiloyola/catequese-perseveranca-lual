@@ -113,6 +113,17 @@
     return true;
   };
 
+  const getSafeObjectPosition = (value) => {
+    if (typeof value !== "string") {
+      return "50% 28%";
+    }
+
+    const position = value.trim();
+    const positionPattern = /^(?:left|center|right|\d{1,3}%)(?:\s+(?:top|center|bottom|\d{1,3}%))?$/;
+
+    return positionPattern.test(position) ? position : "50% 28%";
+  };
+
   const updatePageMetadata = (evento = {}) => {
     const title = evento.titulo?.trim() || "1º Lual da Perseverança";
     const description =
@@ -308,6 +319,12 @@
   const renderSaints = (saints = []) => {
     const container = getElement("lista-santos");
     const template = getElement("modelo-santo");
+    const controls = getElement("santos-controles");
+    const previousButton = getElement("santos-anterior");
+    const nextButton = getElement("santos-proximo");
+    const summary = getElement("santos-resumo");
+    const counter = getElement("santos-contador");
+    const indicators = getElement("santos-indicadores");
 
     if (!container || !template) {
       return;
@@ -315,43 +332,81 @@
 
     container.replaceChildren();
 
+    if (indicators) {
+      indicators.replaceChildren();
+    }
+
     if (!Array.isArray(saints) || saints.length === 0) {
       const emptyState = document.createElement("p");
       emptyState.className = "empty-state empty-state--light";
       emptyState.textContent =
         "As histórias dos santos serão adicionadas em breve.";
       container.append(emptyState);
+
+      if (controls) {
+        controls.hidden = true;
+      }
+
+      if (summary) {
+        summary.hidden = true;
+      }
+
       return;
     }
 
     const fragment = document.createDocumentFragment();
 
-    saints.forEach((saint) => {
+    saints.forEach((saint, index) => {
       const clone = template.content.cloneNode(true);
       const card = clone.querySelector(".saint-card");
       const image = clone.querySelector(".saint-card__image");
+      const virtue = clone.querySelector(".saint-card__virtue");
       const name = clone.querySelector(".saint-card__name");
       const quote = clone.querySelector(".saint-card__quote");
       const summary = clone.querySelector(".saint-card__summary");
+      const inspiration = clone.querySelector(
+        ".saint-card__inspiration-text"
+      );
       const link = clone.querySelector(".saint-card__link");
 
       if (!card || !name || !quote || !summary) {
         return;
       }
 
-      configureImage(
+      const saintName = saint.nome?.trim() || "Santo em destaque";
+      const hasImage = configureImage(
         image,
         saint.imagem,
-        saint.textoAlternativo || `Representação de ${saint.nome || "santo"}`
+        saint.textoAlternativo || `Retrato de ${saintName}`
       );
 
-      name.textContent = saint.nome?.trim() || "Santo em destaque";
-      quote.textContent = saint.frase?.trim()
-        ? `“${saint.frase.trim()}”`
-        : "";
+      card.dataset.saintIndex = String(index);
+      card.setAttribute("aria-posinset", String(index + 1));
+      card.setAttribute("aria-setsize", String(saints.length));
+      card.classList.toggle("saint-card--without-image", !hasImage);
+
+      if (image) {
+        image.style.objectPosition = getSafeObjectPosition(
+          saint.posicaoImagem
+        );
+      }
+
+      if (virtue) {
+        virtue.textContent = saint.virtude?.trim() || "Testemunho jovem";
+      }
+
+      name.textContent = saintName;
+      quote.hidden = !saint.frase?.trim();
+      quote.textContent = saint.frase?.trim() ? `“${saint.frase.trim()}”` : "";
       summary.textContent =
         saint.resumo?.trim() ||
         "Conheça um pouco mais sobre este testemunho de fé.";
+
+      if (inspiration) {
+        inspiration.textContent =
+          saint.inspiracao?.trim() ||
+          "Escolha hoje um gesto concreto de fé e amor.";
+      }
 
       const safeLink = getSafeUrl(saint.link);
 
@@ -365,6 +420,143 @@
     });
 
     container.append(fragment);
+
+    const cards = Array.from(container.querySelectorAll(".saint-card"));
+    const hasMultipleSaints = cards.length > 1;
+
+    if (controls) {
+      controls.hidden = !hasMultipleSaints;
+    }
+
+    if (summary) {
+      summary.hidden = !hasMultipleSaints;
+    }
+
+    let activeIndex = 0;
+    let animationFrame = 0;
+
+    const scrollToCard = (index) => {
+      const safeIndex = Math.max(0, Math.min(index, cards.length - 1));
+      const card = cards[safeIndex];
+
+      if (!card) {
+        return;
+      }
+
+      const containerRect = container.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
+      const targetLeft =
+        container.scrollLeft + cardRect.left - containerRect.left;
+
+      container.scrollTo({
+        left: targetLeft,
+        behavior: REDUCED_MOTION_QUERY.matches ? "auto" : "smooth",
+      });
+      updateNavigation(safeIndex);
+    };
+
+    const indicatorButtons = cards.map((card, index) => {
+      if (!indicators) {
+        return null;
+      }
+
+      const button = document.createElement("button");
+      const saintName = card.querySelector(".saint-card__name")?.textContent;
+
+      button.className = "saints-summary__dot";
+      button.type = "button";
+      button.setAttribute(
+        "aria-label",
+        `Ir para ${saintName || `o santo ${index + 1}`}, ${index + 1} de ${cards.length}`
+      );
+      button.setAttribute("aria-current", index === 0 ? "true" : "false");
+      button.addEventListener("click", () => scrollToCard(index));
+      indicators.append(button);
+
+      return button;
+    });
+
+    const getClosestCardIndex = () => {
+      const containerLeft = container.getBoundingClientRect().left;
+
+      return cards.reduce(
+        (closest, card, index) => {
+          const distance = Math.abs(
+            card.getBoundingClientRect().left - containerLeft
+          );
+
+          return distance < closest.distance
+            ? { index, distance }
+            : closest;
+        },
+        { index: 0, distance: Number.POSITIVE_INFINITY }
+      ).index;
+    };
+
+    const updateNavigation = (index = getClosestCardIndex()) => {
+      activeIndex = Math.max(0, Math.min(index, cards.length - 1));
+
+      if (counter) {
+        counter.textContent = `Santo ${activeIndex + 1} de ${cards.length}`;
+      }
+
+      indicatorButtons.forEach((button, buttonIndex) => {
+        if (button) {
+          button.setAttribute(
+            "aria-current",
+            buttonIndex === activeIndex ? "true" : "false"
+          );
+        }
+      });
+
+      if (previousButton) {
+        previousButton.disabled = activeIndex === 0;
+      }
+
+      if (nextButton) {
+        nextButton.disabled = activeIndex === cards.length - 1;
+      }
+    };
+
+    const scheduleNavigationUpdate = () => {
+      window.cancelAnimationFrame(animationFrame);
+      animationFrame = window.requestAnimationFrame(() => {
+        updateNavigation();
+      });
+    };
+
+    container.addEventListener("scroll", scheduleNavigationUpdate, {
+      passive: true
+    });
+    window.addEventListener("resize", scheduleNavigationUpdate, {
+      passive: true
+    });
+
+    previousButton?.addEventListener("click", () => {
+      scrollToCard(activeIndex - 1);
+    });
+
+    nextButton?.addEventListener("click", () => {
+      scrollToCard(activeIndex + 1);
+    });
+
+    container.addEventListener("keydown", (event) => {
+      const destinationByKey = {
+        ArrowLeft: activeIndex - 1,
+        ArrowRight: activeIndex + 1,
+        Home: 0,
+        End: cards.length - 1
+      };
+
+      if (!(event.key in destinationByKey)) {
+        return;
+      }
+
+      event.preventDefault();
+      scrollToCard(destinationByKey[event.key]);
+    });
+
+    updateNavigation(0);
   };
 
   const renderVideos = (videos = {}) => {
@@ -1458,6 +1650,8 @@ const renderContent = (content) => {
     const videoExperience = getElement("video-experience");
     const videosEmpty = getElement("videos-vazio");
     const saints = getElement("lista-santos");
+    const saintsControls = getElement("santos-controles");
+    const saintsSummary = getElement("santos-resumo");
 
     if (galleryMain) {
       galleryMain.hidden = true;
@@ -1490,6 +1684,14 @@ const renderContent = (content) => {
       message.textContent =
         "Não foi possível carregar as histórias dos santos.";
       saints.append(message);
+    }
+
+    if (saintsControls) {
+      saintsControls.hidden = true;
+    }
+
+    if (saintsSummary) {
+      saintsSummary.hidden = true;
     }
   };
 

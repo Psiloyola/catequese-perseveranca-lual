@@ -103,45 +103,69 @@
   },
   "santos": [
     {
-      "nome": "Carlo Acutis",
+      "nome": "São Carlo Acutis",
       "imagem": "assets/images/santos/carlo-acutis.webp",
+      "textoAlternativo": "Retrato de São Carlo Acutis",
+      "posicaoImagem": "50% 24%",
+      "virtude": "Eucaristia e missão digital",
       "frase": "Não eu, mas Deus.",
       "resumo": "Um jovem apaixonado pela Eucaristia, que usou seus talentos para evangelizar.",
+      "inspiracao": "Coloque seus talentos a serviço do Evangelho.",
       "link": ""
     },
     {
       "nome": "São Domingos Sávio",
       "imagem": "assets/images/santos/domingos-savio.webp",
+      "textoAlternativo": "Retrato de São Domingos Sávio",
+      "posicaoImagem": "50% 22%",
+      "virtude": "Alegria e santidade",
       "frase": "Quero ser santo e não apenas bom.",
       "resumo": "Um exemplo de santidade vivida na adolescência com alegria e amizade com Jesus.",
+      "inspiracao": "Viva cada dever com alegria e amor a Jesus.",
       "link": ""
     },
     {
-      "nome": "Beato Pier Giorgio Frassati",
+      "nome": "São Pier Giorgio Frassati",
       "imagem": "assets/images/santos/pier-giorgio-frassati.webp",
+      "textoAlternativo": "Fotografia de São Pier Giorgio Frassati",
+      "posicaoImagem": "50% 18%",
+      "virtude": "Caridade e vida leiga",
       "frase": "Rumo ao alto!",
       "resumo": "Um jovem de fé, amizade e caridade que levou Cristo aos irmãos.",
+      "inspiracao": "Leve sua fé para as amizades e para o cuidado com quem precisa.",
       "link": ""
     },
     {
       "nome": "Santa Teresinha do Menino Jesus",
       "imagem": "assets/images/santos/teresinha.webp",
+      "textoAlternativo": "Retrato de Santa Teresinha do Menino Jesus",
+      "posicaoImagem": "50% 34%",
+      "virtude": "Amor nas pequenas coisas",
       "frase": "Quero passar meu céu fazendo o bem na terra.",
       "resumo": "Ensinou que pequenas atitudes feitas com amor transformam o mundo.",
+      "inspiracao": "Transforme gestos simples em ofertas de amor.",
       "link": ""
     },
     {
       "nome": "Santa Maria Goretti",
       "imagem": "assets/images/santos/maria-goretti.webp",
+      "textoAlternativo": "Retrato de Santa Maria Goretti",
+      "posicaoImagem": "50% 28%",
+      "virtude": "Coragem e perdão",
       "frase": "Perdoar é amar como Cristo.",
       "resumo": "Uma jovem testemunha de fé, perdão e confiança em Deus.",
+      "inspiracao": "Escolha a paz sem abrir mão da sua dignidade.",
       "link": ""
     },
     {
       "nome": "Beata Chiara Badano",
       "imagem": "assets/images/santos/chiara-badano.webp",
+      "textoAlternativo": "Fotografia da Beata Chiara Badano",
+      "posicaoImagem": "50% 30%",
+      "virtude": "Alegria e fidelidade",
       "frase": "Tenho Jesus, tenho tudo.",
       "resumo": "Uma jovem que viveu a alegria e a fé mesmo diante das dificuldades.",
+      "inspiracao": "Permaneça com Jesus também nos dias difíceis.",
       "link": ""
     }
   ],
@@ -327,7 +351,7 @@
         {
           "id": "vida-santo",
           "titulo": "Conhecer a vida de um santo jovem",
-          "descricao": "São Carlo Acutis, Santa Teresinha, Santa Clara, São Domingos Sávio ou São Pier Giorgio Frassati."
+          "descricao": "São Carlo Acutis, Santa Teresinha, Santa Maria Goretti, Beata Chiara Badano, São Domingos Sávio ou São Pier Giorgio Frassati."
         },
         {
           "id": "visita-familiar",

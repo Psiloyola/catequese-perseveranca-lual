@@ -583,9 +583,63 @@
           </p>
         </header>
 
+        <div class="carousel-heading carousel-heading--light saints-carousel-heading">
+          <div>
+            <p class="carousel-heading__title">Conheça cada história</p>
+            <p class="carousel-heading__hint" id="santos-instrucao">
+              Deslize para o lado ou use as setas para conhecer cada testemunho.
+            </p>
+          </div>
+
+          <div
+            class="carousel-buttons"
+            id="santos-controles"
+            aria-label="Controles dos santos"
+            hidden
+          >
+            <button
+              class="carousel-button carousel-button--light"
+              id="santos-anterior"
+              type="button"
+              aria-label="Ver santo anterior"
+            >
+              ←
+            </button>
+
+            <button
+              class="carousel-button carousel-button--light"
+              id="santos-proximo"
+              type="button"
+              aria-label="Ver próximo santo"
+            >
+              →
+            </button>
+          </div>
+        </div>
+
+        <div class="saints-summary" id="santos-resumo" hidden>
+          <p class="saints-summary__counter" id="santos-contador" aria-live="polite">
+            Santo 1 de 1
+          </p>
+
+          <div
+            class="saints-summary__dots"
+            id="santos-indicadores"
+            aria-label="Escolher santo"
+          ></div>
+
+          <p class="saints-summary__swipe">
+            Deslize para conhecer os próximos santos
+          </p>
+        </div>
+
         <div
-          class="saints-grid"
+          class="saints-carousel horizontal-scroller"
           id="lista-santos"
+          role="list"
+          tabindex="0"
+          aria-label="Santos jovens que nos inspiram"
+          aria-describedby="santos-instrucao"
           aria-live="polite"
         >
           <p class="empty-state empty-state--light">
@@ -1167,19 +1221,27 @@
   </template>
 
   <template id="modelo-santo">
-    <article class="saint-card">
-      <img
-        class="saint-card__image"
-        alt=""
-        width="640"
-        height="800"
-        loading="lazy"
-      >
+    <article class="saint-card" role="listitem">
+      <div class="saint-card__media">
+        <img
+          class="saint-card__image"
+          alt=""
+          width="800"
+          height="640"
+          loading="lazy"
+        >
+        <span class="saint-card__virtue"></span>
+      </div>
 
       <div class="saint-card__content">
         <h3 class="saint-card__name"></h3>
         <blockquote class="saint-card__quote"></blockquote>
         <p class="saint-card__summary"></p>
+
+        <div class="saint-card__inspiration">
+          <span class="saint-card__inspiration-label">Para viver hoje</span>
+          <p class="saint-card__inspiration-text"></p>
+        </div>
 
         <a
           class="text-link saint-card__link"

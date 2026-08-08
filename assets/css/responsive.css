@@ -64,10 +64,6 @@
     grid-column: 1 / -1;
   }
 
-  .saints-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .playlist-card__content,
   .mission-card,
   .next-event-card {
@@ -276,14 +272,6 @@
     grid-auto-rows: 17rem;
   }
 
-  .saints-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .saint-card__content {
-    padding: var(--space-8);
-  }
-
   .message-card,
   .mission-card,
   .next-event-card {
@@ -423,10 +411,6 @@
     background: none;
     box-shadow: none;
     break-inside: avoid;
-  }
-
-  .saints-grid {
-    grid-template-columns: repeat(2, 1fr);
   }
 
   a {
@@ -620,7 +604,3 @@
     flex-basis: auto;
   }
 }
-
-
-/* Commit 12 - refinamento dos cards Santos */
-.santo-card__content { box-sizing: border-box; }

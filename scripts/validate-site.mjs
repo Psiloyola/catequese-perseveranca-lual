@@ -187,6 +187,48 @@ const validateContent = () => {
     error('"mural.mensagens" deve ser uma lista.');
   }
 
+  const saints = content.santos;
+
+  if (!Array.isArray(saints) || saints.length === 0) {
+    error('"santos" deve possuir ao menos um card.');
+  } else {
+    const saintNames = new Set();
+    const imagePositionPattern = /^(?:left|center|right|\d{1,3}%)(?:\s+(?:top|center|bottom|\d{1,3}%))?$/;
+
+    saints.forEach((saint, index) => {
+      for (const field of [
+        "nome",
+        "imagem",
+        "textoAlternativo",
+        "virtude",
+        "frase",
+        "resumo",
+        "inspiracao"
+      ]) {
+        if (typeof saint?.[field] !== "string" || !saint[field].trim()) {
+          error(`O santo ${index + 1} precisa do campo "${field}".`);
+        }
+      }
+
+      const name = saint?.nome?.trim();
+
+      if (name && saintNames.has(name)) {
+        error(`Santo repetido: ${name}`);
+      }
+
+      if (name) {
+        saintNames.add(name);
+      }
+
+      if (
+        typeof saint?.posicaoImagem !== "string" ||
+        !imagePositionPattern.test(saint.posicaoImagem.trim())
+      ) {
+        error(`A posição de imagem de "${name || `santo ${index + 1}`}" é inválida.`);
+      }
+    });
+  }
+
   const missions = content.missoesSemana?.dias;
 
   if (!Array.isArray(missions) || missions.length !== 7) {
