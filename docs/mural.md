@@ -10,15 +10,15 @@ manual: nenhuma resposta do formulário entra automaticamente no site.
 
 1. A pessoa envia a mensagem pelo formulário.
 2. A organização confere identificação e conteúdo.
-3. Uma mensagem aprovada é adicionada em `data/content.json`.
-4. O site apresenta somente os itens presentes em `mural.mensagens`.
+3. Uma mensagem aprovada é adicionada em `data/mural.json`.
+4. O site apresenta somente os itens presentes em `mensagens`.
 
 ## Como adicionar uma mensagem
 
-No arquivo `data/content.json`, localize:
+No arquivo `data/mural.json`, localize:
 
 ```json
-"mural": {
+{
   "mensagens": []
 }
 ```
@@ -29,6 +29,7 @@ Adicione itens neste formato:
 "mensagens": [
   {
     "nome": "Letícia Araújo",
+    "funcao": "Catequizanda",
     "mensagem": "Que tudo o que vivemos continue iluminando nossa caminhada.",
     "destaque": true
   },
@@ -42,6 +43,10 @@ Adicione itens neste formato:
 O campo `destaque` é opcional. Use `true` em poucas mensagens para deixá-las
 um pouco maiores no carrossel.
 
+O campo `funcao` também é opcional. Ele permite identificar catequistas,
+catequizandos e outras pessoas sem misturar essa informação com o nome.
+Cada mensagem pode ter no máximo 400 caracteres, seguindo o limite do Forms.
+
 Também é possível manter uma mensagem no arquivo sem publicá-la:
 
 ```json
@@ -54,6 +59,9 @@ Também é possível manter uma mensagem no arquivo sem publicá-la:
 
 ## Melhorias incluídas
 
+- mensagens isoladas em `data/mural.json`, sem risco para os outros conteúdos;
+- falha no mural não impede o restante do site de carregar;
+- validação automática de nome, texto, limite e campos opcionais;
 - remoção do texto repetido “Mensagem aprovada” em cada cartão;
 - contador “Mensagem X de Y”;
 - indicadores clicáveis;

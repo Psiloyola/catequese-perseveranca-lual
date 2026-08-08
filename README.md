@@ -16,14 +16,20 @@ Site estático do 1º Lual da Perseverança da Paróquia Santo Inácio de Loyola
 
 ## Executar localmente
 
-Abra o projeto no VS Code e use o Live Server. O site precisa ser servido por HTTP para que `data/content.json` seja carregado corretamente.
+Abra o projeto no VS Code e use o Live Server. O site precisa ser servido por HTTP para que os arquivos JSON sejam carregados corretamente.
 
 ## Conteúdo editável
 
-Textos, links, santos, fotos, vídeos, mensagens e próximo encontro ficam em:
+Textos, links, santos, fotos, vídeos e próximo encontro ficam em:
 
 ```text
 data/content.json
+```
+
+As mensagens aprovadas do mural ficam separadas em:
+
+```text
+data/mural.json
 ```
 
 ## Identidade visual

@@ -13,6 +13,8 @@ GitHub Pages.
 
 - sintaxe de `assets/js/app.js`;
 - validade de `data/content.json`;
+- validade de `data/mural.json`;
+- campos e limite de 400 caracteres das mensagens;
 - blocos obrigatórios do conteúdo;
 - IDs duplicados no `index.html`;
 - seções principais;

@@ -1,6 +1,7 @@
 # Guia rápido de atualização
 
-Toda alteração frequente deve ser feita em `data/content.json`.
+O conteúdo geral é atualizado em `data/content.json`. As mensagens aprovadas
+ficam isoladas em `data/mural.json`.
 
 ## Fotos
 
@@ -49,16 +50,23 @@ o enquadramento sem editar o arquivo original.
 
 ## Mural
 
-Preencha `mural.linkFormulario` com o link público do Microsoft Forms. Enquanto estiver vazio, o botão exibirá `Formulário em breve`.
+Preencha `mural.linkFormulario`, em `data/content.json`, com o link público do
+Microsoft Forms. Enquanto estiver vazio, o botão exibirá `Formulário em breve`.
 
-Somente mensagens aprovadas devem ser adicionadas ao array `mural.mensagens`:
+Somente mensagens aprovadas devem ser adicionadas ao array `mensagens` de
+`data/mural.json`:
 
 ```json
 {
   "nome": "Maria",
-  "mensagem": "Mensagem aprovada pela organização."
+  "funcao": "Catequista",
+  "mensagem": "Mensagem aprovada pela organização.",
+  "destaque": false
 }
 ```
+
+O campo `funcao` é opcional. O campo `destaque` também é opcional e deve ser
+usado em poucas mensagens. Cada texto pode ter no máximo 400 caracteres.
 
 ## Próximo encontro
 

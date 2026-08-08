@@ -2,6 +2,7 @@
 
 (() => {
   const CONTENT_URL = "data/content.json";
+  const MURAL_URL = "data/mural.json";
   const DESKTOP_MEDIA_QUERY = window.matchMedia("(min-width: 64rem)");
   const REDUCED_MOTION_QUERY = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
@@ -801,13 +802,20 @@
       card.dataset.muralIndex = String(index);
       card.setAttribute("aria-posinset", String(index + 1));
       card.setAttribute("aria-setsize", String(messages.length));
+      const authorName = item.nome.trim();
+      const authorRole =
+        typeof item.funcao === "string" ? item.funcao.trim() : "";
+      const authorSignature = authorRole
+        ? `${authorName} · ${authorRole}`
+        : authorName;
+
       card.setAttribute(
         "aria-label",
-        `Mensagem ${index + 1} de ${messages.length}, enviada por ${item.nome.trim()}`
+        `Mensagem ${index + 1} de ${messages.length}, enviada por ${authorSignature}`
       );
 
       message.textContent = `“${item.mensagem.trim()}”`;
-      author.textContent = `— ${item.nome.trim()}`;
+      author.textContent = `— ${authorSignature}`;
       fragment.append(clone);
     });
 
@@ -1630,14 +1638,26 @@
     );
   };
 
-const renderContent = (content) => {
+  const renderContent = (content, muralData = {}) => {
+    const muralContent = {
+      ...(content.mural || {}),
+      mensagens: Array.isArray(muralData?.mensagens)
+        ? muralData.mensagens
+        : []
+    };
+
+    if (muralData === null) {
+      muralContent.mensagemVazia =
+        "Não foi possível carregar as mensagens neste momento. Tente novamente mais tarde.";
+    }
+
     renderEvent(content.evento);
     renderMessage(content.mensagem);
     renderGallery(content.galeria);
     renderSaints(content.santos);
     renderVideos(content.videos);
     renderMissionJourney(content.missoesSemana);
-    renderMural(content.mural);
+    renderMural(muralContent);
     renderNextMeeting(content.proximoEncontro);
     renderSitePhase(content.estadosSite, content.galeria);
     startSitePhaseClock(content.estadosSite, content.galeria);
@@ -1695,16 +1715,28 @@ const renderContent = (content) => {
     }
   };
 
+  const loadJson = async (url, label) => {
+    const response = await fetch(url, { cache: "no-store" });
+
+    if (!response.ok) {
+      throw new Error(`Erro ao carregar ${label}: HTTP ${response.status}`);
+    }
+
+    return response.json();
+  };
+
   const loadContent = async () => {
     try {
-      const response = await fetch(CONTENT_URL, { cache: "no-store" });
+      const muralRequest = loadJson(MURAL_URL, "mural").catch((error) => {
+        console.error("Falha ao carregar o mural.", error);
+        return null;
+      });
+      const [content, muralData] = await Promise.all([
+        loadJson(CONTENT_URL, "conteúdo"),
+        muralRequest
+      ]);
 
-      if (!response.ok) {
-        throw new Error(`Erro ao carregar conteúdo: HTTP ${response.status}`);
-      }
-
-      const content = await response.json();
-      renderContent(content);
+      renderContent(content, muralData);
     } catch (error) {
       console.error("Falha ao carregar o conteúdo do site.", error);
       showLoadingError();

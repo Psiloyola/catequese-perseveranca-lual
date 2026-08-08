@@ -396,8 +396,7 @@
     "descricao": "Deixe uma mensagem de fé, carinho, gratidão ou encorajamento. Todas as mensagens são identificadas e passam pela aprovação da organização.",
     "avisoModeracao": "As mensagens são identificadas e revisadas antes da publicação.",
     "linkFormulario": "https://forms.office.com/r/7wjUAEV3cD",
-    "mensagemVazia": "As primeiras mensagens aprovadas aparecerão aqui.",
-    "mensagens": []
+    "mensagemVazia": "As primeiras mensagens aprovadas aparecerão aqui."
   },
   "proximoEncontro": {
     "dia": "15",

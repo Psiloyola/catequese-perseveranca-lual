@@ -183,10 +183,6 @@ const validateContent = () => {
     error("A galeria está liberada, mas não possui fotos.");
   }
 
-  if (!Array.isArray(content.mural?.mensagens)) {
-    error('"mural.mensagens" deve ser uma lista.');
-  }
-
   const saints = content.santos;
 
   if (!Array.isArray(saints) || saints.length === 0) {
@@ -266,6 +262,58 @@ const validateContent = () => {
   collectReferences(content);
 };
 
+const validateMural = () => {
+  const file = "data/mural.json";
+  const text = readText(file);
+  if (!text) return;
+
+  let mural;
+
+  try {
+    mural = JSON.parse(text);
+  } catch (parseError) {
+    error(`JSON inválido em ${file}: ${parseError.message}`);
+    return;
+  }
+
+  if (!Array.isArray(mural.mensagens)) {
+    error('"mensagens" em data/mural.json deve ser uma lista.');
+    return;
+  }
+
+  mural.mensagens.forEach((item, index) => {
+    const position = index + 1;
+
+    if (!item || typeof item !== "object" || Array.isArray(item)) {
+      error(`A mensagem ${position} do mural deve ser um objeto JSON.`);
+      return;
+    }
+
+    if (typeof item.nome !== "string" || !item.nome.trim()) {
+      error(`A mensagem ${position} do mural precisa do campo "nome".`);
+    }
+
+    if (typeof item.mensagem !== "string" || !item.mensagem.trim()) {
+      error(`A mensagem ${position} do mural precisa do campo "mensagem".`);
+    } else if (item.mensagem.trim().length > 400) {
+      error(`A mensagem ${position} do mural ultrapassa o limite de 400 caracteres.`);
+    }
+
+    if (
+      "funcao" in item &&
+      (typeof item.funcao !== "string" || !item.funcao.trim())
+    ) {
+      error(`A função da mensagem ${position} do mural deve ser um texto preenchido.`);
+    }
+
+    for (const field of ["destaque", "publicada"]) {
+      if (field in item && typeof item[field] !== "boolean") {
+        error(`O campo "${field}" da mensagem ${position} deve ser true ou false.`);
+      }
+    }
+  });
+};
+
 const validateImageSizes = () => {
   const directory = resolve(root, "assets/images");
   const extensions = new Set([
@@ -289,6 +337,7 @@ const validateImageSizes = () => {
 validateHtml();
 validateCss();
 validateContent();
+validateMural();
 validateImageSizes();
 
 for (const message of warnings) console.warn(`AVISO: ${message}`);
