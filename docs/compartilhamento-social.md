@@ -8,7 +8,7 @@ metadados Open Graph.
 
 ```text
 index.html
-assets/images/social/lual-compartilhamento-1200x630.jpg
+assets/images/social/lual-compartilhamento-pos-lual-1200x630.jpg
 ```
 
 ## Metadados adicionados
@@ -34,8 +34,11 @@ https://psiloyola.github.io/catequese-perseveranca-lual/
 ## Imagem de compartilhamento
 
 ```text
-assets/images/social/lual-compartilhamento-1200x630.jpg
+assets/images/social/lual-compartilhamento-pos-lual-1200x630.jpg
 ```
+
+A composição pós-Lual não utiliza data. Assim, a mesma imagem pode permanecer
+como capa do site depois do encontro, sem parecer uma divulgação vencida.
 
 Dimensões:
 
@@ -53,7 +56,7 @@ aguarde a atualização do cache ou teste o endereço com um parâmetro temporá
 por exemplo:
 
 ```text
-https://psiloyola.github.io/catequese-perseveranca-lual/?preview=2
+https://psiloyola.github.io/catequese-perseveranca-lual/?preview=3
 ```
 
 O parâmetro serve apenas para testar uma nova leitura da página. O endereço
