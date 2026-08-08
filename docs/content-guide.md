@@ -42,11 +42,11 @@ O ID é a parte localizada depois de `watch?v=` na URL do YouTube.
 
 ## Santos
 
-Coloque as imagens em `assets/images/saints/` e preencha o campo `imagem` de cada santo.
+Coloque as imagens em `assets/images/santos/` e preencha o campo `imagem` de cada santo.
 
 ## Mural
 
-Preencha `mural.linkFormulario` com o link público do Google Forms. Enquanto estiver vazio, o botão exibirá `Formulário em breve`.
+Preencha `mural.linkFormulario` com o link público do Microsoft Forms. Enquanto estiver vazio, o botão exibirá `Formulário em breve`.
 
 Somente mensagens aprovadas devem ser adicionadas ao array `mural.mensagens`:
 

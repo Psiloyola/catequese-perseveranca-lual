@@ -1438,45 +1438,10 @@
     );
   };
 
-  
-  const renderSaintsCards = (saints = []) => {
-    const container = getElement("santos-lista");
-    const template = getElement("modelo-santo");
-
-    if (!container || !template) return;
-
-    container.innerHTML = "";
-
-    saints.forEach((saint) => {
-      const card = template.content.cloneNode(true);
-
-      const image = card.querySelector(".santo-card__image");
-      const name = card.querySelector(".santo-card__name");
-      const phrase = card.querySelector(".santo-card__phrase");
-      const summary = card.querySelector(".santo-card__summary");
-      const link = card.querySelector(".santo-card__link");
-
-      image.src = saint.imagem || "";
-      image.alt = saint.nome || "Santo";
-      name.textContent = saint.nome || "";
-      phrase.textContent = saint.frase || "";
-      summary.textContent = saint.resumo || "";
-
-      if (saint.link) {
-        link.href = saint.link;
-      } else {
-        link.remove();
-      }
-
-      container.appendChild(card);
-    });
-  };
-
 const renderContent = (content) => {
     renderEvent(content.evento);
     renderMessage(content.mensagem);
     renderGallery(content.galeria);
-    renderSaintsCards(content.santos);
     renderSaints(content.santos);
     renderVideos(content.videos);
     renderMissionJourney(content.missoesSemana);

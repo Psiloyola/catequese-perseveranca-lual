@@ -135,7 +135,9 @@ const collectReferences = (value) => {
   }
 
   if (typeof value === "string" && /^(?:assets\/|data\/|docs\/)/.test(value)) {
-    validateReference(value, "data/content.json");
+    // O conteúdo do JSON é inserido na página e seus caminhos relativos são
+    // resolvidos pelo navegador a partir do index.html, não da pasta data/.
+    validateReference(value, "index.html");
   }
 };
 
