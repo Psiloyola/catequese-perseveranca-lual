@@ -252,11 +252,6 @@
           highlightContent.descricao,
           "Dê o play e reviva alguns dos momentos que fizeram parte do nosso Lual."
         );
-        setText(
-          "registro-lual-duracao",
-          highlightContent.duracao,
-          "53 segundos de memória"
-        );
       } else {
         highlightVideo.pause();
         highlightVideoSource.removeAttribute("src");

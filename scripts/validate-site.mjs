@@ -237,8 +237,7 @@ const validateContent = () => {
       "poster",
       "selo",
       "titulo",
-      "descricao",
-      "duracao"
+      "descricao"
     ]) {
       if (
         typeof featuredVideo[field] !== "string" ||
