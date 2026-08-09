@@ -29,8 +29,8 @@ Em 8 de agosto de 2026, da meia-noite até as 22h:
 A partir de 8 de agosto de 2026, às 22h, no horário de Brasília:
 
 - remove automaticamente a tela de espera, sem exigir nova publicação;
-- libera automaticamente vídeos, mural, missões e pequenos hábitos de fé;
-- mantém as fotos bloqueadas até a liberação manual no `content.json`;
+- libera automaticamente os registros do Lual, músicas, mural, missões e pequenos hábitos de fé;
+- apresenta o vídeo em destaque e o acesso ao álbum completo no Google Drive;
 - muda a chamada principal para “Reviver o Lual”;
 - direciona para a missão do dia;
 - mantém a Jornada das Missões funcionando normalmente.
@@ -97,37 +97,33 @@ os arquivos continuam tecnicamente públicos no repositório. Para este evento,
 ela foi pensada como uma liberação programada para os visitantes comuns.
 
 
-## Liberação manual das fotos
+## Registros, vídeo e álbum completo
 
-A publicação das fotos é independente da data do evento.
+O vídeo em destaque e o álbum completo já estão liberados no bloco `galeria`.
 
-No arquivo `data/content.json`, localize:
-
-```json
-"galeria": {
-  "liberada": false
-}
-```
-
-Enquanto estiver `false`:
-
-- nenhuma foto será carregada;
-- a seção mostrará “Fotos em preparação”;
-- o link do álbum completo ficará oculto;
-- o botão principal do site levará o visitante para as músicas.
-
-Depois de preparar as fotos e o álbum, altere somente para:
+A configuração utiliza:
 
 ```json
 "galeria": {
-  "liberada": true
+  "liberada": true,
+  "linkAlbum": "LINK_PUBLICO_DO_GOOGLE_DRIVE",
+  "videoDestaque": {
+    "arquivo": "assets/videos/um-pedacinho-do-lual.mp4",
+    "poster": "assets/images/gallery/um-pedacinho-do-lual-poster.webp"
+  }
 }
 ```
 
-Antes de liberar, preencha também:
+Enquanto `liberada` estiver como `true`:
+
+- o vídeo pode ser assistido dentro do próprio site;
+- o botão abre a pasta pública do Google Drive em outra aba;
+- o botão principal do site leva o visitante para os registros;
+- o carrossel local de fotos continua opcional.
+
+Para adicionar fotos selecionadas ao carrossel do site, preencha:
 
 ```json
-"linkAlbum": "LINK_PUBLICO_DO_ALBUM",
 "fotos": [
   {
     "imagem": "assets/images/gallery/01-acolhida.webp",
@@ -137,7 +133,7 @@ Antes de liberar, preencha também:
 ]
 ```
 
-Recomendação: use o Google Drive para o álbum completo e mantenha as fotos
-selecionadas para o site em `assets/images/gallery/`. Links comuns de
-compartilhamento do Drive não funcionam de forma confiável diretamente dentro
-da tag de imagem do site.
+O Google Drive deve permanecer como álbum completo. As fotos selecionadas para
+o carrossel devem ser copiadas para `assets/images/gallery/`, pois links comuns
+de compartilhamento do Drive não funcionam de forma confiável diretamente em
+uma tag de imagem.

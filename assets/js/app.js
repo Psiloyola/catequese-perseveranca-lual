@@ -192,6 +192,9 @@
   };
 
   const renderGallery = (galeria = {}) => {
+    const highlight = getElement("registro-lual");
+    const highlightVideo = getElement("registro-lual-video");
+    const highlightVideoSource = getElement("registro-lual-video-source");
     const mainFigure = getElement("galeria-destaque");
     const mainImage = getElement("galeria-imagem-principal");
     const mainCaption = getElement("galeria-legenda-principal");
@@ -200,6 +203,14 @@
     const emptyState = getElement("galeria-vazia");
     const template = getElement("modelo-miniatura-foto");
     const galleryReleased = galeria.liberada === true;
+    const highlightContent = galeria.videoDestaque || {};
+    const highlightVideoUrl = galleryReleased
+      ? getSafeUrl(highlightContent.arquivo)
+      : null;
+    const highlightPosterUrl = galleryReleased
+      ? getSafeUrl(highlightContent.poster)
+      : null;
+    const hasHighlightVideo = Boolean(highlightVideoUrl);
 
     setText(
       "galeria-descricao",
@@ -210,6 +221,49 @@
       getElement("link-album"),
       galleryReleased ? galeria.linkAlbum : ""
     );
+
+    if (highlight && highlightVideo && highlightVideoSource) {
+      highlight.hidden = !hasHighlightVideo;
+
+      if (hasHighlightVideo) {
+        if (highlightVideoSource.getAttribute("src") !== highlightVideoUrl) {
+          highlightVideoSource.src = highlightVideoUrl;
+          highlightVideo.load();
+        }
+
+        if (highlightPosterUrl) {
+          highlightVideo.poster = highlightPosterUrl;
+        } else {
+          highlightVideo.removeAttribute("poster");
+        }
+
+        setText(
+          "registro-lual-selo",
+          highlightContent.selo,
+          "Um pedacinho da nossa noite"
+        );
+        setText(
+          "registro-lual-titulo",
+          highlightContent.titulo,
+          "Uma noite para guardar no coração"
+        );
+        setText(
+          "registro-lual-descricao",
+          highlightContent.descricao,
+          "Dê o play e reviva alguns dos momentos que fizeram parte do nosso Lual."
+        );
+        setText(
+          "registro-lual-duracao",
+          highlightContent.duracao,
+          "53 segundos de memória"
+        );
+      } else {
+        highlightVideo.pause();
+        highlightVideoSource.removeAttribute("src");
+        highlightVideo.removeAttribute("poster");
+        highlightVideo.load();
+      }
+    }
 
     if (
       !mainFigure ||
@@ -224,6 +278,10 @@
     }
 
     if (!galleryReleased) {
+      if (highlight) {
+        highlight.hidden = true;
+      }
+
       mainFigure.hidden = true;
       thumbnails.replaceChildren();
       thumbnails.hidden = true;
@@ -253,7 +311,13 @@
       mainFigure.hidden = true;
       thumbnails.hidden = true;
       controls.hidden = true;
-      emptyState.hidden = false;
+      emptyState.hidden = hasHighlightVideo;
+
+      if (!hasHighlightVideo) {
+        emptyState.textContent =
+          "Os registros ainda estão sendo preparados para publicação.";
+      }
+
       return;
     }
 

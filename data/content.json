@@ -99,14 +99,22 @@
     "texto": "Que as músicas, os momentos de oração, as amizades e tudo o que experimentamos nesta noite permaneçam vivos em nosso cotidiano."
   },
   "galeria": {
-    "liberada": false,
+    "liberada": true,
     "indisponivel": {
       "selo": "Fotos em preparação",
       "titulo": "Os registros do Lual ainda estão sendo organizados",
       "texto": "A equipe está selecionando e preparando as fotos antes da publicação. As músicas, o mural e as missões já podem ser acessados. Volte em breve."
     },
-    "descricao": "Uma foto em destaque e outros registros para deslizar para o lado.",
-    "linkAlbum": "",
+    "descricao": "Assista ao vídeo e abra o álbum completo para guardar cada lembrança.",
+    "linkAlbum": "https://drive.google.com/drive/folders/1CqbjheH2ooghJ0tOPUmqb9GOTnAVtsK0?usp=sharing",
+    "videoDestaque": {
+      "arquivo": "assets/videos/um-pedacinho-do-lual.mp4",
+      "poster": "assets/images/gallery/um-pedacinho-do-lual-poster.webp",
+      "selo": "Um pedacinho da nossa noite",
+      "titulo": "Uma noite para guardar no coração",
+      "descricao": "Música, amizade, partilha e oração. Dê o play e reviva alguns dos momentos que fizeram parte do nosso Lual.",
+      "duracao": "53 segundos de memória"
+    },
     "fotos": []
   },
   "santos": [

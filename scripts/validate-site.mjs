@@ -85,6 +85,10 @@ const validateHtml = () => {
     "site-gate-hours",
     "site-gate-minutes",
     "site-gate-seconds",
+    "registro-lual",
+    "registro-lual-video",
+    "registro-lual-video-source",
+    "link-album",
     "conteudo-principal",
     "titulo-principal",
     "fotos",
@@ -195,15 +199,61 @@ const validateContent = () => {
     if (!(block in content)) error(`Bloco obrigatório ausente: ${block}`);
   }
 
-  if (typeof content.galeria?.liberada !== "boolean") {
+  const gallery = content.galeria || {};
+  const galleryPhotos = Array.isArray(gallery.fotos) ? gallery.fotos : [];
+  const featuredVideo = gallery.videoDestaque;
+  const hasFeaturedVideo =
+    featuredVideo &&
+    typeof featuredVideo === "object" &&
+    !Array.isArray(featuredVideo) &&
+    typeof featuredVideo.arquivo === "string" &&
+    featuredVideo.arquivo.trim();
+
+  if (typeof gallery.liberada !== "boolean") {
     error('A flag "galeria.liberada" deve ser true ou false.');
   }
 
   if (
-    content.galeria?.liberada === true &&
-    (!Array.isArray(content.galeria?.fotos) || content.galeria.fotos.length === 0)
+    gallery.liberada === true &&
+    galleryPhotos.length === 0 &&
+    !hasFeaturedVideo
   ) {
-    error("A galeria está liberada, mas não possui fotos.");
+    error("A galeria está liberada, mas não possui fotos nem vídeo em destaque.");
+  }
+
+  if (gallery.liberada === true && !validHttpUrl(gallery.linkAlbum)) {
+    error('"galeria.linkAlbum" precisa de uma URL HTTP(S) válida quando os registros estão liberados.');
+  }
+
+  if (
+    !featuredVideo ||
+    typeof featuredVideo !== "object" ||
+    Array.isArray(featuredVideo)
+  ) {
+    error('"galeria.videoDestaque" deve ser um objeto JSON.');
+  } else {
+    for (const field of [
+      "arquivo",
+      "poster",
+      "selo",
+      "titulo",
+      "descricao",
+      "duracao"
+    ]) {
+      if (
+        typeof featuredVideo[field] !== "string" ||
+        !featuredVideo[field].trim()
+      ) {
+        error(`"galeria.videoDestaque.${field}" precisa ser preenchido.`);
+      }
+    }
+
+    if (
+      typeof featuredVideo.arquivo === "string" &&
+      !featuredVideo.arquivo.trim().toLowerCase().endsWith(".mp4")
+    ) {
+      error('"galeria.videoDestaque.arquivo" deve apontar para um arquivo MP4.');
+    }
   }
 
   const siteStates = content.estadosSite;
@@ -586,11 +636,30 @@ const validateImageSizes = () => {
   }
 };
 
+const validateVideoSizes = () => {
+  const directory = resolve(root, "assets/videos");
+  const extensions = new Set([".mp4", ".webm"]);
+
+  for (const absoluteFile of walkFiles(directory)) {
+    if (!extensions.has(extname(absoluteFile).toLowerCase())) continue;
+
+    const sizeMb = statSync(absoluteFile).size / 1024 / 1024;
+    const file = relative(root, absoluteFile).replaceAll("\\", "/");
+
+    if (sizeMb > 90) {
+      error(`Vídeo maior que 90 MB: ${file} (${sizeMb.toFixed(2)} MB)`);
+    } else if (sizeMb > 30) {
+      warn(`Considere otimizar o vídeo: ${file} (${sizeMb.toFixed(2)} MB)`);
+    }
+  }
+};
+
 validateHtml();
 validateCss();
 validateContent();
 validateMural();
 validateImageSizes();
+validateVideoSizes();
 
 for (const message of warnings) console.warn(`AVISO: ${message}`);
 for (const message of errors) console.error(`ERRO: ${message}`);

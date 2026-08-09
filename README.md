@@ -7,6 +7,7 @@ Site estático do 1º Lual da Perseverança da Paróquia Santo Inácio de Loyola
 - Identidade visual oficial do Lual;
 - Página responsiva com prioridade para celulares;
 - Foto principal com carrossel horizontal de registros;
+- Vídeo vertical do Lual com capa, reprodução interna e acesso ao álbum no Google Drive;
 - Player principal do YouTube com seletor horizontal de vídeos;
 - Coleção horizontal de santos com gesto, setas, teclado, indicadores e fichas completas;
 - Missão e próximo encontro carregados pelo JSON;

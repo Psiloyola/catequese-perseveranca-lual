@@ -3,7 +3,22 @@
 O conteúdo geral é atualizado em `data/content.json`. As mensagens aprovadas
 ficam isoladas em `data/mural.json`.
 
-## Fotos
+## Registros do Lual
+
+O vídeo em destaque, sua capa e os textos ficam em:
+
+```text
+galeria.videoDestaque
+```
+
+O arquivo publicado deve ser MP4 com vídeo H.264 e áudio AAC para funcionar
+nos navegadores de celulares e computadores. O vídeo atual fica em
+`assets/videos/` e sua capa em `assets/images/gallery/`.
+
+Preencha `galeria.linkAlbum` com a pasta pública do Google Drive para exibir o
+botão “Ver fotos e vídeos no Google Drive”.
+
+### Carrossel de fotos opcional
 
 A primeira foto do array `galeria.fotos` aparece como destaque. Todas as fotos também aparecem no carrossel horizontal.
 
@@ -23,7 +38,7 @@ Exemplo:
 }
 ```
 
-Preencha `galeria.linkAlbum` para exibir o botão do álbum completo.
+O carrossel pode permanecer vazio quando existe um vídeo em destaque válido.
 
 ## Vídeos
 

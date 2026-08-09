@@ -20,7 +20,10 @@ GitHub Pages.
 - seções principais;
 - arquivos locais citados no HTML, CSS e JSON;
 - flag `galeria.liberada`;
-- galeria liberada sem fotos;
+- galeria liberada sem fotos nem vídeo em destaque;
+- arquivo, capa e textos obrigatórios do vídeo do Lual;
+- link público HTTP(S) do álbum completo;
+- vídeos maiores que o limite seguro para o GitHub;
 - fichas completas dos santos e URLs das fontes;
 - sete missões com IDs únicos;
 - datas da jornada;

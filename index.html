@@ -108,6 +108,7 @@
   <link rel="stylesheet" href="assets/css/santos.css">
   <link rel="stylesheet" href="assets/css/habitos.css">
   <link rel="stylesheet" href="assets/css/acesso-site.css">
+  <link rel="stylesheet" href="assets/css/registros.css">
 </head>
 
 <body data-site-phase="carregando" data-site-access="checking">
@@ -249,7 +250,7 @@
       >
         <ul class="main-nav__list">
           <li><a href="#mensagem">O Lual</a></li>
-          <li><a href="#fotos">Fotos</a></li>
+          <li><a href="#fotos">Registros</a></li>
           <li><a href="#santos">Santos</a></li>
           <li><a href="#videos">Vídeos</a></li>
           <li><a href="#missao">Missões</a></li>
@@ -543,7 +544,7 @@
             </p>
 
             <h2 id="fotos-titulo">
-              Nossos momentos
+              Um pouco do que vivemos
             </h2>
 
             <div class="section-ornament section-ornament--start" aria-hidden="true">
@@ -557,9 +558,68 @@
           </div>
 
           <p class="section-heading__description" id="galeria-descricao">
-            Uma foto principal e outros registros para deslizar para o lado.
+            Assista ao vídeo e abra o álbum completo para guardar cada lembrança.
           </p>
         </header>
+
+        <article class="lual-highlight" id="registro-lual" hidden>
+          <div class="lual-highlight__media">
+            <video
+              class="lual-highlight__video"
+              id="registro-lual-video"
+              controls
+              playsinline
+              preload="metadata"
+              aria-label="Vídeo com momentos do 1º Lual da Perseverança"
+              aria-describedby="registro-lual-descricao"
+            >
+              <source id="registro-lual-video-source" type="video/mp4">
+              Seu navegador não conseguiu reproduzir este vídeo.
+            </video>
+          </div>
+
+          <div class="lual-highlight__content">
+            <img
+              class="lual-highlight__icon"
+              src="assets/images/identity/bonfire.svg"
+              alt=""
+              aria-hidden="true"
+            >
+
+            <p class="lual-highlight__eyebrow" id="registro-lual-selo">
+              Um pedacinho da nossa noite
+            </p>
+
+            <h3 id="registro-lual-titulo">
+              Uma noite para guardar no coração
+            </h3>
+
+            <p id="registro-lual-descricao">
+              Música, amizade, partilha e oração. Dê o play e reviva alguns
+              dos momentos que fizeram parte do nosso Lual.
+            </p>
+
+            <p class="lual-highlight__duration" id="registro-lual-duracao">
+              53 segundos de memória
+            </p>
+
+            <a
+              class="button button--fire lual-highlight__album-link"
+              id="link-album"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              hidden
+            >
+              Ver fotos e vídeos no Google Drive
+              <span aria-hidden="true">↗</span>
+            </a>
+
+            <small class="lual-highlight__link-note">
+              O álbum completo abrirá em uma nova aba.
+            </small>
+          </div>
+        </article>
 
         <div class="gallery-experience" id="galeria" aria-live="polite">
           <figure class="gallery-featured" id="galeria-destaque" hidden>
@@ -618,18 +678,6 @@
           </p>
         </div>
 
-        <div class="section-actions">
-          <a
-            class="button button--primary"
-            id="link-album"
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-            hidden
-          >
-            Ver álbum completo
-          </a>
-        </div>
       </div>
     </section>
 
